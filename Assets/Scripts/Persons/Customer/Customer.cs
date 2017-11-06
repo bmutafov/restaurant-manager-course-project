@@ -1,9 +1,12 @@
-﻿public class Customer : Person
+﻿using UnityEngine;
+
+[System.Serializable]
+public class Customer : Person
 {
 
     #region variables
-    private Wealthiness wealth;
-    private float visitPercentage;
+    [SerializeField] private Wealthiness wealth;
+    [SerializeField] private float visitPercentage;
 
     public Wealthiness Wealth
     {

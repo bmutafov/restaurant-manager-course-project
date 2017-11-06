@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DayCycle : GenericSingletonClass<DayCycle>
 {
+    public DayNumber dayNumber;
     public float daySpeed = 5;
     public int closingHour = 22;
     public int openingHour = 14;
@@ -30,8 +29,21 @@ public class DayCycle : GenericSingletonClass<DayCycle>
 
     private void Start ()
     {
+        // AutoSave function subscribe -> every time day changes
+        onDayChangedCallback += Save.OnDayChangeAutoSave;
+
         lastHour = openingHour;
         gameTime = new DateTime(year: 2017, month: 1, day: 1, hour: openingHour, minute: 0, second: 0);
+
+        if ( Load.Day() )
+        {
+            gameTime = gameTime.AddDays(dayNumber.daysPassedSinceStart);
+        }
+        else
+        {
+            dayNumber = new DayNumber();
+        }
+
     }
 
     private void Update ()
@@ -39,7 +51,7 @@ public class DayCycle : GenericSingletonClass<DayCycle>
         if ( isDay )
         {
             gameTime = gameTime.AddMinutes(Time.deltaTime * daySpeed);
-
+            Debug.Log(gameTime);
             if ( GameTime.Hour != lastHour )
             {
                 lastHour = GameTime.Hour;
@@ -61,11 +73,14 @@ public class DayCycle : GenericSingletonClass<DayCycle>
     /// </summary>
     private void ChangeDay ()
     {
+        dayNumber.daysPassedSinceStart++;
         isDay = false;
+        TimeSpan newDayTime = new TimeSpan(openingHour, 0, 0);
+        gameTime = GameTime.Date.AddDays(1) + newDayTime;
+
         if ( onDayChangedCallback != null )
             onDayChangedCallback.Invoke();
 
-        TimeSpan newDayTime = new TimeSpan(openingHour, 0, 0);
-        gameTime = GameTime.Date.AddDays(1) + newDayTime;
+        Debug.Log(GameTime);
     }
 }

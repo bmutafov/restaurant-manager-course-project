@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using UnityEngine;
 
 static public class Load
@@ -12,9 +11,27 @@ static public class Load
 
             {
                 string json = r.ReadToEnd();
-                CustomerManager.Instance.allCustomers = JsonUtility.FromJson<List<Customer>>(json);
-                return true;
+                CustomerManager.Instance.allCustomers = JsonUtility.FromJson<AllCustomers>(json);
             }
+            return true;
+        }
+        catch ( System.Exception )
+        {
+            return false;
+        }
+    }
+
+    public static bool Day ()
+    {
+        try
+        {
+            using ( StreamReader r = new StreamReader(FilesInfo.day + ".json") )
+
+            {
+                string json = r.ReadToEnd();
+                DayCycle.Instance.dayNumber = JsonUtility.FromJson <DayNumber>(json);
+            }
+            return true;
         }
         catch ( System.Exception )
         {

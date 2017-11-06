@@ -4,7 +4,7 @@ using UnityEngine;
 public class CustomerManager : GenericSingletonClass<CustomerManager>
 {
     #region variables
-    public List<Customer> allCustomers;
+    public AllCustomers allCustomers;
     public int customerPoolSize = 50;
 
     [Range(0, 1)]
@@ -16,7 +16,7 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
     {
         if ( !Load.Customers() )
         {
-            allCustomers = new List<Customer>();
+            allCustomers = new AllCustomers();
             GenerateCustomersPool();
         }
     }
@@ -27,9 +27,10 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
         for ( int i = 0 ; i < customerPoolSize ; i++ )
         {
             Customer customer = new Customer(Generate.Name(), Generate.Wealth(), startingVisitPercentage);
-            allCustomers.Add(customer);
+            allCustomers.list.Add(customer);
             Debug.Log("Customer " + customer.Name + " created!");
         }
+        Debug.Log(allCustomers.list.Count);
     }
     #endregion
 

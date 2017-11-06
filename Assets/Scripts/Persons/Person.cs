@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 
-public class Person : MonoBehaviour
+[System.Serializable]
+public class Person
 {
     private static int lastIdUsed = 0;
 
     #region variables
-    private int _id;
-    private string _name;
+    [SerializeField] private int _id;
+    [SerializeField] private string _name;
 
     public int Id
     {
