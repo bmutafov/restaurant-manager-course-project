@@ -2,9 +2,11 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Food/Recipe")]
-public class Recipe : MonoBehaviour
+public class Recipe : ScriptableObject
 {
 
+    #region variables
+    new public string name;
     public List<Ingredient> ingredients;
     public int preparationTime;
 
@@ -17,6 +19,7 @@ public class Recipe : MonoBehaviour
             return cost;
         }
     }
+    #endregion
 
     public void CalculateCost ()
     {

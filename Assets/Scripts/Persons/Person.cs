@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [System.Serializable]
-public class Person
+public abstract class Person
 {
     private static int lastIdUsed = 0;
 

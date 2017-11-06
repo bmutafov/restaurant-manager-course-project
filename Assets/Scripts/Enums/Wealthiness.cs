@@ -1,9 +1,7 @@
-﻿using UnityEngine;
-
-public enum Wealthiness
+﻿public enum Wealthiness
 {
-    Poor,
-    Avarage,
-    Rich,
-    Millionaire
+    Poor        = 0,
+    Avarage     = 1,
+    Rich        = 2,
+    Millionaire = 3
 }
