@@ -11,6 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8325803baeeadf4bba899d1cb474086, type: 3}
   m_Name: FetaCheese
   m_EditorClassIdentifier: 
-  name: 
-  price: 0
-  expireTime: 0
+  name: Feta Cheese
+  price: 0.25
+  expireTime: 10

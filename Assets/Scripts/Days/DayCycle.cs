@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class DayCycle : GenericSingletonClass<DayCycle>
 {
+    #region public_variables
     public DayNumber dayNumber;
     public float daySpeed = 5;
     public int closingHour = 22;
@@ -17,15 +18,20 @@ public class DayCycle : GenericSingletonClass<DayCycle>
             return gameTime;
         }
     }
+    #endregion
 
+    #region private_variables
+    private bool isDay = true;
+    private int lastHour;
+    #endregion
+
+    #region delegates
     public delegate void OnDayChanged ();
     public OnDayChanged onDayChangedCallback;
 
     public delegate void OnHourChanged ();
     public OnHourChanged onHourChangedCallback;
-
-    private bool isDay = true;
-    private int lastHour;
+    #endregion
 
     private void Start ()
     {
@@ -43,7 +49,6 @@ public class DayCycle : GenericSingletonClass<DayCycle>
         {
             dayNumber = new DayNumber();
         }
-
     }
 
     private void Update ()
@@ -69,6 +74,10 @@ public class DayCycle : GenericSingletonClass<DayCycle>
     /// When the hour equals the closing hour
     /// 
     /// Stops the timer
+    /// Resets the hour
+    /// 
+    /// Invokes onDayChanged
+    /// 
     /// </summary>
     private void ChangeDay ()
     {

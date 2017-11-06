@@ -11,5 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b196dc9c93d85eb488743dcbf76bc6c0, type: 3}
   m_Name: ShopskaSalad
   m_EditorClassIdentifier: 
-  ingredients: []
-  preparationTime: 0
+  name: Shopska Salad
+  ingredients:
+  - {fileID: 11400000, guid: 91cf938b51e188d42b1783dcec0a07cf, type: 2}
+  - {fileID: 11400000, guid: acbdf3b80affcaa4692ae0b38155ba06, type: 2}
+  - {fileID: 11400000, guid: 513e6179633f0ee4d88521fb1bab662b, type: 2}
+  - {fileID: 11400000, guid: a304dde93453d9347ace147db0be85cf, type: 2}
+  preparationTime: 7

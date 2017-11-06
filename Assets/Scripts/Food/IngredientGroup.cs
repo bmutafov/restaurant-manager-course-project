@@ -49,10 +49,10 @@ public class IngredientGroup
     }
     #endregion
 
-    public IngredientGroup (Ingredient ingredient, float quantity, int expireTime)
+    public IngredientGroup (Ingredient ingredient, float quantity)
     {
         this.ingredient = ingredient;
         this.quantity = quantity;
-        this.expireTime = expireTime;
+        expireTime = ingredient.expireTime;
     }
 }

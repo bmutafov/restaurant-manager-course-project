@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Generate
+public static class Generate
 {
     private static readonly List<string> Names = new List<string>(new string[] { "Ivan", "Ayzak", "Kiril" });
     private static readonly List<string> Surrnames = new List<string>(new string[] { "Smith", "Obama", "Micheal" });
