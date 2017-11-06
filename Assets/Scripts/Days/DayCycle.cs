@@ -51,7 +51,6 @@ public class DayCycle : GenericSingletonClass<DayCycle>
         if ( isDay )
         {
             gameTime = gameTime.AddMinutes(Time.deltaTime * daySpeed);
-            Debug.Log(gameTime);
             if ( GameTime.Hour != lastHour )
             {
                 lastHour = GameTime.Hour;
@@ -80,7 +79,5 @@ public class DayCycle : GenericSingletonClass<DayCycle>
 
         if ( onDayChangedCallback != null )
             onDayChangedCallback.Invoke();
-
-        Debug.Log(GameTime);
     }
 }
