@@ -57,4 +57,17 @@ public class IngredientGroup
         this.quantity = quantity;
         expireTime = ingredient.expireTime;
     }
+
+    public virtual float ReduceQuantity(float amount)
+    {
+        if ( amount <= Quantity )
+        {
+            Quantity -= amount;
+        } else
+        {
+            amount -= Quantity;
+            Quantity = 0;
+        }
+        return amount;
+    }
 }

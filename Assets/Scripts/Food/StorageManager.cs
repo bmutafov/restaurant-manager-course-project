@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class StorageManager : GenericSingletonClass<StorageManager>
@@ -11,7 +10,14 @@ public class StorageManager : GenericSingletonClass<StorageManager>
     {
         if ( Input.GetKeyDown("b") )
         {
-            BuyIngredients("Onion", 500);
+            BuyIngredients("Cucumber", 500);
+            BuyIngredients("Tomato", 1);
+        }
+        if ( Input.GetKeyDown("o") )
+        {
+            var order = new Order(RecipeManager.Instance.GetRandomRecipe(), DayCycle.Instance.GameTime);
+            Debug.Log(order.recipe.name);
+            OrderStack.Instance.allOrders.Add(order);
         }
     }
 

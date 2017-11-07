@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Cook : Worker
@@ -20,7 +19,14 @@ public class Cook : Worker
         Order newOrder = GetNewOrder();
         if ( newOrder != null )
         {
-            currentOrders.Add(newOrder);
+            if ( AreEnoughIngredients(newOrder) )
+            {
+                TakeIngredients(newOrder);
+                currentOrders.Add(newOrder);
+            } else
+            {
+                Debug.Log("Not enough ingredients!");
+            }
         }
 
         CheckForCookedOrders();
@@ -33,13 +39,25 @@ public class Cook : Worker
     #endregion
 
     #region private_methods
+
+    /// <summary>
+    /// Selects a new order from the OrderStack list to cook
+    /// if:
+    ///     - current orders who are being cooked are less than cookers ordersAtATime
+    ///     - there are orders which have not began cooking yet
+    ///     
+    /// returns:
+    ///     - order reference if any
+    ///     - null if conditions are not met
+    /// </summary>
+    /// <returns></returns>
     private Order GetNewOrder ()
     {
         try
         {
             if ( currentOrders.Count < ordersAtATime && OrderStack.Instance.allOrders.FindAll(order => !order.isBeingCooked).Count > 0 )
             {
-                Debug.Log("Cooker started cooking an order!");
+                Debug.Log("Cook is available for an order!");
                 Order newOrder = OrderStack.Instance.allOrders.Find(order => !order.isBeingCooked);
                 newOrder.isBeingCooked = true;
                 return newOrder;
@@ -54,6 +72,14 @@ public class Cook : Worker
         }
     }
 
+    /// <summary>
+    /// Iterates through the List from current orders
+    /// 
+    /// finds orders which time ordered + prepartion time = current time
+    /// 
+    /// if found removes them from the list and adds them to the
+    /// ready to serve OrderStack
+    /// </summary>
     private void CheckForCookedOrders ()
     {
         for ( int i = 0 ; i < currentOrders.Count ; i++ )
@@ -66,6 +92,37 @@ public class Cook : Worker
                 OrderStack.Instance.CookOrder(order);
                 i--;
             }
+        }
+    }
+
+    /// <summary>
+    /// Asks the Storage class if there are enough igredients for this order
+    /// </summary>
+    /// <param name="order"> reference to the order </param>
+    /// <returns> true if order can be cooked ; false otherwise </returns>
+    private bool AreEnoughIngredients (Order order)
+    {
+        Recipe recipe = order.recipe;
+        for ( int i = 0 ; i < recipe.ingredients.Count ; i++ )
+        {
+            if ( !Storage.Instance.IsInStock(recipe.ingredients[i], recipe.ingredientsQuantity[i]) )
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// Takes the ingredients from the Storage class
+    /// </summary>
+    /// <param name="order"> order reference </param>
+    private void TakeIngredients (Order order)
+    {
+        Recipe recipe = order.recipe;
+        for ( int i = 0 ; i < recipe.ingredients.Count ; i++ )
+        {
+            Storage.Instance.TakeIngredient(recipe.ingredients[i], recipe.ingredientsQuantity[i]);
         }
     }
     #endregion

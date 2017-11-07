@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class OrderStack : GenericSingletonClass<OrderStack>
 {
@@ -14,17 +13,20 @@ public class OrderStack : GenericSingletonClass<OrderStack>
         servedOrders = new List<Order>();
     }
 
-    private void Update ()
-    {
-
-    }
-
+    /// <summary>
+    /// Moves Order from allOrders to cookedOrders
+    /// </summary>
+    /// <param name="order"></param>
     public void CookOrder (Order order)
     {
         allOrders.Remove(order);
         cookedOrders.Add(order);
     }
 
+    /// <summary>
+    /// Moves Order from cookedOrders to servedOrders
+    /// </summary>
+    /// <param name="order"></param>
     public void ServeOrder (Order order)
     {
         cookedOrders.Remove(order);

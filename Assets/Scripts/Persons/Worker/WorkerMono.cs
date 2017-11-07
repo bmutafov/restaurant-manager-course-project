@@ -19,12 +19,6 @@ public class WorkerMono : MonoBehaviour
 
     private void Update ()
     {
-        if ( Input.GetKeyDown("o") )
-        {
-            var order = new Order(RecipeManager.Instance.GetRandomRecipe(), DayCycle.Instance.GameTime);
-            Debug.Log(order.recipe.name);
-            OrderStack.Instance.allOrders.Add(order);
-        }
         worker.DoWork();
     }
 }
