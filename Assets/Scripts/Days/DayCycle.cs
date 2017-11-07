@@ -4,7 +4,8 @@ using UnityEngine;
 public class DayCycle : GenericSingletonClass<DayCycle>
 {
     #region public_variables
-    public DayNumber dayNumber;
+    public static int daysPassedSinceStart = 0;
+
     public float daySpeed = 5;
     public int closingHour = 22;
     public int openingHour = 14;
@@ -43,11 +44,11 @@ public class DayCycle : GenericSingletonClass<DayCycle>
 
         if ( Load.Day() )
         {
-            gameTime = gameTime.AddDays(dayNumber.daysPassedSinceStart);
+            gameTime = gameTime.AddDays(daysPassedSinceStart);
         }
         else
         {
-            dayNumber = new DayNumber();
+            daysPassedSinceStart = 0;
         }
     }
 

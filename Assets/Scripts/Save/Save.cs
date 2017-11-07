@@ -32,7 +32,7 @@ static public class Save
     {
         try
         {
-            DoSave(fileName: FilesInfo.day, objToSave: DayCycle.Instance.dayNumber);
+            PlayerPrefs.SetInt(FilesInfo.day, DayCycle.daysPassedSinceStart);
             return true;
         }
         catch ( System.Exception )

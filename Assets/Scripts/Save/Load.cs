@@ -25,12 +25,7 @@ static public class Load
     {
         try
         {
-            using ( StreamReader r = new StreamReader(FilesInfo.day + ".json") )
-
-            {
-                string json = r.ReadToEnd();
-                DayCycle.Instance.dayNumber = JsonUtility.FromJson <DayNumber>(json);
-            }
+            DayCycle.daysPassedSinceStart = PlayerPrefs.GetInt(FilesInfo.day);
             return true;
         }
         catch ( System.Exception )
