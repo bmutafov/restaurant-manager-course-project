@@ -1,8 +1,10 @@
-﻿/// <summary>
+﻿using UnityEngine;
+
+
+/// <summary>
 /// Used to store ingredients with 
 /// different expiery dates and qualitiyes
 /// </summary>
-
 [System.Serializable]
 public class IngredientGroup
 {
@@ -10,6 +12,7 @@ public class IngredientGroup
     private Ingredient ingredient;
     private float quantity;
     private int expireTime;
+    private float quality = 0;
 
     public Ingredient Ingredient
     {
@@ -49,6 +52,19 @@ public class IngredientGroup
             expireTime = value;
         }
     }
+
+    public float Quality
+    {
+        get
+        {
+            return quality;
+        }
+
+        set
+        {
+            quality = (float) System.Math.Round(Mathf.Clamp01(value), 2);
+        }
+    }
     #endregion
 
     public IngredientGroup (Ingredient ingredient, float quantity)
@@ -58,12 +74,13 @@ public class IngredientGroup
         expireTime = ingredient.expireTime;
     }
 
-    public virtual float ReduceQuantity(float amount)
+    public float ReduceQuantity (float amount)
     {
         if ( amount <= Quantity )
         {
             Quantity -= amount;
-        } else
+        }
+        else
         {
             amount -= Quantity;
             Quantity = 0;

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Waiter : Worker
 {
@@ -23,7 +21,7 @@ public class Waiter : Worker
             lastMinuteServed = DayCycle.Instance.GameTime.Minute;
             Order orderToServe = OrderStack.Instance.cookedOrders[0];
             OrderStack.Instance.ServeOrder(orderToServe);
-            Debug.Log(orderToServe.recipe.name + " served! ");
+            Debug.Log(orderToServe.recipe.name + " served! Food quality: " + orderToServe.AverageQuality);
         }
     }
 

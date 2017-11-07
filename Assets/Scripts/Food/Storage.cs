@@ -32,14 +32,17 @@ public class Storage : GenericSingletonClass<Storage>
     /// </summary>
     /// <param name="ingredient"> reference to the ingredient </param>
     /// <param name="amount"> the amount to be taken </param>
-    public void TakeIngredient(Ingredient ingredient, float amount)
+    /// <returns> average quality of the ingredients used </returns>
+    public float TakeIngredient(Ingredient ingredient, float amount)
     {
         List<IngredientGroup> ingredGroup = products.FindAll(stock => stock.Ingredient == ingredient);
-        float amountTaken = 0;
+        float amountTaken = 0, avarageQuality = 0;
         for ( int i = 0 ; amountTaken < amount ; i++ )
         {
+            avarageQuality = ingredGroup[i].Quality / (i + 1);
             amountTaken = ingredGroup[i].ReduceQuantity(amount - amountTaken);
         }
+        return avarageQuality;
     }
 
     /// <summary>

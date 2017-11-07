@@ -123,10 +123,12 @@ public class Cook : Worker
     private void TakeIngredients (Order order)
     {
         Recipe recipe = order.recipe;
+        float averageQuality = 0;
         for ( int i = 0 ; i < recipe.ingredients.Count ; i++ )
         {
-            Storage.Instance.TakeIngredient(recipe.ingredients[i], recipe.ingredientAmount[i]);
+            averageQuality = Storage.Instance.TakeIngredient(recipe.ingredients[i], recipe.ingredientAmount[i]) / (i + 1);
         }
+        order.AverageQuality = averageQuality;
     }
     #endregion
 

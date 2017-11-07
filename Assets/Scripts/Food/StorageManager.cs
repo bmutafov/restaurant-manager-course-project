@@ -10,8 +10,8 @@ public class StorageManager : GenericSingletonClass<StorageManager>
     {
         if ( Input.GetKeyDown("b") )
         {
-            BuyIngredients("Cheese", 200);
-            BuyIngredients("Tomato", 2);
+            BuyIngredients("Cheese", 200, 0.65f);
+            BuyIngredients("Tomato", 2, 0.36f);
         }
         if ( Input.GetKeyDown("o") )
         {
@@ -21,7 +21,7 @@ public class StorageManager : GenericSingletonClass<StorageManager>
         }
     }
 
-    public void BuyIngredients (string name, float quantity)
+    public void BuyIngredients (string name, float quantity, float quality)
     {
         try
         {
@@ -29,7 +29,10 @@ public class StorageManager : GenericSingletonClass<StorageManager>
             Ingredient ingredientToBuy = allIngredients.Find(ingr => ingr.name == name);
 
             // Check if there's an existing group of that ingredient with the same expiery date
-            System.Predicate<IngredientGroup> match = ingGr => ingGr.Ingredient.name == name && ingGr.ExpireTime == ingredientToBuy.expireTime;
+            System.Predicate<IngredientGroup> match = ingGr => 
+                ingGr.Ingredient.name == name 
+                && ingGr.ExpireTime == ingredientToBuy.expireTime 
+                && ingGr.Quality == quality;
             IngredientGroup existingGroup = Storage.Instance.products.Find(match);
 
             // If yes add the quantity
@@ -40,7 +43,10 @@ public class StorageManager : GenericSingletonClass<StorageManager>
             }
             else
             {
-                IngredientGroup ingredientGroup = new IngredientGroup(ingredientToBuy, quantity);
+                IngredientGroup ingredientGroup = new IngredientGroup(ingredientToBuy, quantity)
+                {
+                    Quality = quality
+                };
                 Storage.Instance.products.Add(ingredientGroup);
             }
         }

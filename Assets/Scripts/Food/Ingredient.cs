@@ -7,6 +7,7 @@ public class Ingredient : ScriptableObject
     new public string name;
     public float price;
     public int expireTime;
+    public IngredientType type;
 
     public override string ToString ()
     {

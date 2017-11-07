@@ -25,6 +25,21 @@ public class Order
 
     public OrderData orderData;
     public bool isBeingCooked = false;
+
+    private float averageQuality;
+
+    public float AverageQuality
+    {
+        get
+        {
+            return averageQuality;
+        }
+
+        set
+        {
+            averageQuality = UnityEngine.Mathf.Clamp01(value);
+        }
+    }
     #endregion
 
     public Order (Recipe recipe, DateTime timeOrdered)
