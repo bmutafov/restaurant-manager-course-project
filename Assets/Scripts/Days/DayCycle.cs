@@ -69,7 +69,12 @@ public class DayCycle : GenericSingletonClass<DayCycle>
             if ( GameTime.Hour == closingHour )
             {
                 ChangeDay();
+                Debug.Log("Day ended.");
             }
+        }
+        if ( Input.GetKeyDown("i") )
+        {
+            isDay = true;
         }
     }
 
