@@ -82,7 +82,7 @@ public class DayCycle : GenericSingletonClass<DayCycle>
     /// </summary>
     private void ChangeDay ()
     {
-        dayNumber.daysPassedSinceStart++;
+        daysPassedSinceStart++;
         isDay = false;
         TimeSpan newDayTime = new TimeSpan(openingHour, 0, 0);
         gameTime = GameTime.Date.AddDays(1) + newDayTime;
