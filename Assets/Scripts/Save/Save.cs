@@ -3,15 +3,24 @@ using UnityEngine;
 
 static public class Save
 {
+
+    /// <summary>
+    /// AutoSave Function
+    /// Subscribed to onDayChangedCallback
+    /// </summary>
     public static void OnDayChangeAutoSave ()
     {
         if ( !Customers() )
         {
-            Debug.LogError("Could not create save for customers on auto save!" );
+            Debug.LogError("Could not create save for customers on auto save!");
         }
-        if( !Day() )
+        if ( !Day() )
         {
-            Debug.LogError("Could not create save for DayCycle on auto save!" );
+            Debug.LogError("Could not create save for DayCycle on auto save!");
+        }
+        if ( !PersonID() )
+        {
+            Debug.LogError("Could not create save for personID.");
         }
     }
 
@@ -28,7 +37,7 @@ static public class Save
         }
     }
 
-    public static bool Day()
+    public static bool Day ()
     {
         try
         {
@@ -41,7 +50,20 @@ static public class Save
         }
     }
 
-    private static void DoSave(string fileName, object objToSave)
+    public static bool PersonID ()
+    {
+        try
+        {
+            PlayerPrefs.SetInt(FilesInfo.personID, Person.LastIdUsed);
+            return true;
+        }
+        catch ( System.Exception )
+        {
+            return false;
+        }
+    }
+
+    private static void DoSave (string fileName, object objToSave)
     {
         string str = JsonUtility.ToJson(objToSave);
         using ( FileStream fs = new FileStream(fileName + ".json", FileMode.OpenOrCreate) )

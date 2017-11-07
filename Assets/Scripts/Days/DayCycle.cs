@@ -50,6 +50,8 @@ public class DayCycle : GenericSingletonClass<DayCycle>
         {
             daysPassedSinceStart = 0;
         }
+
+        Load.PersonID();
     }
 
     private void Update ()

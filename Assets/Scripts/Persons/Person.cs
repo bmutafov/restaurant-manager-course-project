@@ -5,6 +5,8 @@ public abstract class Person
 {
     private static int lastIdUsed = 0;
 
+    private static bool loaded = false;
+
     #region variables
     [SerializeField] private int _id;
     [SerializeField] private string _name;
@@ -27,6 +29,22 @@ public abstract class Person
         set
         {
             _name = value;
+        }
+    }
+
+    public static int LastIdUsed
+    {
+        get
+        {
+            return lastIdUsed;
+        }
+        set
+        {
+            if ( !loaded )
+            {
+                lastIdUsed = value;
+                loaded = true;
+            }
         }
     }
     #endregion

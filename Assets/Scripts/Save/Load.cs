@@ -33,4 +33,9 @@ static public class Load
             return false;
         }
     }
+
+    public static void PersonID ()
+    {
+        Person.LastIdUsed = PlayerPrefs.GetInt(FilesInfo.personID);
+    }
 }

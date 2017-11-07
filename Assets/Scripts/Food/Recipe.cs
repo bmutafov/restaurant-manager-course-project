@@ -8,7 +8,7 @@ public class Recipe : ScriptableObject
     #region variables
     new public string name;
     public List<Ingredient> ingredients;
-    public List<float> ingredientsQuantity;
+    public List<float> ingredientAmount;
     public int preparationTime;
 
     private float cost = 0;

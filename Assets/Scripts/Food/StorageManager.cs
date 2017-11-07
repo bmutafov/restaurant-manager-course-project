@@ -10,8 +10,8 @@ public class StorageManager : GenericSingletonClass<StorageManager>
     {
         if ( Input.GetKeyDown("b") )
         {
-            BuyIngredients("Cucumber", 500);
-            BuyIngredients("Tomato", 1);
+            BuyIngredients("Cheese", 200);
+            BuyIngredients("Tomato", 2);
         }
         if ( Input.GetKeyDown("o") )
         {

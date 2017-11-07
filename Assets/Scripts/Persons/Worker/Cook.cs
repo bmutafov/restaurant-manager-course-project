@@ -21,9 +21,12 @@ public class Cook : Worker
         {
             if ( AreEnoughIngredients(newOrder) )
             {
+                Debug.Log("Cooking " + newOrder.recipe.name);
                 TakeIngredients(newOrder);
                 currentOrders.Add(newOrder);
-            } else
+                newOrder.recipe.CalculateCost();
+            }
+            else
             {
                 Debug.Log("Not enough ingredients!");
             }
@@ -105,7 +108,7 @@ public class Cook : Worker
         Recipe recipe = order.recipe;
         for ( int i = 0 ; i < recipe.ingredients.Count ; i++ )
         {
-            if ( !Storage.Instance.IsInStock(recipe.ingredients[i], recipe.ingredientsQuantity[i]) )
+            if ( !Storage.Instance.IsInStock(recipe.ingredients[i], recipe.ingredientAmount[i]) )
             {
                 return false;
             }
@@ -122,7 +125,7 @@ public class Cook : Worker
         Recipe recipe = order.recipe;
         for ( int i = 0 ; i < recipe.ingredients.Count ; i++ )
         {
-            Storage.Instance.TakeIngredient(recipe.ingredients[i], recipe.ingredientsQuantity[i]);
+            Storage.Instance.TakeIngredient(recipe.ingredients[i], recipe.ingredientAmount[i]);
         }
     }
     #endregion
