@@ -7,17 +7,18 @@ public class Storage : GenericSingletonClass<Storage>
     public List<IngredientGroup> products;
 
 
-    private void Start ()
+    private void Start()
     {
+        products = new List<IngredientGroup>();
         DayCycle.Instance.onDayChangedCallback += ChangeProductExpireTime;
     }
 
-    private void ChangeProductExpireTime ()
+    private void ChangeProductExpireTime()
     {
         List<IngredientGroup> remainingProducts = new List<IngredientGroup>();
-        foreach ( var product in products )
+        foreach (var product in products)
         {
-            if ( product.ExpireTime-- > 0 )
+            if (product.ExpireTime-- > 0)
             {
                 remainingProducts.Add(product);
             }
