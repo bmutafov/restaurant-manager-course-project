@@ -11,8 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10c779eca28b79b4a8c054a55bf97312, type: 3}
   m_Name: FreshVeggies
   m_EditorClassIdentifier: 
-  name: 
-  ingredientTypes: 
-  averageQuality: 0
-  dailyMinAmount: 0
-  dailyMaxAmount: 0
+  name: FreshVeggies
+  ingredientTypes: 0100000002000000
+  averageQuality: 0.62
+  dailyMinAmount: 10
+  dailyMaxAmount: 44

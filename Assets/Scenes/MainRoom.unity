@@ -2273,6 +2273,47 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: d16501b18878b7e4482ace18c3c4f63f, type: 2}
   m_PrefabInternal: {fileID: 2132217463}
+--- !u!1 &170452962
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 170452963}
+  - component: {fileID: 170452964}
+  m_Layer: 0
+  m_Name: Cook
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &170452963
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 170452962}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.212886, y: 4.044485, z: -3.9382143}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &170452964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 170452962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 999dd49084c0d654bb427d33d5c6c9a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCook: 1
 --- !u!4 &171257751 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: c65c0383624d68f49b0eb6b806e43761, type: 2}
@@ -3647,6 +3688,11 @@ GameObject:
   - component: {fileID: 288704929}
   - component: {fileID: 288704928}
   - component: {fileID: 288704930}
+  - component: {fileID: 288704932}
+  - component: {fileID: 288704931}
+  - component: {fileID: 288704933}
+  - component: {fileID: 288704934}
+  - component: {fileID: 288704935}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3691,11 +3737,76 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a086fcd73e7d09e47a978b5a3729214e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayNumber:
-    daysPassedSinceStart: 0
-  daySpeed: 20
-  closingHour: 15
-  openingHour: 14
+  daySpeed: 5
+  closingHour: 11
+  openingHour: 10
+--- !u!114 &288704931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 288704927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a590eaf39c85014dbe7a024d989ed59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allIngredients:
+  - {fileID: 11400000, guid: 0258447adb43af64682bf7cbd905a636, type: 2}
+  - {fileID: 11400000, guid: a304dde93453d9347ace147db0be85cf, type: 2}
+  - {fileID: 11400000, guid: 91cf938b51e188d42b1783dcec0a07cf, type: 2}
+  - {fileID: 11400000, guid: acbdf3b80affcaa4692ae0b38155ba06, type: 2}
+  - {fileID: 11400000, guid: bb00b44e528ff2347a0b901b698354c4, type: 2}
+  - {fileID: 11400000, guid: 513e6179633f0ee4d88521fb1bab662b, type: 2}
+--- !u!114 &288704932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 288704927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e9dfd0d94600e4d98bfdb327275406, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  products: []
+--- !u!114 &288704933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 288704927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29950e5b4d3419749b8a782db2c019e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allRecipes:
+  - {fileID: 11400000, guid: bfcbf646ea328ae44a116c7cad422b16, type: 2}
+--- !u!114 &288704934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 288704927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e53ff76c1adb60e4bbd70a193dd14174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &288704935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 288704927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c7c67d1018373c49aaef8055bb0eba2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deliverySources:
+  - {fileID: 11400000, guid: 8b513ee761d5e6642bf7efe2465f9ced, type: 2}
 --- !u!4 &290158182 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: db3c08b3021e25746a6697db05571763, type: 2}
@@ -6264,6 +6375,47 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d16501b18878b7e4482ace18c3c4f63f, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &493194035
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 493194037}
+  - component: {fileID: 493194036}
+  m_Layer: 0
+  m_Name: Waiter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &493194036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 493194035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 999dd49084c0d654bb427d33d5c6c9a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCook: 0
+--- !u!4 &493194037
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 493194035}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.212886, y: 4.044485, z: -3.9382143}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &494945063
 Prefab:
   m_ObjectHideFlags: 0

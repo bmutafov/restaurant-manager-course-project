@@ -11,7 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b196dc9c93d85eb488743dcbf76bc6c0, type: 3}
   m_Name: Borisovka
   m_EditorClassIdentifier: 
-  name: 
-  ingredients: []
-  ingredientAmount: []
-  preparationTime: 0
+  name: Borisovka
+  ingredients:
+  - {fileID: 11400000, guid: 0258447adb43af64682bf7cbd905a636, type: 2}
+  - {fileID: 11400000, guid: 513e6179633f0ee4d88521fb1bab662b, type: 2}
+  ingredientAmount:
+  - 100
+  - 1
+  preparationTime: 10

@@ -15,4 +15,5 @@ MonoBehaviour:
   ingredients:
   - {fileID: 11400000, guid: a304dde93453d9347ace147db0be85cf, type: 2}
   - {fileID: 11400000, guid: 513e6179633f0ee4d88521fb1bab662b, type: 2}
+  ingredientAmount: []
   preparationTime: 5

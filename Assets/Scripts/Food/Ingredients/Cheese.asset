@@ -14,3 +14,4 @@ MonoBehaviour:
   name: Cheese
   price: 0.3
   expireTime: 8
+  type: 5

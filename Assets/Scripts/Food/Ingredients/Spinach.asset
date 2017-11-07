@@ -14,3 +14,4 @@ MonoBehaviour:
   name: Spinach
   price: 0.1
   expireTime: 6
+  type: 1

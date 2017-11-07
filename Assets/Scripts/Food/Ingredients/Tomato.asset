@@ -14,3 +14,4 @@ MonoBehaviour:
   name: Tomato
   price: 0.17
   expireTime: 2
+  type: 1
