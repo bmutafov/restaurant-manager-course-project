@@ -8,6 +8,10 @@ public static class Generate
 
     private static readonly float salaryPerSkillIncreasment = 100;
 
+    /// <summary>
+    /// Generates a random name and surname from a list of available names
+    /// </summary>
+    /// <returns>New full name for a person</returns>
     public static string Name ()
     {
         int namesLength = Names.Count;
@@ -16,6 +20,10 @@ public static class Generate
         return Names[Random.Range(0, namesLength)] + " " + Surrnames[Random.Range(0, surrnamesLength)];
     }
 
+    /// <summary>
+    /// Generates wealth for a customer on a random algorythm. Different percentages for different wealth groups exist.
+    /// </summary>
+    /// <returns>Enum Wealthiness</returns>
     public static Wealthiness Wealth ()
     {
         var wealthPercentage = Random.Range(0f, 100f);
@@ -29,11 +37,21 @@ public static class Generate
             return Wealthiness.Millionaire;
     }
 
+
+    /// <summary>
+    /// Generates a random worker skill from 1-10
+    /// </summary>
+    /// <returns>Worker skill (int) 1 to 10</returns>
     public static int WorkerSkill ()
     {
         return Random.Range(1, 10);
     }
 
+    /// <summary>
+    /// Generates a random worker salary
+    /// </summary>
+    /// <param name="skill">Skill of the worker (1-10)</param>
+    /// <returns>Salary</returns>
     public static float WorkerSalary (int skill)
     {
         var minSalary = skill * salaryPerSkillIncreasment;

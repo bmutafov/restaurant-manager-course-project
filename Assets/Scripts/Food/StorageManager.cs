@@ -21,6 +21,13 @@ public class StorageManager : GenericSingletonClass<StorageManager>
         }
     }
 
+
+    /// <summary>
+    /// Adds ingredients to the storage
+    /// </summary>
+    /// <param name="name">Ingredient's name (must exist as ScriptableObject)</param>
+    /// <param name="quantity">The amount of ingredients</param>
+    /// <param name="quality">A quality number between 0 and 1</param>
     public void BuyIngredients (string name, float quantity, float quality)
     {
         try

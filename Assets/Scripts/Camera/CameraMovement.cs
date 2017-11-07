@@ -143,9 +143,4 @@ public class CameraMovement : MonoBehaviour
 
         return false;
     }
-
-    private bool IsMouseMoving ()
-    {
-        return Input.GetAxis("Mouse X") == 0 && Input.GetAxis("Mouse Y") == 0;
-    }
 }

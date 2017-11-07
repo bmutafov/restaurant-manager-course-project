@@ -46,7 +46,7 @@ public class Storage : GenericSingletonClass<Storage>
     }
 
     /// <summary>
-    /// Subscribed to onDayChanged callback
+    /// Must be subscribed to onDayChanged callback.
     /// 
     /// Reduces the expire time for the ingredients in store by 1
     /// for each day passed

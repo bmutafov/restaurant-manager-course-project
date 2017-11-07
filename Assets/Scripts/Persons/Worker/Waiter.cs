@@ -32,6 +32,10 @@ public class Waiter : Worker
     #endregion
 
     #region private_methods
+    /// <summary>
+    /// Checks if ample time has passed since last serving
+    /// </summary>
+    /// <returns> True if is ready to serve; false if not </returns>
     private bool IsTimeToServe ()
     {
         if ( lastMinuteServed == 0 )

@@ -22,11 +22,17 @@ public class Recipe : ScriptableObject
     }
     #endregion
 
+    /// <summary>
+    /// Calculates the production cost of the recipe
+    /// Ingredient Quality is not included
+    /// 
+    /// Writes the result in variable Cost
+    /// </summary>
     public void CalculateCost ()
     {
         foreach ( var ingredient in ingredients )
         {
-            cost += ingredient.price;
+            cost += (ingredient.price * ingredientAmount[ingredients.IndexOf(ingredient)]);
         }
     }
 }

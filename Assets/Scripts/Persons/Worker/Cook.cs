@@ -45,15 +45,8 @@ public class Cook : Worker
 
     /// <summary>
     /// Selects a new order from the OrderStack list to cook
-    /// if:
-    ///     - current orders who are being cooked are less than cookers ordersAtATime
-    ///     - there are orders which have not began cooking yet
-    ///     
-    /// returns:
-    ///     - order reference if any
-    ///     - null if conditions are not met
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Order if available, null if not</returns>
     private Order GetNewOrder ()
     {
         try
@@ -76,11 +69,11 @@ public class Cook : Worker
     }
 
     /// <summary>
-    /// Iterates through the List from current orders
+    /// Iterates through the List from current orders.
     /// 
-    /// finds orders which time ordered + prepartion time = current time
+    /// Finds orders which time ordered + prepartion time = current time.
     /// 
-    /// if found removes them from the list and adds them to the
+    /// If found removes them from the list and adds them to the
     /// ready to serve OrderStack
     /// </summary>
     private void CheckForCookedOrders ()
@@ -99,9 +92,9 @@ public class Cook : Worker
     }
 
     /// <summary>
-    /// Asks the Storage class if there are enough igredients for this order
+    /// Asks the Storage class if there are enough ingredients for this order
     /// </summary>
-    /// <param name="order"> reference to the order </param>
+    /// <param name="order"> Reference to the order </param>
     /// <returns> true if order can be cooked ; false otherwise </returns>
     private bool AreEnoughIngredients (Order order)
     {
