@@ -2,6 +2,8 @@
 /// Used to store ingredients with 
 /// different expiery dates and qualitiyes
 /// </summary>
+
+[System.Serializable]
 public class IngredientGroup
 {
     #region variables

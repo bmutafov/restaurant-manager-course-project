@@ -15,10 +15,13 @@ public class Storage : GenericSingletonClass<Storage>
 
     private void ChangeProductExpireTime()
     {
+        if ( products.Count == 0 )
+            return;
+
         List<IngredientGroup> remainingProducts = new List<IngredientGroup>();
         foreach (var product in products)
         {
-            if (product.ExpireTime-- > 0)
+            if (--product.ExpireTime > 0)
             {
                 remainingProducts.Add(product);
             }
