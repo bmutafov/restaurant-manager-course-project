@@ -74,7 +74,7 @@ public class DeliveryCompany : DeliverySource
     public override void DisplayOffer ()
     {
         if ( dailyOffer != null )
-            Debug.Log("Ingredient: " + dailyOffer.ingredient.name + " | Quality: " + dailyOffer.Quality + " | Max Amount: " + dailyOffer.Amount);
+            Debug.Log("Ingredient: " + dailyOffer.ingredient.ingredientName + " | Quality: " + dailyOffer.Quality + " | Max Amount: " + dailyOffer.Amount);
         else
             Debug.Log("No available offer for today.");
     }

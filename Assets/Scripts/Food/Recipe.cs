@@ -6,9 +6,9 @@ public class Recipe : ScriptableObject
 {
 
     #region variables
-    new public string name;
+    public string recipeName;
     public List<Ingredient> ingredients;
-    public List<float> ingredientAmount;
+    [SerializeField] public List<float> ingredientAmount;
     public int preparationTime;
 
     private float cost = 0;

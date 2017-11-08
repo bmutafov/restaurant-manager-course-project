@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class StorageManager : GenericSingletonClass<StorageManager>
@@ -16,7 +17,7 @@ public class StorageManager : GenericSingletonClass<StorageManager>
         if ( Input.GetKeyDown("o") )
         {
             var order = new Order(RecipeManager.Instance.GetRandomRecipe(), DayCycle.Instance.GameTime);
-            Debug.Log(order.recipe.name);
+            Debug.Log(order.recipe.recipeName);
             OrderStack.Instance.allOrders.Add(order);
         }
     }
@@ -33,11 +34,11 @@ public class StorageManager : GenericSingletonClass<StorageManager>
         try
         {
             // Find the ingredient reference
-            Ingredient ingredientToBuy = allIngredients.Find(ingr => ingr.name == name);
+            Ingredient ingredientToBuy = allIngredients.Find(ingr => ingr.ingredientName == name);
 
             // Check if there's an existing group of that ingredient with the same expiery date
             System.Predicate<IngredientGroup> match = ingGr => 
-                ingGr.Ingredient.name == name 
+                ingGr.Ingredient.ingredientName == name 
                 && ingGr.ExpireTime == ingredientToBuy.expireTime 
                 && ingGr.Quality == quality;
             IngredientGroup existingGroup = Storage.Instance.products.Find(match);

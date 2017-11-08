@@ -11,11 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b196dc9c93d85eb488743dcbf76bc6c0, type: 3}
   m_Name: Borisovka
   m_EditorClassIdentifier: 
-  name: Borisovka
+  recipeName: Borisovka
   ingredients:
-  - {fileID: 11400000, guid: 0258447adb43af64682bf7cbd905a636, type: 2}
-  - {fileID: 11400000, guid: 513e6179633f0ee4d88521fb1bab662b, type: 2}
+  - {fileID: 11400000, guid: 91cf938b51e188d42b1783dcec0a07cf, type: 2}
+  - {fileID: 11400000, guid: bb00b44e528ff2347a0b901b698354c4, type: 2}
+  - {fileID: 11400000, guid: a304dde93453d9347ace147db0be85cf, type: 2}
   ingredientAmount:
-  - 100
+  - 1
+  - 1
   - 1
   preparationTime: 10

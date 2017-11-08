@@ -3738,8 +3738,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   daySpeed: 5
-  closingHour: 11
   openingHour: 10
+  closingHour: 11
 --- !u!114 &288704931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3751,13 +3751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a590eaf39c85014dbe7a024d989ed59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allIngredients:
-  - {fileID: 11400000, guid: 0258447adb43af64682bf7cbd905a636, type: 2}
-  - {fileID: 11400000, guid: a304dde93453d9347ace147db0be85cf, type: 2}
-  - {fileID: 11400000, guid: 91cf938b51e188d42b1783dcec0a07cf, type: 2}
-  - {fileID: 11400000, guid: acbdf3b80affcaa4692ae0b38155ba06, type: 2}
-  - {fileID: 11400000, guid: bb00b44e528ff2347a0b901b698354c4, type: 2}
-  - {fileID: 11400000, guid: 513e6179633f0ee4d88521fb1bab662b, type: 2}
+  allIngredients: []
 --- !u!114 &288704932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3781,8 +3775,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29950e5b4d3419749b8a782db2c019e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allRecipes:
-  - {fileID: 11400000, guid: bfcbf646ea328ae44a116c7cad422b16, type: 2}
+  allRecipes: []
 --- !u!114 &288704934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3805,8 +3798,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c7c67d1018373c49aaef8055bb0eba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deliverySources:
-  - {fileID: 11400000, guid: 8b513ee761d5e6642bf7efe2465f9ced, type: 2}
+  deliverySources: []
 --- !u!4 &290158182 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: db3c08b3021e25746a6697db05571763, type: 2}

@@ -21,7 +21,7 @@ public class Cook : Worker
         {
             if ( AreEnoughIngredients(newOrder) )
             {
-                Debug.Log("Cooking " + newOrder.recipe.name);
+                Debug.Log("Cooking " + newOrder.recipe.recipeName);
                 TakeIngredients(newOrder);
                 currentOrders.Add(newOrder);
                 newOrder.recipe.CalculateCost();
@@ -83,7 +83,7 @@ public class Cook : Worker
             var order = currentOrders[i];
             if ( order.orderData.MinutesPassed(DayCycle.Instance.GameTime) == order.recipe.preparationTime )
             {
-                Debug.Log("Order " + order.recipe.name + " cooked! ");
+                Debug.Log("Order " + order.recipe.recipeName + " cooked! ");
                 currentOrders.RemoveAt(i);
                 OrderStack.Instance.CookOrder(order);
                 i--;
