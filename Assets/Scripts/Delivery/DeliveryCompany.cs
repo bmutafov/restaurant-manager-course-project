@@ -53,7 +53,7 @@ public class DeliveryCompany : DeliverySource
 
         // find all ingredients of type
         List<Ingredient> ingredientsOfType = StorageManager.Instance.allIngredients.FindAll(ingr => ingr.type == ingredientType);
-        if(ingredientsOfType == null)
+        if(ingredientsOfType.Count == 0)
         {
             dailyOffer = null;
             return;
