@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 static public class Load
@@ -37,5 +38,23 @@ static public class Load
     public static void PersonID ()
     {
         Person.LastIdUsed = PlayerPrefs.GetInt(FilesInfo.personID);
+    }
+
+    public static bool AllStorage()
+    {
+        try
+        {
+            using ( StreamReader r = new StreamReader(FilesInfo.storage + ".json") )
+
+            {
+                string json = r.ReadToEnd();
+                Storage.Instance.products.AddRange(JsonHelper.FromJson<IngredientGroup>(json));
+            }
+            return true;
+        }
+        catch ( System.Exception )
+        {
+            return false;
+        }
     }
 }

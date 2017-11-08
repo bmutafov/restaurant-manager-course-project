@@ -7,8 +7,8 @@ public class DayCycle : GenericSingletonClass<DayCycle>
     public static int daysPassedSinceStart = 0;
 
     public float daySpeed = 5;
-    public int closingHour = 22;
     public int openingHour = 14;
+    public int closingHour = 22;
 
     private DateTime gameTime;
 

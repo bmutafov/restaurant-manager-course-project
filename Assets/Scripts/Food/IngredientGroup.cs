@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using System;
 
 /// <summary>
 /// Used to store ingredients with 
@@ -9,10 +9,10 @@
 public class IngredientGroup
 {
     #region variables
-    private Ingredient ingredient;
-    private float quantity;
-    private int expireTime;
-    private float quality = 0;
+    [SerializeField] private Ingredient ingredient;
+    [SerializeField] private float quantity;
+    [SerializeField] private int expireTime;
+    [SerializeField] private float quality = 0;
 
     public Ingredient Ingredient
     {

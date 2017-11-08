@@ -20,7 +20,11 @@ static public class Save
         }
         if ( !PersonID() )
         {
-            Debug.LogError("Could not create save for personID.");
+            Debug.LogError("Could not create save for personID on auto save!.");
+        }
+        if ( !AllStorage() )
+        {
+            Debug.LogError("Could not create save for AllStorage on auto save!.");
         }
     }
 
@@ -28,7 +32,7 @@ static public class Save
     {
         try
         {
-            DoSave(fileName: FilesInfo.customers, objToSave: CustomerManager.Instance.allCustomers);
+            DoSave(fileName: FilesInfo.customers, str: JsonUtility.ToJson(CustomerManager.Instance.allCustomers));
             return true;
         }
         catch ( System.Exception )
@@ -63,9 +67,21 @@ static public class Save
         }
     }
 
-    private static void DoSave (string fileName, object objToSave)
+    public static bool AllStorage ()
     {
-        string str = JsonUtility.ToJson(objToSave);
+        try
+        {
+            DoSave(fileName: FilesInfo.storage, str: JsonHelper.ToJson(Storage.Instance.products.ToArray(), false));
+            return true;
+        }
+        catch ( System.Exception )
+        {
+            return false;
+        }
+    }
+
+    private static void DoSave (string fileName, string str)
+    {
         using ( FileStream fs = new FileStream(fileName + ".json", FileMode.OpenOrCreate) )
         {
             using ( StreamWriter writer = new StreamWriter(fs) )
