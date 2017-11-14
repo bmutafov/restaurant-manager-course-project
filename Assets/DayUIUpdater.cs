@@ -16,6 +16,6 @@ public class DayUIUpdater : MonoBehaviour
 
     private void UpdateUIText ()
     {
-        TMPtext.text = DayCycle.Instance.GameTime.ToShortTimeString();
+        TMPtext.text = DayCycle.Instance.GameTime.ToString("HH:mm");
     }
 }
