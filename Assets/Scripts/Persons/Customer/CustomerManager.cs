@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CustomerManager : GenericSingletonClass<CustomerManager>
 {
-    #region variables
+    #region variables_generation
     public AllCustomers allCustomers;
     public int customerPoolSize = 50;
 
@@ -11,6 +11,10 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
     public float startingVisitPercentage = 0.5f;
     #endregion
 
+    #region variables_visit
+    public GameObject spawnNodes;
+    public List<CustomerGroup> customerGroups;
+    #endregion
 
     private void Start ()
     {
@@ -19,6 +23,10 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
             allCustomers = new AllCustomers();
             GenerateCustomersPool();
         }
+
+        customerGroups = new List<CustomerGroup>();
+
+        DayCycle.Instance.onDayStartedCallback += CustomersNewDay;
     }
 
     #region customer_generation
@@ -34,5 +42,60 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
     }
     #endregion
 
+    #region customer_visit
+    private void CustomersNewDay ()
+    {
+        List<Customer> visitingCustomers = GenerateVisitingCustomersForTheDay();
+        GenerateGroupsFromCustomers(visitingCustomers);
+    }
 
+    /// <summary>
+    /// Generates a list for the amount of visiting customers for the day
+    /// </summary>
+    /// <returns>List</returns>
+    private List<Customer> GenerateVisitingCustomersForTheDay ()
+    {
+        int seatsCount = spawnNodes.transform.childCount;
+        int customerMaxCount = seatsCount + ( int ) (seatsCount * 0.5f) + (DayCycle.Instance.closingHour - DayCycle.Instance.openingHour) * seatsCount;
+
+        List<Customer> customerPool = allCustomers.GetRandomCustomers(customerMaxCount);
+        List<Customer> visitingCustomers = new List<Customer>();
+
+        for ( int i = 0 ; i < customerMaxCount ; i++ )
+        {
+            float chance = Random.Range(0, 1);
+            if ( chance < customerPool[i].VisitPercentage )
+            {
+                visitingCustomers.Add(customerPool[i]);
+            }
+        }
+
+        return visitingCustomers;
+    }
+
+    /// <summary>
+    /// Splits a customer list into groups of 2-4 people
+    /// </summary>
+    /// <param name="customers">List of customers to be seperated by groups</param>
+    private void GenerateGroupsFromCustomers (List<Customer> customers)
+    {
+        List<Customer> customerCopy = new List<Customer>(customers);
+        while ( customerCopy.Count > 0 )
+        {
+            int personCount = Random.Range(2, 4);
+            if ( personCount > customerCopy.Count )
+            {
+                personCount = customerCopy.Count;
+            }
+
+            List<Customer> cust = new List<Customer>();
+            cust.AddRange(customerCopy.GetRange(0, personCount));
+            customerCopy.RemoveRange(0, personCount);
+
+            CustomerGroup cg = new CustomerGroup(cust);
+            customerGroups.Add(cg);
+        }
+    }
+
+    #endregion
 }

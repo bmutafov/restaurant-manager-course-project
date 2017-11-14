@@ -24,6 +24,7 @@ public class DayCycle : GenericSingletonClass<DayCycle>
     #region private_variables
     private bool isDay = true;
     private int lastHour;
+    private int lastMinute = 0;
     #endregion
 
     #region delegates
@@ -32,6 +33,12 @@ public class DayCycle : GenericSingletonClass<DayCycle>
 
     public delegate void OnHourChanged ();
     public OnHourChanged onHourChangedCallback;
+
+    public delegate void OnMinuteChanged ();
+    public OnMinuteChanged onMinuteChangedCallback;
+
+    public delegate void OnDayStarted ();
+    public OnDayStarted onDayStartedCallback;
     #endregion
 
     private void Start ()
@@ -66,6 +73,15 @@ public class DayCycle : GenericSingletonClass<DayCycle>
                     onHourChangedCallback.Invoke();
             }
 
+            if ( GameTime.Minute != lastMinute )
+            {
+                lastMinute = GameTime.Minute;
+                if ( onMinuteChangedCallback != null )
+                {
+                    onMinuteChangedCallback.Invoke();
+                }
+            }
+
             if ( GameTime.Hour == closingHour )
             {
                 ChangeDay();
@@ -74,7 +90,7 @@ public class DayCycle : GenericSingletonClass<DayCycle>
         }
         if ( Input.GetKeyDown("i") )
         {
-            isDay = true;
+            StartDay();
         }
     }
 
@@ -96,5 +112,15 @@ public class DayCycle : GenericSingletonClass<DayCycle>
 
         if ( onDayChangedCallback != null )
             onDayChangedCallback.Invoke();
+    }
+
+    public void StartDay ()
+    {
+        isDay = true;
+
+        if ( onDayStartedCallback != null )
+        {
+            onDayStartedCallback.Invoke();
+        }
     }
 }
