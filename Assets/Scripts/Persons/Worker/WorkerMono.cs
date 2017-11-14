@@ -4,14 +4,22 @@ public class WorkerMono : MonoBehaviour
 {
 
     public Worker worker;
-    public bool isCook = false;
+    public string position;
 
     private void Start ()
     {
-        if ( isCook )
+        if ( position == "Cook" )
+        {
             worker = new Cook("Petar", 6);
-        else
+        }
+        else if ( position == "Waiter" )
+        {
             worker = new Waiter("Stanio", 1);
+        }
+        else if ( position == "Host" )
+        {
+            worker = new Host("Toshko", 2);
+        }
         worker.CalculateWorkloadFromSkill();
     }
 

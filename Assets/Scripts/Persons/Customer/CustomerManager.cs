@@ -55,7 +55,12 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
     /// <returns>List</returns>
     private List<Customer> GenerateVisitingCustomersForTheDay ()
     {
-        int seatsCount = spawnNodes.transform.childCount;
+        int tablesCount = spawnNodes.transform.childCount;
+        int seatsCount = 0;
+        for ( int i = 0 ; i < tablesCount ; i++ )
+        {
+            seatsCount += spawnNodes.transform.GetChild(i).childCount;
+        }
         int customerMaxCount = seatsCount + ( int ) (seatsCount * 0.5f) + (DayCycle.Instance.closingHour - DayCycle.Instance.openingHour) * seatsCount;
 
         List<Customer> customerPool = allCustomers.GetRandomCustomers(customerMaxCount);
@@ -92,9 +97,72 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
             cust.AddRange(customerCopy.GetRange(0, personCount));
             customerCopy.RemoveRange(0, personCount);
 
-            CustomerGroup cg = new CustomerGroup(cust);
+            CustomerGroup cg = new CustomerGroup(cust)
+            {
+                visitTime = GenerateVisitTime()
+            };
+            Debug.Log("A group of " + cg.customers.Count + " will visit at: " + cg.visitTime);
             customerGroups.Add(cg);
         }
+    }
+
+    /// <summary>
+    /// Generates a visit time; relies on percentages
+    /// </summary>
+    /// <returns></returns>
+    private System.DateTime GenerateVisitTime ()
+    {
+        System.DateTime result = new System.DateTime();
+        result = result
+            .AddYears(2017)
+            .AddDays(DayCycle.daysPassedSinceStart)
+            .AddHours(GetVisitingHour())
+            .AddMinutes(Random.Range(0, 55));
+        return result;
+    }
+
+
+    /// <summary>
+    /// Returns a visiting hour (12-22). Percentages included, for edit this function
+    /// </summary>
+    /// <returns></returns>
+    private int GetVisitingHour ()
+    {
+        float p = Random.Range(0, 100);
+
+        if ( (p -= 5) < 0 )  // 5%
+            return 12;
+
+        if ( (p -= 10) < 0 ) // 15%
+            return 13;
+
+        if ( (p -= 10) < 0 ) // 25%
+            return 14;
+
+        if ( (p -= 3) < 0 )  // 28%
+            return 15;
+
+        if ( (p -= 2) < 0 )  // 30%
+            return 16;
+
+        if ( (p -= 5) < 0 )  // 35%
+            return 17;
+
+        if ( (p -= 15) < 0 ) // 50%
+            return 18;
+
+        if ( (p -= 20) < 0 ) // 70%
+            return 19;
+
+        if ( (p -= 20) < 0 ) // 90%
+            return 20;
+
+        if ( (p -= 8) < 0 )  // 98%
+            return 21;
+
+        else                 //100%
+            return 22;
+
     }
 
     #endregion

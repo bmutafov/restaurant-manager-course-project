@@ -22,7 +22,7 @@ public class DayCycle : GenericSingletonClass<DayCycle>
     #endregion
 
     #region private_variables
-    private bool isDay = true;
+    private bool isDay = false;
     private int lastHour;
     private int lastMinute = 0;
     #endregion

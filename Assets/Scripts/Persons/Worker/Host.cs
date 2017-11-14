@@ -10,6 +10,7 @@ public class Host : Worker
     public Host (string name, int skill) : base(name, skill)
     {
         DayCycle.Instance.onMinuteChangedCallback += FindGroupsByMinute;
+        groupsToPlace = new List<CustomerGroup>();
     }
 
     public override void CalculateWorkloadFromSkill ()
@@ -19,8 +20,11 @@ public class Host : Worker
 
     public override void DoWork ()
     {
-        if ( groupsToPlace == null )
+        if ( groupsToPlace.Count == 0 )
             return;
+
+        Debug.Log(groupsToPlace[0].visitTime + " seated.");
+        groupsToPlace.RemoveAt(0);
     }
 
     private void FindGroupsByMinute ()
