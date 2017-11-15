@@ -26,6 +26,12 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
             allCustomers = new AllCustomers();
             GenerateCustomersPool();
         }
+        Debug.Log(allCustomers.list.Count + "!=" + customerPoolSize);
+        if( allCustomers.list.Count != customerPoolSize )
+        {
+            allCustomers.list.Clear();
+            GenerateCustomersPool();
+        }
 
         customerGroups = new List<CustomerGroup>();
 
@@ -41,11 +47,11 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
         if ( isTestBuild && Input.GetKeyDown("g") )
         {
             GenerateCustomersPool();
-            List<Customer> cust = new List<Customer>(allCustomers.list.GetRange(0, 20));
-            customerGroups.Add(new CustomerGroup(cust.GetRange(0, 5)) { visitTime = new System.DateTime().AddHours(13) });
-            customerGroups.Add(new CustomerGroup(cust.GetRange(5, 5)) { visitTime = new System.DateTime().AddHours(13) });
-            customerGroups.Add(new CustomerGroup(cust.GetRange(10, 5)) { visitTime = new System.DateTime().AddHours(13) });
-            customerGroups.Add(new CustomerGroup(cust.GetRange(15, 5)) { visitTime = new System.DateTime().AddHours(13) });
+            List<Customer> cust = new List<Customer>(allCustomers.list.GetRange(0, 16));
+            customerGroups.Add(new CustomerGroup(cust.GetRange(0, 4)) { visitTime = new System.DateTime().AddHours(13) });
+            customerGroups.Add(new CustomerGroup(cust.GetRange(4, 4)) { visitTime = new System.DateTime().AddHours(13) });
+            customerGroups.Add(new CustomerGroup(cust.GetRange(8, 4)) { visitTime = new System.DateTime().AddHours(13) });
+            customerGroups.Add(new CustomerGroup(cust.GetRange(12, 4)) { visitTime = new System.DateTime().AddHours(13) });
             Debug.Log("genereted groups!");
         }
     }
@@ -87,9 +93,9 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
         List<Customer> customerPool = allCustomers.GetRandomCustomers(customerMaxCount);
         List<Customer> visitingCustomers = new List<Customer>();
 
-        for ( int i = 0 ; i < customerMaxCount ; i++ )
+        for ( int i = 0 ; i < customerPool.Count ; i++ )
         {
-            float chance = Random.Range(0, 1);
+            float chance = Random.Range(0f, 1f);
             if ( chance < customerPool[i].VisitPercentage )
             {
                 visitingCustomers.Add(customerPool[i]);

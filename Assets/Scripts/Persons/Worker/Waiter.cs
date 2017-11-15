@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Waiter : Worker
 {
@@ -6,6 +7,16 @@ public class Waiter : Worker
     private int serveMinutes = 0;
 
     private int lastMinuteServed = 0;
+
+    private List<Table> tables = new List<Table>();
+
+    public List<Table> Tables
+    {
+        get
+        {
+            return tables;
+        }
+    }
     #endregion
 
     public Waiter (string name, int skill) : base(name, skill)
@@ -54,4 +65,16 @@ public class Waiter : Worker
     }
     #endregion
 
+    #region public_methods
+    public void AddTable(Table table)
+    {
+        Debug.Log("Worker " + Id + " is serving for table number " + table.Id);
+        tables.Add(table);
+    }
+
+    public void ClearList()
+    {
+        tables.Clear();
+    }
+    #endregion
 }

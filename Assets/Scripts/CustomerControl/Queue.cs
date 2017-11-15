@@ -41,7 +41,6 @@ public class Queue : GenericSingletonClass<Queue>
     {
         customersInQueue.Remove(customer);
 
-        MoveCustomerToTable(customer);
         MoveQueueForwards();
     }
 
@@ -53,10 +52,28 @@ public class Queue : GenericSingletonClass<Queue>
         }
     }
 
-    private void MoveCustomerToTable (Customer customer)
+    public void MoveCustomerToTable (Customer customer, Table table)
     {
-        Destroy(transform.Find("Customer" + customer.Id).gameObject);
+        Transform tableTransform = table.transform;
+        for ( int i = 0 ; i < tableTransform.childCount ; i++ )
+        {
+            Transform child = tableTransform.GetChild(i);
+            if ( child.childCount == 0 )
+            {
+                GameObject customerGO = GameObject.Find("Customer" + customer.Id);
+                customerGO.transform.parent = child;
+                customerGO.transform.localPosition = Vector3.zero;
+                break;
+            }
+        }
+    }
 
+    public void MoveCustomersToTable (List<Customer> customers, Table table)
+    {
+        foreach ( Customer customer in customers )
+        {
+            MoveCustomerToTable(customer, table);
+        }
     }
 
     private void MoveQueueForwards ()
