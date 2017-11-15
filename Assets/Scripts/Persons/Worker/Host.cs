@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public class Host : Worker
 {
     private int minutesPerGroup;
     private List<CustomerGroup> groupsToPlace;
+
+    private int minutesPassed = 0;
 
     public Host (string name, int skill) : base(name, skill)
     {
@@ -15,24 +16,26 @@ public class Host : Worker
 
     public override void CalculateWorkloadFromSkill ()
     {
-        minutesPerGroup = 11 - skill;
+        minutesPerGroup = 20 - skill;
     }
 
     public override void DoWork ()
     {
-        if ( groupsToPlace.Count == 0 )
+        if ( groupsToPlace.Count == 0 || minutesPassed < minutesPerGroup )
             return;
 
+        minutesPassed = 0;
+
         Debug.Log(groupsToPlace[0].visitTime + " seated.");
+        Queue.Instance.RemoveCustomers(groupsToPlace[0].customers);
+
         groupsToPlace.RemoveAt(0);
     }
 
     private void FindGroupsByMinute ()
     {
-        System.DateTime currentGameTime = DayCycle.Instance.GameTime;
-
-        System.Predicate<CustomerGroup> match = cg => cg.visitTime.Hour == currentGameTime.Hour && cg.visitTime.Minute == currentGameTime.Minute;
-        List<CustomerGroup> visitingNow = CustomerManager.Instance.customerGroups.FindAll(match);
+        minutesPassed++;
+        var visitingNow = CustomerManager.Instance.GetVisitingNow();
         if ( visitingNow != null )
         {
             groupsToPlace.AddRange(visitingNow);

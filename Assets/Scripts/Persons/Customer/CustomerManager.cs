@@ -16,6 +16,9 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
     public List<CustomerGroup> customerGroups;
     #endregion
 
+    // TODO: DELETE
+    public bool isTestBuild = false;
+
     private void Start ()
     {
         if ( !Load.Customers() )
@@ -26,7 +29,25 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
 
         customerGroups = new List<CustomerGroup>();
 
-        DayCycle.Instance.onDayStartedCallback += CustomersNewDay;
+        if ( !isTestBuild )
+            DayCycle.Instance.onDayStartedCallback += CustomersNewDay;
+        else
+            Debug.LogWarning("Test mode turned on!");
+
+    }
+
+    private void Update ()
+    {
+        if ( isTestBuild && Input.GetKeyDown("g") )
+        {
+            GenerateCustomersPool();
+            List<Customer> cust = new List<Customer>(allCustomers.list.GetRange(0, 20));
+            customerGroups.Add(new CustomerGroup(cust.GetRange(0, 5)) { visitTime = new System.DateTime().AddHours(13) });
+            customerGroups.Add(new CustomerGroup(cust.GetRange(5, 5)) { visitTime = new System.DateTime().AddHours(13) });
+            customerGroups.Add(new CustomerGroup(cust.GetRange(10, 5)) { visitTime = new System.DateTime().AddHours(13) });
+            customerGroups.Add(new CustomerGroup(cust.GetRange(15, 5)) { visitTime = new System.DateTime().AddHours(13) });
+            Debug.Log("genereted groups!");
+        }
     }
 
     #region customer_generation
@@ -121,7 +142,6 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
         return result;
     }
 
-
     /// <summary>
     /// Returns a visiting hour (12-22). Percentages included, for edit this function
     /// </summary>
@@ -164,6 +184,17 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
             return 22;
 
     }
-
     #endregion
+
+    #region public_functions
+    public List<CustomerGroup> GetVisitingNow ()
+    {
+        System.DateTime currentGameTime = DayCycle.Instance.GameTime;
+
+        System.Predicate<CustomerGroup> match = cg => cg.visitTime.Hour == currentGameTime.Hour && cg.visitTime.Minute == currentGameTime.Minute;
+        List<CustomerGroup> visitingNow = customerGroups.FindAll(match);
+        return visitingNow;
+    }
+    #endregion
+
 }
