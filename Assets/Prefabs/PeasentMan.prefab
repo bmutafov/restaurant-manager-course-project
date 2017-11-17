@@ -380,6 +380,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4090688791226416}
+  - component: {fileID: 65595369801773104}
   m_Layer: 0
   m_Name: PeasentMan
   m_TagString: Untagged
@@ -1288,6 +1289,18 @@ Transform:
   m_Father: {fileID: 4722165579780636}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65595369801773104
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1461576256594176}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.48379898, y: 1.8244393, z: 0.44113934}
+  m_Center: {x: -0.014294624, y: 0.98751664, z: 0.092100084}
 --- !u!95 &95231819161363648
 Animator:
   serializedVersion: 3

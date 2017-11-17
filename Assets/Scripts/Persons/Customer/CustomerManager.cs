@@ -16,9 +16,11 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
     public List<CustomerGroup> customerGroups;
     #endregion
 
-    #region variables_spawning
+    #region variables_customers
     public GameObject customerPrefab;
+    public Transform customerInfoUI;
     #endregion
+
 
     // TODO: DELETE
     public bool isTestBuild = false;
@@ -210,6 +212,9 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
     {
         GameObject instance = Instantiate(customerPrefab);
         instance.name = "Customer" + customer.Id;
+        CustomerMono customerMono = instance.AddComponent<CustomerMono>();
+        customerMono.customer = customer;
+        customerMono.customerInfoUI = customerInfoUI;
         return instance;
     }
     #endregion
