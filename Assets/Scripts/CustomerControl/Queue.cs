@@ -23,10 +23,12 @@ public class Queue : GenericSingletonClass<Queue>
     {
         customersInQueue.Add(customer);
 
-        Vector3 position = new Vector3((transform.localScale.x / 2) - customersInQueue.Count * xDistance, 1, Random.Range(-queueLineSpread, queueLineSpread));
-        GameObject instance = Instantiate(customerPrefab, transform);
-        instance.transform.position += position;
-        instance.name = "Customer" + customer.Id;
+        GameObject instance = CustomerManager.Instance.SpawnCustomerModel(customer);
+
+        Vector3 position = (transform.position + transform.right * (transform.localScale.x / 2f)) - new Vector3(xDistance * customersInQueue.Count, 0, Random.Range(-queueLineSpread, queueLineSpread));
+        instance.transform.parent = transform;
+        instance.transform.position = position;
+        instance.transform.eulerAngles = new Vector3(0, 90 + Random.Range(-30, 30), 0);
     }
 
     public void AddCustomers (List<Customer> customers)
@@ -60,9 +62,15 @@ public class Queue : GenericSingletonClass<Queue>
             Transform child = tableTransform.GetChild(i);
             if ( child.childCount == 0 )
             {
+
                 GameObject customerGO = GameObject.Find("Customer" + customer.Id);
+
+                bool zOrientation = tableTransform.position.z > customerGO.transform.position.z;
+
                 customerGO.transform.parent = child;
                 customerGO.transform.localPosition = Vector3.zero;
+                customerGO.transform.localEulerAngles = Vector3.zero;
+                customerGO.transform.GetChild(0).GetComponent<Animator>().SetBool("isSitting", true);
                 break;
             }
         }

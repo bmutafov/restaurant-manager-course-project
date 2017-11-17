@@ -46,6 +46,8 @@ public class DayCycle : GenericSingletonClass<DayCycle>
         // AutoSave function subscribe -> every time day changes
         onDayChangedCallback += Save.OnDayChangeAutoSave;
 
+        Time.timeScale = daySpeed;
+
         lastHour = openingHour;
         gameTime = new DateTime(year: 2017, month: 1, day: 1, hour: openingHour, minute: 0, second: 0);
 
@@ -65,7 +67,7 @@ public class DayCycle : GenericSingletonClass<DayCycle>
     {
         if ( isDay )
         {
-            gameTime = gameTime.AddMinutes(Time.deltaTime * daySpeed);
+            gameTime = gameTime.AddMinutes(Time.deltaTime);
             if ( GameTime.Hour != lastHour )
             {
                 lastHour = GameTime.Hour;

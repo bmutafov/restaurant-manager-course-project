@@ -16,7 +16,7 @@ public class Host : Worker
 
     public override void CalculateWorkloadFromSkill ()
     {
-        minutesPerGroup = 20 - skill;
+        minutesPerGroup = 12 - skill;
     }
 
     public override void DoWork ()

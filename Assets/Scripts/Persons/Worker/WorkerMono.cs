@@ -18,7 +18,7 @@ public class WorkerMono : MonoBehaviour
         }
         else if ( position == "Host" )
         {
-            worker = new Host("Toshko", 2);
+            worker = new Host("Toshko", 10);
         }
         worker.CalculateWorkloadFromSkill();
     }

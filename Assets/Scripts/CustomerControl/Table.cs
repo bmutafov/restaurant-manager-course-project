@@ -8,6 +8,7 @@ public class Table : MonoBehaviour {
     private int id;
     public int maxPeople = 4;
     public bool isTaken = false;
+    public bool isRound = false;
 
     public List<CustomerGroup> customerGroup;
     public List<Order> tableOrders;

@@ -16,6 +16,10 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
     public List<CustomerGroup> customerGroups;
     #endregion
 
+    #region variables_spawning
+    public GameObject customerPrefab;
+    #endregion
+
     // TODO: DELETE
     public bool isTestBuild = false;
 
@@ -27,7 +31,7 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
             GenerateCustomersPool();
         }
         Debug.Log(allCustomers.list.Count + "!=" + customerPoolSize);
-        if( allCustomers.list.Count != customerPoolSize )
+        if ( allCustomers.list.Count != customerPoolSize )
         {
             allCustomers.list.Clear();
             GenerateCustomersPool();
@@ -48,10 +52,10 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
         {
             GenerateCustomersPool();
             List<Customer> cust = new List<Customer>(allCustomers.list.GetRange(0, 16));
-            customerGroups.Add(new CustomerGroup(cust.GetRange(0, 4)) { visitTime = new System.DateTime().AddHours(13) });
-            customerGroups.Add(new CustomerGroup(cust.GetRange(4, 4)) { visitTime = new System.DateTime().AddHours(13) });
-            customerGroups.Add(new CustomerGroup(cust.GetRange(8, 4)) { visitTime = new System.DateTime().AddHours(13) });
-            customerGroups.Add(new CustomerGroup(cust.GetRange(12, 4)) { visitTime = new System.DateTime().AddHours(13) });
+            customerGroups.Add(new CustomerGroup(cust.GetRange(0, 4)) { visitTime = new System.DateTime().AddHours(12).AddMinutes(4) });
+            customerGroups.Add(new CustomerGroup(cust.GetRange(4, 4)) { visitTime = new System.DateTime().AddHours(12).AddMinutes(4) });
+            customerGroups.Add(new CustomerGroup(cust.GetRange(8, 4)) { visitTime = new System.DateTime().AddHours(12).AddMinutes(4) });
+            customerGroups.Add(new CustomerGroup(cust.GetRange(12, 4)) { visitTime = new System.DateTime().AddHours(12).AddMinutes(4) });
             Debug.Log("genereted groups!");
         }
     }
@@ -200,6 +204,13 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
         System.Predicate<CustomerGroup> match = cg => cg.visitTime.Hour == currentGameTime.Hour && cg.visitTime.Minute == currentGameTime.Minute;
         List<CustomerGroup> visitingNow = customerGroups.FindAll(match);
         return visitingNow;
+    }
+
+    public GameObject SpawnCustomerModel (Customer customer)
+    {
+        GameObject instance = Instantiate(customerPrefab);
+        instance.name = "Customer" + customer.Id;
+        return instance;
     }
     #endregion
 
