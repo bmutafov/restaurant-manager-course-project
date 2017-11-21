@@ -1,7 +1,7 @@
 ﻿public enum Wealthiness
 {
-    Poor        = 0,
-    Avarage     = 1,
-    Rich        = 2,
-    Millionaire = 3
+    Poor        = 1,
+    Avarage     = 2,
+    Rich        = 3,
+    Millionaire = 4
 }

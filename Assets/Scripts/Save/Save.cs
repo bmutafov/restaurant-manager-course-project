@@ -26,7 +26,11 @@ static public class Save
         {
             Debug.LogError("Could not create save for AllStorage on auto save!.");
         }
-    }
+		if ( !ActiveRecipes() )
+		{
+			Debug.LogError("Could not create save for ActiveRecipes on auto save!.");
+		}
+	}
 
     public static bool Customers ()
     {
@@ -79,6 +83,19 @@ static public class Save
             return false;
         }
     }
+
+	public static bool ActiveRecipes ()
+	{
+		try
+		{
+			DoSave(fileName: FilesInfo.recipes, str: JsonHelper.ToJson(RecipeManager.Instance.ActiveRecipes.ToArray(), false));
+			return true;
+		}
+		catch ( System.Exception )
+		{
+			return false;
+		}
+	}
 
     private static void DoSave (string fileName, string str)
     {

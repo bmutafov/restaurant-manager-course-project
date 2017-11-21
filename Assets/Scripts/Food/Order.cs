@@ -6,6 +6,7 @@ public class Order
     #region variables
     public Recipe recipe;
     public Customer customer;
+	public Table table;
 
     public struct OrderData
     {

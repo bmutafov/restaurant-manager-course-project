@@ -3,4 +3,6 @@
     public static readonly string day       = "daySave";
     public static readonly string personID  = "personID";
     public static readonly string storage   = "storageSaveJSON";
+	public static readonly string recipes   = "activeRecipesJSON";
+
 }
