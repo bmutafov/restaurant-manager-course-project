@@ -8,6 +8,7 @@ public class ActiveDeliverySources : GenericSingletonClass<ActiveDeliverySources
     {
         foreach ( var source in deliverySources )
         {
+			source.GenerateDaily();
             DayCycle.Instance.onDayChangedCallback += source.GenerateDaily;
         }
         DayCycle.Instance.onDayChangedCallback += DisplayInfo;
