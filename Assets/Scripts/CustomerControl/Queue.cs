@@ -19,6 +19,7 @@ public class Queue : GenericSingletonClass<Queue>
 		DayCycle.Instance.onMinuteChangedCallback += SpawnCustomers;
 	}
 
+	#region add_customer
 	public void AddCustomer ( Customer customer )
 	{
 		customersInQueue.Add(customer);
@@ -38,7 +39,9 @@ public class Queue : GenericSingletonClass<Queue>
 			AddCustomer(customer);
 		}
 	}
+	#endregion
 
+	#region remove_customer
 	public void RemoveCustomer ( Customer customer )
 	{
 		customersInQueue.Remove(customer);
@@ -53,7 +56,9 @@ public class Queue : GenericSingletonClass<Queue>
 			RemoveCustomer(customer);
 		}
 	}
+	#endregion
 
+	#region move_customer_to_table
 	public void MoveCustomerToTable ( Customer customer, Table table )
 	{
 		Transform tableTransform = table.transform;
@@ -92,6 +97,7 @@ public class Queue : GenericSingletonClass<Queue>
 			transform.GetChild(i).position += new Vector3(xDistance, 0, 0);
 		}
 	}
+	#endregion
 
 	private void SpawnCustomers ()
 	{

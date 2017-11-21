@@ -21,18 +21,21 @@ public class CustomerMono : MonoBehaviour
 	public Transform customerInfoUI;
 
 	private OutlineRender outlineComponent;
+	private Animator animator;
 	#endregion
 
 	#region hover
 	private void Start ()
 	{
+		animator = customerInfoUI.GetComponent<Animator>();
 		outlineComponent = transform.GetChild(0).GetChild(1).gameObject.AddComponent<OutlineRender>();
 		outlineComponent.enabled = false;
 	}
 
 	private void OnMouseEnter ()
 	{
-		customerInfoUI.gameObject.SetActive(true);
+		animator.SetBool("pop", true);
+		//customerInfoUI.gameObject.SetActive(true);
 		UI.UpdateChildTextMeshText(customerInfoUI, 0, customer.Name);
 		UI.MoveUIToGameObjectPosition(customerInfoUI.gameObject, transform.position, 0, 50);
 		outlineComponent.enabled = true;
@@ -40,7 +43,9 @@ public class CustomerMono : MonoBehaviour
 
 	private void OnMouseExit ()
 	{
-		customerInfoUI.gameObject.SetActive(false);
+		animator.SetBool("pop", false);
+
+		//customerInfoUI.gameObject.SetActive(false);
 		outlineComponent.enabled = false;
 	}
 	#endregion
