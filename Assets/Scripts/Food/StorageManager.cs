@@ -31,7 +31,7 @@ public class StorageManager : GenericSingletonClass<StorageManager>
     /// <param name="quality">A quality number between 0 and 1</param>
     public void BuyIngredients (string name, float quantity, float quality)
     {
-        try
+        //try
         {
             // Find the ingredient reference
             Ingredient ingredientToBuy = allIngredients.Find(ingr => ingr.ingredientName == name);
@@ -58,9 +58,9 @@ public class StorageManager : GenericSingletonClass<StorageManager>
                 Storage.Instance.products.Add(ingredientGroup);
             }
         }
-        catch ( System.Exception e )
+        //catch ( System.Exception e )
         {
-            Debug.Log("Error buying igredients! " + e.Message);
+            //Debug.Log("Error buying igredient " + name + "! " + e.Message);
         }
     }
 }

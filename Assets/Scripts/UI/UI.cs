@@ -1,9 +1,10 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class UI : MonoBehaviour
+public class UI : GenericSingletonClass<UI>
 {
-
+	public GameObject successScreen;
+	public GameObject errorScreen;
     /// <summary>
     /// Moves a RectTransform to a gameObjects position
     /// </summary>
@@ -27,4 +28,16 @@ public class UI : MonoBehaviour
         }
         obj.GetComponent<TextMeshProUGUI>().text = newText;
     }
+
+	public void OpenSuccessScreen (string message)
+	{
+		successScreen.SetActive(true);
+		successScreen.transform.Find("Message").GetComponent<TextMeshProUGUI>().text = message;
+	}
+
+	public void OpenErrorScreen ( string message )
+	{
+		errorScreen.SetActive(true);
+		errorScreen.transform.Find("Message").GetComponent<TextMeshProUGUI>().text = message;
+	}
 }
