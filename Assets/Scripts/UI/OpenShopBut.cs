@@ -6,24 +6,30 @@ using UnityEngine.UI;
 
 public class OpenShopBut : MonoBehaviour
 {
+	#region variables
 	[Header("UI Panels")]
 	public GameObject shopUI;
-	public GameObject companyUI;
+	public GameObject offersUI;
+
 	[Header("List containers")]
-	public Transform container;
-	public Transform companyContainer;
+	public Transform shopContainer;
+	public Transform offersContainer;
+
 	[Header("Prefabs")]
 	public GameObject companyInListPrefab;
 	public GameObject offerPrefab;
 
 	private Button button;
+	#endregion
 
+	#region unity_methods
 	private void Start ()
 	{
 		button = GetComponent<Button>();
 		button.onClick.AddListener(
 			() => OpenShop());
 	}
+	#endregion
 
 	private void OpenShop ()
 	{
@@ -37,24 +43,46 @@ public class OpenShopBut : MonoBehaviour
 		foreach ( DeliveryCompany company in ActiveDeliverySources.Instance.deliverySources )
 		{
 			List<DeliveryCompany.DailyOffer> offer = company.allOffers;
-			SpawnCompanyInfoPrefab(company.name, offer);
+			InstantiateCompany(company.name, offer);
 		}
 	}
 
 	public void ClearList ()
 	{
-		for ( int i = 0 ; i < container.childCount ; i++ )
+		for ( int i = 0 ; i < shopContainer.childCount ; i++ )
 		{
-			Destroy(container.GetChild(i).gameObject);
+			Destroy(shopContainer.GetChild(i).gameObject);
 		}
 	}
 
-	private void SpawnCompanyInfoPrefab ( string name, List<DeliveryCompany.DailyOffer> offer )
+
+	/// <summary>
+	/// Instantiates a prefab in the shop with info for the company
+	/// </summary>
+	private void InstantiateCompany ( string name, List<DeliveryCompany.DailyOffer> offer )
 	{
+		// check if offer is available and instantiate
 		if ( offer == null ) return;
-		GameObject company = Instantiate(companyInListPrefab, container);
+		GameObject company = Instantiate(companyInListPrefab, shopContainer);
+
+		// set gameobject name
 		company.name = name;
+
+		// update texts on the UI
+		// -> name
 		UI.UpdateChildTextMeshText(company.transform, 0, name);
+		// -> ingredient types
+		UI.UpdateChildTextMeshText(company.transform, 1, IngredientTypesForCompany(offer));
+		// -> add event listener to the button
+		company.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => InstantiateOffer(name, offer));
+	}
+
+
+	/// <summary>
+	/// Returns a string for the avaiable ingredient types (abbreviations) which the company provide
+	/// </summary>
+	private static string IngredientTypesForCompany ( List<DeliveryCompany.DailyOffer> offer )
+	{
 		string typesString = string.Empty;
 		bool first = true;
 		foreach ( var inOffer in offer )
@@ -66,21 +94,34 @@ public class OpenShopBut : MonoBehaviour
 				first = false;
 			}
 		}
-		UI.UpdateChildTextMeshText(company.transform, 1, typesString);
-		company.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => CompanyOfferInfo(name, offer));
+
+		return typesString;
 	}
 
-	private void CompanyOfferInfo ( string name, List<DeliveryCompany.DailyOffer> allOffers )
+
+
+	/// <summary>
+	/// Spawns an offer for a company
+	/// </summary>
+	private void InstantiateOffer ( string name, List<DeliveryCompany.DailyOffer> allOffers )
 	{
-		for ( int i = 0 ; i < companyContainer.childCount ; i++ )
+		// destroys previous offers spawned
+		for ( int i = 0 ; i < offersContainer.childCount ; i++ )
 		{
-			Destroy(companyContainer.GetChild(i).gameObject);
+			Destroy(offersContainer.GetChild(i).gameObject);
 		}
+
+		// -> set the window to active
+		offersUI.SetActive(true);
+
+		// spawns the new ones
 		foreach ( var offer in allOffers )
 		{
-			companyUI.SetActive(true);
-			GameObject ingredient = Instantiate(offerPrefab, companyContainer);
+			// -> spawn and attach offer to carry info
+			GameObject ingredient = Instantiate(offerPrefab, offersContainer);
 			ingredient.GetComponent<OfferUI>().Offer = offer;
+
+			// -> update child TMPro components with the respective info
 			UI.UpdateChildTextMeshText(ingredient.transform, 0, offer.ingredient.name);
 			UI.UpdateChildTextMeshText(ingredient.transform, 1, offer.ingredient.price.ToString() + "$");
 			UI.UpdateChildTextMeshText(ingredient.transform, 2, offer.Quality.ToString());

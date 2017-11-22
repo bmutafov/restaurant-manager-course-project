@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 
 public class DayCycle : GenericSingletonClass<DayCycle>
@@ -10,7 +11,11 @@ public class DayCycle : GenericSingletonClass<DayCycle>
     public int openingHour = 14;
     public int closingHour = 22;
 
-    private DateTime gameTime;
+	public TextMeshProUGUI startTimeText;
+	public TextMeshProUGUI closeTimeText;
+
+
+	private DateTime gameTime;
 
     public DateTime GameTime
     {
@@ -39,9 +44,9 @@ public class DayCycle : GenericSingletonClass<DayCycle>
 
     public delegate void OnDayStarted ();
     public OnDayStarted onDayStartedCallback;
-    #endregion
+	#endregion
 
-    private void Start ()
+	private void Start ()
     {
         // AutoSave function subscribe -> every time day changes
         onDayChangedCallback += Save.OnDayChangeAutoSave;
@@ -61,9 +66,12 @@ public class DayCycle : GenericSingletonClass<DayCycle>
         }
 
         Load.PersonID();
-    }
 
-    private void Update ()
+		startTimeText.text = openingHour + ":00";
+		closeTimeText.text = closingHour + ":00";
+	}
+
+	private void Update ()
     {
         if ( isDay )
         {
@@ -125,4 +133,10 @@ public class DayCycle : GenericSingletonClass<DayCycle>
             onDayStartedCallback.Invoke();
         }
     }
+
+	public void ChangeGameSpeedTo(float speed)
+	{
+		daySpeed = speed;
+		Time.timeScale = daySpeed;
+	}
 }

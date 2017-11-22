@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Budget : GenericSingletonClass<Budget>
+﻿public class Budget : GenericSingletonClass<Budget>
 {
+	#region variables
 	public float startingMoney = 5000;
 
 	private float funds;
@@ -15,10 +12,14 @@ public class Budget : GenericSingletonClass<Budget>
 			return funds;
 		}
 	}
+	#endregion
 
+	#region delegates
 	public delegate void OnBudgetChanged ();
 	public OnBudgetChanged onBudgetChangedCallback;
+	#endregion
 
+	#region unity_methods
 	private void Start ()
 	{
 		try
@@ -31,9 +32,9 @@ public class Budget : GenericSingletonClass<Budget>
 		}
 		InvokeBudgetChange();
 	}
+	#endregion
 
-	
-
+	#region transactions
 	public void AddFunds ( float amount )
 	{
 		funds += ( float ) System.Math.Round(amount, 2);
@@ -45,9 +46,12 @@ public class Budget : GenericSingletonClass<Budget>
 		funds -= ( float ) System.Math.Round(amount, 2);
 		InvokeBudgetChange();
 	}
+	#endregion
 
+	#region private_methods
 	private void InvokeBudgetChange ()
 	{
 		if ( onBudgetChangedCallback != null ) onBudgetChangedCallback.Invoke();
 	}
+	#endregion
 }

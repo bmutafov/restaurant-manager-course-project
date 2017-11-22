@@ -44,12 +44,14 @@ public class DeliveryCompany : DeliverySource
 		}
 	}
 
+	#region variables
 	public DailyOffer dailyOffer;
 	public List<DailyOffer> allOffers = new List<DailyOffer>();
+	#endregion
 
+	#region overrides
 	public override void GenerateDaily ()
 	{
-
 		for ( int i = 0 ; i < ingredientTypes.Length ; i++ )
 		{
 			// choose ingredient type
@@ -74,8 +76,6 @@ public class DeliveryCompany : DeliverySource
 				);
 				allOffers.Add(offer);
 			}
-
-			
 		}
 	}
 
@@ -86,4 +86,5 @@ public class DeliveryCompany : DeliverySource
 		else
 			Debug.Log("No available offer for today.");
 	}
+	#endregion
 }
