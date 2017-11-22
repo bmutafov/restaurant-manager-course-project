@@ -68,6 +68,6 @@ public class OpenShopBut : MonoBehaviour {
 		UI.UpdateChildTextMeshText(ingredient.transform, 0, offer.ingredient.name);
 		UI.UpdateChildTextMeshText(ingredient.transform, 1, offer.ingredient.price.ToString() + "$");
 		UI.UpdateChildTextMeshText(ingredient.transform, 2, offer.Quality.ToString());
-		ingredient.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = "Max: " + offer.Amount.ToString();
+		ingredient.transform.Find("MaxAmount").GetComponent<TextMeshProUGUI>().text = "Max: " + offer.Amount.ToString();
 	}
 }
