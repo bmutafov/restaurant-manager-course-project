@@ -31,12 +31,17 @@ public class BuyIngredientBut : MonoBehaviour
 		{
 			UI.Instance.OpenErrorScreen("The amount you want to purchase (" + amount + ") is more than the delivery company can offer (" + offer.Amount + ")!");
 		}
+		else if(amount * offer.ingredient.price > Budget.Instance.Funds)
+		{
+			UI.Instance.OpenErrorScreen("You don't have enough money for this purchase!");
+		}
 		else
 		{
 			UI.Instance.OpenSuccessScreen("You have succesfully bought " + amount + " " + offer.ingredient.ingredientName + "!");
 			FindObjectOfType<OpenShopBut>().companyUI.SetActive(false);
 			StorageManager.Instance.BuyIngredients(offer.ingredient.name, amount, offer.Quality);
 			offer.Amount -= amount;
+			Budget.Instance.WithdrawFunds(amount * offer.ingredient.price);
 		}
 
 	}
