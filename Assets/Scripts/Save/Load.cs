@@ -57,4 +57,31 @@ static public class Load
             return false;
         }
     }
+
+	public static bool ActiveRecipes ()
+	{
+		try
+		{
+			using ( StreamReader r = new StreamReader(FilesInfo.recipes + ".json") )
+
+			{
+				string json = r.ReadToEnd();
+				RecipeManager.Instance.LoadActiveRecipes(JsonHelper.FromJson<RecipeManager.ActiveRecipe>(json));
+			}
+			return true;
+		}
+		catch ( System.Exception )
+		{
+			return false;
+		}
+	}
+
+	public static float BudgetFunds()
+	{
+		if(PlayerPrefs.HasKey("Budget"))
+		{
+			return PlayerPrefs.GetFloat("Budget");
+		}
+		throw new System.Exception();
+	}
 }

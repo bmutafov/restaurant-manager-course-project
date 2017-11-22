@@ -55,6 +55,7 @@ public class RecipeManager : GenericSingletonClass<RecipeManager>
 	private void Start ()
 	{
 		activeRecipes = new List<ActiveRecipe>();
+		Load.ActiveRecipes();
 		foreach(var rec in allRecipes)
 		{
 			ActiveRecipe ar = new ActiveRecipe(rec, 5);
@@ -94,6 +95,11 @@ public class RecipeManager : GenericSingletonClass<RecipeManager>
 	{
 		ActiveRecipe recipeToEdit = activeRecipes.Find(r => r.Recipe == recipe);
 		recipeToEdit.Price = newPrice;
+	}
+
+	public void LoadActiveRecipes( ActiveRecipe[] list )
+	{
+		activeRecipes.AddRange(list);
 	}
 	#endregion
 }

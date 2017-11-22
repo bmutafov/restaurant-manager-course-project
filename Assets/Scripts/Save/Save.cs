@@ -97,6 +97,11 @@ static public class Save
 		}
 	}
 
+	private static void BudgetFunds()
+	{
+		PlayerPrefs.SetFloat("Budget", Budget.Instance.Funds);
+	}
+
     private static void DoSave (string fileName, string str)
     {
         using ( FileStream fs = new FileStream(fileName + ".json", FileMode.OpenOrCreate) )
