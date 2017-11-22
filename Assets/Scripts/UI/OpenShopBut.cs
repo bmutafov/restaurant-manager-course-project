@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OpenShopBut : MonoBehaviour {
+public class OpenShopBut : MonoBehaviour
+{
 	[Header("UI Panels")]
 	public GameObject shopUI;
 	public GameObject companyUI;
@@ -14,9 +16,10 @@ public class OpenShopBut : MonoBehaviour {
 	public GameObject companyInListPrefab;
 	public GameObject offerPrefab;
 
-	private Button button; 
+	private Button button;
 
-	private void Start () {
+	private void Start ()
+	{
 		button = GetComponent<Button>();
 		button.onClick.AddListener(
 			() => OpenShop());
@@ -31,9 +34,9 @@ public class OpenShopBut : MonoBehaviour {
 
 	private void PopulateCompanies ()
 	{
-		foreach(DeliveryCompany company in ActiveDeliverySources.Instance.deliverySources)
+		foreach ( DeliveryCompany company in ActiveDeliverySources.Instance.deliverySources )
 		{
-			DeliveryCompany.DailyOffer offer = company.dailyOffer;
+			List<DeliveryCompany.DailyOffer> offer = company.allOffers;
 			SpawnCompanyInfoPrefab(company.name, offer);
 		}
 	}
@@ -46,28 +49,42 @@ public class OpenShopBut : MonoBehaviour {
 		}
 	}
 
-	private void SpawnCompanyInfoPrefab ( string name, DeliveryCompany.DailyOffer offer )
+	private void SpawnCompanyInfoPrefab ( string name, List<DeliveryCompany.DailyOffer> offer )
 	{
 		if ( offer == null ) return;
 		GameObject company = Instantiate(companyInListPrefab, container);
 		company.name = name;
 		UI.UpdateChildTextMeshText(company.transform, 0, name);
-		UI.UpdateChildTextMeshText(company.transform, 1, offer.ingredient.type.ToString());
+		string typesString = string.Empty;
+		bool first = true;
+		foreach ( var inOffer in offer )
+		{
+			string ingrAbbr = inOffer.ingredient.type.ToString().Substring(0, 3);
+			if ( !typesString.Contains(ingrAbbr) )
+			{
+				typesString += (!first ? "/" : string.Empty) + "<b>" + ingrAbbr + "</b>";
+				first = false;
+			}
+		}
+		UI.UpdateChildTextMeshText(company.transform, 1, typesString);
 		company.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => CompanyOfferInfo(name, offer));
 	}
 
-	private void CompanyOfferInfo ( string name, DeliveryCompany.DailyOffer offer )
+	private void CompanyOfferInfo ( string name, List<DeliveryCompany.DailyOffer> allOffers )
 	{
 		for ( int i = 0 ; i < companyContainer.childCount ; i++ )
 		{
-			Destroy(companyContainer.GetChild(0).gameObject);
+			Destroy(companyContainer.GetChild(i).gameObject);
 		}
-		companyUI.SetActive(true);
-		GameObject ingredient = Instantiate(offerPrefab, companyContainer);
-		ingredient.GetComponent<OfferUI>().Offer = offer;
-		UI.UpdateChildTextMeshText(ingredient.transform, 0, offer.ingredient.name);
-		UI.UpdateChildTextMeshText(ingredient.transform, 1, offer.ingredient.price.ToString() + "$");
-		UI.UpdateChildTextMeshText(ingredient.transform, 2, offer.Quality.ToString());
-		ingredient.transform.Find("MaxAmount").GetComponent<TextMeshProUGUI>().text = "Max: " + offer.Amount.ToString();
+		foreach ( var offer in allOffers )
+		{
+			companyUI.SetActive(true);
+			GameObject ingredient = Instantiate(offerPrefab, companyContainer);
+			ingredient.GetComponent<OfferUI>().Offer = offer;
+			UI.UpdateChildTextMeshText(ingredient.transform, 0, offer.ingredient.name);
+			UI.UpdateChildTextMeshText(ingredient.transform, 1, offer.ingredient.price.ToString() + "$");
+			UI.UpdateChildTextMeshText(ingredient.transform, 2, offer.Quality.ToString());
+			ingredient.transform.Find("MaxAmount").GetComponent<TextMeshProUGUI>().text = "Max: " + offer.Amount.ToString();
+		}
 	}
 }
