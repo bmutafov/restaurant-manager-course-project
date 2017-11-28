@@ -24,6 +24,14 @@ public class DayCycle : GenericSingletonClass<DayCycle>
             return gameTime;
         }
     }
+
+	public int WorkingHours
+	{
+		get
+		{
+			return closingHour - openingHour;
+		}
+	}
     #endregion
 
     #region private_variables
