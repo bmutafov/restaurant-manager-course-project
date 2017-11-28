@@ -25,7 +25,7 @@ public class Storage : GenericSingletonClass<Storage>
         float availableAmount = 0;
         foreach ( var ingr in products.FindAll(stock => stock.Ingredient == ingredient) )
         {
-            availableAmount += ingr.Quantity;
+            availableAmount += ingr.Amount;
         }
         return availableAmount >= amount;
     }
@@ -47,6 +47,11 @@ public class Storage : GenericSingletonClass<Storage>
         }
         return avarageQuality;
     }
+
+	public void DeleteIngredientGroup(IngredientGroup group)
+	{
+		products.Remove(group);
+	}
 
     /// <summary>
     /// Must be subscribed to onDayChanged callback.

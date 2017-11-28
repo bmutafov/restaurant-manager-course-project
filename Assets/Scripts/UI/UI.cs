@@ -29,6 +29,19 @@ public class UI : GenericSingletonClass<UI>
         obj.GetComponent<TextMeshProUGUI>().text = newText;
     }
 
+	public static void UpdateChildTextMeshText (Transform trasformToUpdate, string childName, string newText)
+	{
+		try
+		{
+			var index = trasformToUpdate.Find(childName).GetSiblingIndex();
+			UpdateChildTextMeshText(trasformToUpdate, index, newText);
+		}
+		catch(System.Exception)
+		{
+			Debug.Log("Could not find object with that name, update child text mesh! You tried: " + childName);
+		}
+	}
+
 	public void OpenSuccessScreen (string message)
 	{
 		successScreen.SetActive(true);

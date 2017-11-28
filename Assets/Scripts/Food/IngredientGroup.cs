@@ -27,7 +27,7 @@ public class IngredientGroup
         }
     }
 
-    public float Quantity
+    public float Amount
     {
         get
         {
@@ -76,14 +76,14 @@ public class IngredientGroup
 
     public float ReduceQuantity (float amount)
     {
-        if ( amount <= Quantity )
+        if ( amount <= Amount )
         {
-            Quantity -= amount;
+            Amount -= amount;
         }
         else
         {
-            amount -= Quantity;
-            Quantity = 0;
+            amount -= Amount;
+            Amount = 0;
         }
         return amount;
     }

@@ -47,7 +47,7 @@ public class StorageManager : GenericSingletonClass<StorageManager>
             // Else create new ingredient group
             if ( existingGroup != null )
             {
-                existingGroup.Quantity += quantity;
+                existingGroup.Amount += quantity;
             }
             else
             {
