@@ -11,6 +11,36 @@ public class DisplayCurrentWorkersUI : MonoBehaviour
 	public void ShowAll ()
 	{
 		List<WorkerMono> workers = new List<WorkerMono>();
+		FindAndAddWorkers(workers);
+		foreach ( var worker in workers )
+		{
+			var instance = Instantiate(prefab, container).transform;
+			UpdateText(worker, instance);
+			if ( worker.worker.GetType().ToString().Equals("Host") )
+			{
+				instance.Find("FireButton").gameObject.SetActive(false);
+			}
+			else
+			{
+				instance.Find("FireButton")
+							.GetComponent<Button>()
+							.onClick
+							.AddListener(() =>
+							Destroy(worker));
+			}
+		}
+	}
+
+	private static void UpdateText ( WorkerMono worker, Transform instance )
+	{
+		UI.UpdateChildTextMeshText(instance, "Name", worker.worker.Name);
+		UI.UpdateChildTextMeshText(instance, "Position", worker.worker.GetType().ToString());
+		UI.UpdateChildTextMeshText(instance, "Salary", worker.worker.salaryPerHour.ToString());
+		UI.UpdateChildTextMeshText(instance, "Skill", worker.worker.skill + "/10");
+	}
+
+	private static void FindAndAddWorkers ( List<WorkerMono> workers )
+	{
 		workers.AddRange(FindObjectsOfType<WorkerMono>());
 		workers.Sort(delegate ( WorkerMono w1, WorkerMono w2 )
 		{
@@ -21,19 +51,6 @@ public class DisplayCurrentWorkersUI : MonoBehaviour
 			else if ( worker1type.Length > worker2type.Length ) return 1;
 			else return -1;
 		});
-		foreach ( var worker in workers)
-		{
-			var instance = Instantiate(prefab, container).transform;
-			UI.UpdateChildTextMeshText(instance, "Name", worker.worker.Name);
-			UI.UpdateChildTextMeshText(instance, "Position", worker.worker.GetType().ToString());
-			UI.UpdateChildTextMeshText(instance, "Salary", worker.worker.salaryPerHour.ToString());
-			UI.UpdateChildTextMeshText(instance, "Skill", worker.worker.skill + "/10");
-			instance.Find("FireButton")
-				.GetComponent<Button>()
-				.onClick
-				.AddListener(() =>
-				Destroy(worker));
-		}
 	}
 
 	public void ClearAll()
