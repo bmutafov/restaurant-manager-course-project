@@ -26,7 +26,7 @@ public class DisplayCurrentWorkersUI : MonoBehaviour
 							.GetComponent<Button>()
 							.onClick
 							.AddListener(() =>
-							Staff.Instance.FireWorker(worker));
+							RestaurantManager.Instance.FireWorker(worker));
 			}
 		}
 	}

@@ -17,6 +17,10 @@ public class RestaurantManager : GenericSingletonClass<RestaurantManager>
         {
             return workers;
         }
+		set
+		{
+			workers = value;
+		}
     }
 
     public List<Worker> Waiters
@@ -32,15 +36,51 @@ public class RestaurantManager : GenericSingletonClass<RestaurantManager>
     {
         workers = new List<Worker>();
         tables = spawnParent.GetComponentsInChildren<Table>();
-        FindWorkers();
+		Load.Workers();
+        //FindWorkers();
         SeperateWaitersByTables();
+		InstantateWorker(new Host("Ivaylo Dimitrov", 9));
     }
 
-    private void FindWorkers ()
+	private void Update ()
+	{
+		if(Input.GetKeyDown("h"))
+		{
+			Save.Instance.OnDayChangeAutoSave();
+		}
+	}
+
+	public void SpawnWorkers ()
+	{
+		Debug.Log('a');
+		foreach ( var worker in workers )
+		{
+			InstantateWorker(worker);
+		}
+	}
+
+	public void InstantateWorker ( Worker worker )
+	{
+		var obj = Instantiate(new GameObject());
+		obj.AddComponent<WorkerMono>().worker = worker;
+		obj.name = worker.Name;
+		obj.tag = "Worker";
+		workers.Add(worker);
+		Debug.Log(workers.Count);
+	}
+
+	public void FireWorker ( WorkerMono instance )
+	{
+		workers.Remove(instance.worker);
+		Destroy(instance.gameObject);
+	}
+
+	internal void FindWorkers ()
     {
         workers.Clear();
-        GameObject[] workersObj = GameObject.FindGameObjectsWithTag("Worker");
-        for ( int i = 0 ; i < workersObj.Length ; i++ )
+		List<WorkerMono> workersObj = new List<WorkerMono>();
+		workersObj.AddRange(FindObjectsOfType<WorkerMono>());
+        for ( int i = 0 ; i < workersObj.Count ; i++ )
         {
             workers.Add(workersObj[i].GetComponent<WorkerMono>().worker);
         }
@@ -49,9 +89,11 @@ public class RestaurantManager : GenericSingletonClass<RestaurantManager>
     public void SeperateWaitersByTables ()
     {
         List<Worker> waiters = Waiters;
+		if ( waiters == null || waiters.Count == 0) return;
+
         foreach(Waiter w in waiters)
         {
-            w.ClearList();
+            w.ClearTablesList();
         }
 
         int currentTable = 0;
