@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ShowStoredIngredients : MonoBehaviour
@@ -13,9 +11,7 @@ public class ShowStoredIngredients : MonoBehaviour
 		foreach ( var ingrGroup in Storage.Instance.products )
 		{
 			Transform instance = Instantiate(ingredientPrefab, container).transform;
-			UI.UpdateChildTextMeshText(instance, "Name", ingrGroup.Ingredient.ingredientName);
-			UI.UpdateChildTextMeshText(instance, "Amount", ingrGroup.Amount.ToString());
-			UI.UpdateChildTextMeshText(instance, "ExpiresIn", ingrGroup.ExpireTime.ToString());
+			UpdateTexts(ingrGroup, instance);
 			instance
 				.Find("DeleteButton")
 				.GetComponent<Button>()
@@ -23,6 +19,13 @@ public class ShowStoredIngredients : MonoBehaviour
 				.AddListener(() =>
 				Storage.Instance.DeleteIngredientGroup(ingrGroup));
 		}
+	}
+
+	private static void UpdateTexts ( IngredientGroup ingrGroup, Transform instance )
+	{
+		UI.UpdateChildTextMeshText(instance, "Name", ingrGroup.Ingredient.ingredientName);
+		UI.UpdateChildTextMeshText(instance, "Amount", ingrGroup.Amount.ToString());
+		UI.UpdateChildTextMeshText(instance, "ExpiresIn", ingrGroup.ExpireTime.ToString());
 	}
 
 	public void ClearAll()

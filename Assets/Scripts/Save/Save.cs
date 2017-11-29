@@ -30,6 +30,10 @@ static public class Save
 		{
 			Debug.LogError("Could not create save for ActiveRecipes on auto save!.");
 		}
+		if ( !Workers() )
+		{
+			Debug.LogError("Could not create save for Workers on auto save!.");
+		}
 	}
 
     public static bool Customers ()
@@ -89,6 +93,19 @@ static public class Save
 		try
 		{
 			DoSave(fileName: FilesInfo.recipes, str: JsonHelper.ToJson(RecipeManager.Instance.ActiveRecipes.ToArray(), false));
+			return true;
+		}
+		catch ( System.Exception )
+		{
+			return false;
+		}
+	}
+
+	public static bool Workers ()
+	{
+		try
+		{
+			DoSave(fileName: FilesInfo.staff, str: JsonHelper.ToJson(Staff.Instance.workers.ToArray(), false));
 			return true;
 		}
 		catch ( System.Exception )

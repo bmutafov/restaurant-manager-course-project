@@ -26,7 +26,7 @@ public class DisplayCurrentWorkersUI : MonoBehaviour
 							.GetComponent<Button>()
 							.onClick
 							.AddListener(() =>
-							Destroy(worker));
+							Staff.Instance.FireWorker(worker));
 			}
 		}
 	}

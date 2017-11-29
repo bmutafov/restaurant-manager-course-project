@@ -4,5 +4,6 @@
     public static readonly string personID  = "personID";
     public static readonly string storage   = "storageSaveJSON";
 	public static readonly string recipes   = "activeRecipesJSON";
+	public static readonly string staff   = "staffJSON";
 
 }
