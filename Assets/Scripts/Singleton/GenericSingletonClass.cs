@@ -23,7 +23,7 @@ public class GenericSingletonClass<T> : MonoBehaviour where T : Component
         }
     }
 
-    public virtual void Awake ()
+    protected virtual void Awake ()
     {
         if ( instance == null )
         {
@@ -32,6 +32,7 @@ public class GenericSingletonClass<T> : MonoBehaviour where T : Component
         }
         else
         {
+			Debug.Log("Destored by " + instance.name);
             Destroy(gameObject);
         }
     }

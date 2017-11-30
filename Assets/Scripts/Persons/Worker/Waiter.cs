@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Waiter : Worker
 {
-    #region variables
-    private int serveMinutes = 0;
+	#region variables
+	[SerializeField]
+	private int serveMinutes = 0;
 
     private int lastMinuteServed = 0;
 

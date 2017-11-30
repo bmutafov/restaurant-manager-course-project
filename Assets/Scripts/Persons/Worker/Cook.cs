@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Cook : Worker
 {
-    #region variables
-    private int ordersAtATime = 0;
+	#region variables
+	[SerializeField]
+	private int ordersAtATime = 0;
 
     private List<Order> currentOrders = new List<Order>();
     #endregion
@@ -51,6 +53,7 @@ public class Cook : Worker
     {
         try
         {
+			if ( currentOrders == null ) currentOrders = new List<Order>();
             if ( currentOrders.Count < ordersAtATime && OrderStack.Instance.allOrders.FindAll(order => !order.isBeingCooked).Count > 0 )
             {
                 Debug.Log("Cook is available for an order!");

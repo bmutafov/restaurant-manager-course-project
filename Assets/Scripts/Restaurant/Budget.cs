@@ -22,28 +22,38 @@
 	#region unity_methods
 	private void Start ()
 	{
-		try
-		{
-			funds = Load.BudgetFunds();
-		}
-		catch ( System.Exception )
-		{
-			funds = startingMoney;
-		}
-		InvokeBudgetChange();
 	}
 	#endregion
 
 	#region transactions
+	/// <summary>
+	/// Adds an amount to the budget funds
+	/// </summary>
+	/// <param name="amount"></param>
 	public void AddFunds ( float amount )
 	{
 		funds += ( float ) System.Math.Round(amount, 2);
 		InvokeBudgetChange();
 	}
 
+	/// <summary>
+	/// Takes funds from the budget
+	/// </summary>
+	/// <param name="amount"></param>
 	public void WithdrawFunds ( float amount )
 	{
 		funds -= ( float ) System.Math.Round(amount, 2);
+		InvokeBudgetChange();
+	}
+
+
+	/// <summary>
+	/// Sets the Funds value equal to the amount (IMORTANT: USE ONLY WHEN LOADING SAVE)
+	/// </summary>
+	/// <param name="amount">Amount of funds to be set</param>
+	public void LoadFunds( float amount )
+	{
+		funds = amount;
 		InvokeBudgetChange();
 	}
 	#endregion

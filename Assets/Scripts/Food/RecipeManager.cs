@@ -55,7 +55,6 @@ public class RecipeManager : GenericSingletonClass<RecipeManager>
 	private void Start ()
 	{
 		activeRecipes = new List<ActiveRecipe>();
-		Load.ActiveRecipes();
 		foreach(var rec in allRecipes)
 		{
 			ActiveRecipe ar = new ActiveRecipe(rec, 5);
@@ -76,6 +75,13 @@ public class RecipeManager : GenericSingletonClass<RecipeManager>
 	}
 
 	#region active_recipes_methods
+	public void AddActiveRecipe(ActiveRecipe activeRecipe)
+	{
+		if ( activeRecipes.Contains(activeRecipe) ) return;
+
+		activeRecipes.Add(activeRecipe);
+	}
+
 	public void AddActiveRecipe ( Recipe recipe, float price )
 	{
 		if ( activeRecipes.Exists(r => r.Recipe == recipe) ) return;

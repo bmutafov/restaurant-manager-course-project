@@ -27,11 +27,7 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
 
 	private void Start ()
 	{
-		if ( !Load.Customers() )
-		{
-			allCustomers = new AllCustomers();
-			GenerateCustomersPool();
-		}
+		allCustomers = new AllCustomers();
 		/*
 		if ( allCustomers.list.Count != customerPoolSize )
 		{
@@ -71,7 +67,6 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
 			allCustomers.list.Add(customer);
 			Debug.Log("Customer " + customer.Name + " created!");
 		}
-		Debug.Log(allCustomers.list.Count);
 	}
 	#endregion
 

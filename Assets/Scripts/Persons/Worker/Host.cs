@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+[System.Serializable]
 public class Host : Worker
 {
+	[SerializeField]
     private int minutesPerGroup;
-    private List<CustomerGroup> groupsToPlace;
+    private List<CustomerGroup> groupsToPlace = new List<CustomerGroup>();
 
     private int minutesPassed = 0;
 
@@ -21,6 +23,7 @@ public class Host : Worker
 
     public override void DoWork ()
     {
+		if ( groupsToPlace == null ) groupsToPlace = new List<CustomerGroup>(); //TODO: Find a better way to fix this.
         if ( groupsToPlace.Count == 0 || minutesPassed < minutesPerGroup )
             return;
 

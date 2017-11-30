@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class RestaurantManager : GenericSingletonClass<RestaurantManager>
@@ -30,6 +29,16 @@ public class RestaurantManager : GenericSingletonClass<RestaurantManager>
             return workers.FindAll(w => w is Waiter);
         }
     }
+
+	public bool HasEveryWorker
+	{
+		get
+		{
+			return workers.Exists(h => h is Host)
+				&& workers.Exists(w => w is Waiter)
+				&& workers.Exists(c => c is Cook);
+		}
+	}
     #endregion
 
     private void Start ()
@@ -41,16 +50,12 @@ public class RestaurantManager : GenericSingletonClass<RestaurantManager>
 		InstantateWorker(new Host("Ivaylo Dimitrov", 9));
     }
 
-	private void Awake ()
-	{
-		InstantateWorker(new Host("Pesho", 12));
-	}
-
 	private void Update ()
 	{
 		if(Input.GetKeyDown("h"))
 		{
-			
+			SaveInformation si = new SaveInformation();
+			si.Save();
 		}
 	}
 
@@ -65,7 +70,7 @@ public class RestaurantManager : GenericSingletonClass<RestaurantManager>
 
 	public void InstantateWorker ( Worker worker )
 	{
-		var obj = Instantiate(new GameObject());
+		var obj = new GameObject();
 		obj.AddComponent<WorkerMono>().worker = worker;
 		obj.name = worker.Name;
 		obj.tag = "Worker";
