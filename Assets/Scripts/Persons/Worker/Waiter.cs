@@ -72,7 +72,7 @@ public class Waiter : Worker
         tables.Add(table);
     }
 
-    public void ClearList()
+	public void ClearTablesList ()
     {
         tables.Clear();
     }

@@ -30,10 +30,6 @@ static public class Save
 		{
 			Debug.LogError("Could not create save for ActiveRecipes on auto save!.");
 		}
-		if ( !Workers() )
-		{
-			Debug.LogError("Could not create save for Workers on auto save!.");
-		}
 	}
 
     public static bool Customers ()
@@ -101,18 +97,6 @@ static public class Save
 		}
 	}
 
-	public static bool Workers ()
-	{
-		try
-		{
-			DoSave(fileName: FilesInfo.staff, str: JsonHelper.ToJson(Staff.Instance.workers.ToArray(), false));
-			return true;
-		}
-		catch ( System.Exception )
-		{
-			return false;
-		}
-	}
 
 	private static void BudgetFunds()
 	{

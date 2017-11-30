@@ -36,17 +36,21 @@ public class RestaurantManager : GenericSingletonClass<RestaurantManager>
     {
         workers = new List<Worker>();
         tables = spawnParent.GetComponentsInChildren<Table>();
-		Load.Workers();
         //FindWorkers();
         SeperateWaitersByTables();
 		InstantateWorker(new Host("Ivaylo Dimitrov", 9));
     }
 
+	private void Awake ()
+	{
+		InstantateWorker(new Host("Pesho", 12));
+	}
+
 	private void Update ()
 	{
 		if(Input.GetKeyDown("h"))
 		{
-			Save.Instance.OnDayChangeAutoSave();
+			
 		}
 	}
 

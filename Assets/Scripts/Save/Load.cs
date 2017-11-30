@@ -76,25 +76,6 @@ static public class Load
 		}
 	}
 
-	public static bool Workers ()
-	{
-		try
-		{
-			using ( StreamReader r = new StreamReader(FilesInfo.staff + ".json") )
-
-			{
-				string json = r.ReadToEnd();
-				Staff.Instance.workers.AddRange(JsonHelper.FromJson<Worker>(json));
-				Staff.Instance.SpawnWorkers();
-			}
-			return true;
-		}
-		catch ( System.Exception )
-		{
-			return false;
-		}
-	}
-
 	public static float BudgetFunds()
 	{
 		if(PlayerPrefs.HasKey("Budget"))
