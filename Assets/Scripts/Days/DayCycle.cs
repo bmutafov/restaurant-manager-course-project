@@ -41,6 +41,7 @@ public class DayCycle : GenericSingletonClass<DayCycle>
 	private bool isDay = false;
 	private int lastHour;
 	private int lastMinute = 0;
+	private int lastSpeed = 1;
 	#endregion
 
 	#region delegates
@@ -125,6 +126,8 @@ public class DayCycle : GenericSingletonClass<DayCycle>
 	/// </summary>
 	private void ChangeDay ()
 	{
+		lastSpeed = (int)daySpeed;
+		ChangeGameSpeedTo(1);
 		daysPassedSinceStart++;
 		isDay = false;
 		TimeSpan newDayTime = new TimeSpan(openingHour, 0, 0);
@@ -152,6 +155,8 @@ public class DayCycle : GenericSingletonClass<DayCycle>
 		{
 			onDayStartedCallback.Invoke();
 		}
+
+		ChangeGameSpeedTo(lastSpeed);
 	}
 
 

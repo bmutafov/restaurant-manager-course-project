@@ -48,7 +48,6 @@ public class RestaurantManager : GenericSingletonClass<RestaurantManager>
 		tables = spawnParent.GetComponentsInChildren<Table>();
 		//FindWorkers();
 		SeperateWaitersByTables();
-		InstantateWorker(new Host("Ivaylo Dimitrov", 9));
 	}
 
 	private void Update ()

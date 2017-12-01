@@ -4,6 +4,7 @@ using UnityEngine;
 public class CustomerManager : GenericSingletonClass<CustomerManager>
 {
 	#region variables_generation
+	[HideInInspector]
 	public AllCustomers allCustomers;
 	public int customerPoolSize = 50;
 

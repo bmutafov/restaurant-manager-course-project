@@ -76,7 +76,7 @@ public class CameraMovement : MonoBehaviour
         float zAxisValue = Input.GetAxis("Vertical");
         if ( Camera.current != null )
         {
-            Camera.current.transform.Translate(new Vector3(xAxisValue * deltaTime * speedConstant, 0.0f, zAxisValue * speedConstant * deltaTime));
+            Camera.current.transform.Translate(new Vector3(xAxisValue * deltaTime * speedConstant / Time.timeScale, 0.0f, zAxisValue * speedConstant * deltaTime / Time.timeScale));
         }
     }
 
@@ -107,8 +107,8 @@ public class CameraMovement : MonoBehaviour
         if ( Input.GetMouseButton(0) )
         {
             var deltaTime = Time.deltaTime;
-            float xOffset = transform.position.x + Input.GetAxis("Mouse X") * speedConstant * deltaTime;
-            float yOffset = transform.position.z + Input.GetAxis("Mouse Y") * speedConstant * deltaTime;
+            float xOffset = transform.position.x + Input.GetAxis("Mouse X") * speedConstant * deltaTime / Time.timeScale;
+            float yOffset = transform.position.z + Input.GetAxis("Mouse Y") * speedConstant * deltaTime / Time.timeScale;
             Vector3 newOffest = new Vector3(xOffset, transform.position.y, yOffset);
             transform.position = newOffest;
         }
@@ -121,7 +121,7 @@ public class CameraMovement : MonoBehaviour
             var deltaTime = Time.deltaTime;
             var y = Input.GetAxis("Mouse X");
             var x = Input.GetAxis("Mouse Y");
-            var rotateValue = new Vector3(x * (yInverted ? -1 : 1) * rotateSpeed * deltaTime, y * (xInverted ? -1 : 1) * rotateSpeed * deltaTime, 0);
+            var rotateValue = new Vector3(x * (yInverted ? -1 : 1) * rotateSpeed * deltaTime / Time.timeScale, y * (xInverted ? -1 : 1) * rotateSpeed * deltaTime / Time.timeScale, 0);
             transform.eulerAngles = transform.eulerAngles - rotateValue;
         }
     }

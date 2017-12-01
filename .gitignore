@@ -43,3 +43,7 @@ ehthumbs.db
 Thumbs.db
 *.dat
 *.json
+*.ide
+*.ide
+*.ide-shm
+*.ide-wal

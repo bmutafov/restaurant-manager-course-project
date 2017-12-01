@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SaveManager : MonoBehaviour
 {
 
 	#region variables
 	public bool loadOnStart = true;
-	public SaveInformation saveInformation;
+	private SaveInformation saveInformation;
 	#endregion
 
 	#region unity_methods
@@ -25,6 +23,7 @@ public class SaveManager : MonoBehaviour
 		}
 		else
 		{
+			RestaurantManager.Instance.InstantateWorker(new Host("Ivaylo Dimitrov", 9));
 			Budget.Instance.AddFunds(Budget.Instance.startingMoney);
 		}
 	}
