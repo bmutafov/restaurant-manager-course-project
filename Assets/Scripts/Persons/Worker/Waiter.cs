@@ -24,10 +24,20 @@ public class Waiter : Worker
     public Waiter (string name, int skill) : base(name, skill)
     {
         DayCycle.Instance.onHourChangedCallback += UpdateLastMinuteServedIfHourChanged;
+		tables = new List<Table>();
     }
 
-    #region overrides
-    public override void DoWork ()
+	public Waiter (Waiter waiter) : base(waiter.Name, waiter.skill)
+	{
+		DayCycle.Instance.onHourChangedCallback += UpdateLastMinuteServedIfHourChanged;
+		tables = new List<Table>();
+		SetId = waiter.Id;
+		serveMinutes = waiter.serveMinutes;
+		salaryPerHour = waiter.salaryPerHour;
+	}
+
+	#region overrides
+	public override void DoWork ()
     {
         if ( IsTimeToServe() && OrderStack.Instance.cookedOrders.Count > 0 )
         {
@@ -76,6 +86,7 @@ public class Waiter : Worker
 
 	public void ClearTablesList ()
     {
+		if ( tables == null ) tables = new List<Table>();
         tables.Clear();
     }
     #endregion

@@ -35,6 +35,14 @@ public class DayCycle : GenericSingletonClass<DayCycle>
 			return closingHour - openingHour;
 		}
 	}
+
+	public bool IsDay
+	{
+		get
+		{
+			return isDay;
+		}
+	}
 	#endregion
 
 	#region private_variables
@@ -149,6 +157,8 @@ public class DayCycle : GenericSingletonClass<DayCycle>
 			Debug.Log("Cant start, the restaurant must have employed every type of worker before it can operate!");
 			return;
 		}
+		RestaurantManager.Instance.SeperateWaitersByTables();
+
 		isDay = true;
 
 		if ( onDayStartedCallback != null )

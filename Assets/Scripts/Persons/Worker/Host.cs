@@ -17,6 +17,15 @@ public class Host : Worker
 		groupsToPlace = new List<CustomerGroup>();
 	}
 
+	public Host ( Host host ) : base(host.Name, host.skill)
+	{
+		DayCycle.Instance.onMinuteChangedCallback += FindGroupsByMinute;
+		groupsToPlace = new List<CustomerGroup>();
+		SetId = host.Id;
+		minutesPerGroup = host.minutesPerGroup;
+		salaryPerHour = host.salaryPerHour;
+	}
+
 	#region overrides
 	public override void CalculateWorkloadFromSkill ()
 	{
@@ -25,8 +34,7 @@ public class Host : Worker
 
 	public override void DoWork ()
 	{
-		if ( groupsToPlace == null ) groupsToPlace = new List<CustomerGroup>(); //TODO: Find a better way to fix this.
-		if ( groupsToPlace.Count == 0 || minutesPassed < minutesPerGroup )
+		if ( groupsToPlace.Count == 0 || minutesPassed < minutesPerGroup || !DayCycle.Instance.IsDay)
 			return;
 
 
@@ -90,6 +98,7 @@ public class Host : Worker
 		{
 			groupsToPlace.AddRange(visitingNow);
 		}
+		Debug.Log(visitingNow.Count);
 	}
 	#endregion
 }

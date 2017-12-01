@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class DisplayWorkersUI : MonoBehaviour
 {
+	#region variables
 	public GameObject prefab;
 	public Transform container;
 	public int offersEveryXDays = 2;
@@ -12,7 +12,9 @@ public class DisplayWorkersUI : MonoBehaviour
 
 	private List<Worker> workerApplicants;
 	private int dayPassed = 0;
+	#endregion
 
+	#region unity_methods
 	private void Awake ()
 	{
 		workerApplicants = new List<Worker>();
@@ -20,8 +22,10 @@ public class DisplayWorkersUI : MonoBehaviour
 		GenerateNewOffers();
 		DayCycle.Instance.onDayChangedCallback += GenerateNewOffers;
 	}
+	#endregion
 
-	public void ShowAll()
+	#region public_methods
+	public void ShowAll ()
 	{
 		foreach ( var worker in workerApplicants )
 		{
@@ -32,6 +36,16 @@ public class DisplayWorkersUI : MonoBehaviour
 		}
 	}
 
+	public void ClearAll()
+	{
+		for ( int i = 0 ; i < container.childCount ; i++ )
+		{
+			Destroy(container.GetChild(i).gameObject);
+		}
+	}
+	#endregion
+
+	#region private_methods
 	private static void UpdateInstanceInfo ( Worker worker, Transform instance )
 	{
 		instance.Find("Avatar").GetChild(0).GetComponent<Image>().sprite = worker.avatar;
@@ -64,4 +78,5 @@ public class DisplayWorkersUI : MonoBehaviour
 			dayPassed = 0;
 		}
 	}
+	#endregion
 }

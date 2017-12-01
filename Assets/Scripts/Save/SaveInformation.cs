@@ -61,13 +61,13 @@ public class SaveInformation
 			Budget.Instance.LoadFunds(loadInfo.budget);
 
 			loadInfo.waiters
-				.ForEach(w => RestaurantManager.Instance.InstantateWorker(w));
+				.ForEach(w => RestaurantManager.Instance.InstantateWorker(new Waiter(w)));
 
 			loadInfo.hosts
-				.ForEach(w => RestaurantManager.Instance.InstantateWorker(w));
+				.ForEach(w => RestaurantManager.Instance.InstantateWorker(new Host(w)));
 
 			loadInfo.cooks
-				.ForEach(w => RestaurantManager.Instance.InstantateWorker(w));
+				.ForEach(w => RestaurantManager.Instance.InstantateWorker(new Cook(w)));
 
 			Storage.Instance.products = loadInfo.products;
 

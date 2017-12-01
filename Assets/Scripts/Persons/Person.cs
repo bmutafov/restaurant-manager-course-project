@@ -19,6 +19,14 @@ public abstract class Person
         }
     }
 
+	protected int SetId
+	{
+		set
+		{
+			_id = value;
+		}
+	}
+
     public string Name
     {
         get

@@ -13,10 +13,19 @@ public class Cook : Worker
 
     public Cook (string name, int skill) : base(name, skill)
     {
+		currentOrders = new List<Order>();
     }
 
-    #region overrides
-    public override void DoWork ()
+	public Cook (Cook cook) : base(cook.Name, cook.skill)
+	{
+		currentOrders = new List<Order>();
+		SetId = cook.Id;
+		ordersAtATime = cook.ordersAtATime;
+		salaryPerHour = cook.salaryPerHour;
+	}
+
+	#region overrides
+	public override void DoWork ()
     {
         Order newOrder = GetNewOrder();
         if ( newOrder != null )
