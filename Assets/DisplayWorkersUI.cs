@@ -27,6 +27,7 @@ public class DisplayWorkersUI : MonoBehaviour
 	#region public_methods
 	public void ShowAll ()
 	{
+		ClearAll();
 		foreach ( var worker in workerApplicants )
 		{
 			var instance = Instantiate(prefab, container).transform;

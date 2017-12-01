@@ -8,6 +8,7 @@ public class ShowStoredIngredients : MonoBehaviour
 
 	public void ShowAll ()
 	{
+		ClearAll();
 		foreach ( var ingrGroup in Storage.Instance.products )
 		{
 			Transform instance = Instantiate(ingredientPrefab, container).transform;

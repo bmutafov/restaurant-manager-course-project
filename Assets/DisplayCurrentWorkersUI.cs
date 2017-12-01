@@ -5,11 +5,15 @@ using UnityEngine.UI;
 public class DisplayCurrentWorkersUI : MonoBehaviour
 {
 
+	#region variables
 	public GameObject prefab;
 	public Transform container;
+	#endregion
 
+	#region public_methods
 	public void ShowAll ()
 	{
+		ClearAll();
 		List<WorkerMono> workers = new List<WorkerMono>();
 		FindAndAddWorkers(workers);
 		foreach ( var worker in workers )
@@ -31,6 +35,15 @@ public class DisplayCurrentWorkersUI : MonoBehaviour
 		}
 	}
 
+	public void ClearAll ()
+	{
+		for ( int i = 0 ; i < container.childCount ; i++ )
+		{
+			Destroy(container.GetChild(i).gameObject);
+		}
+	}
+	#endregion
+	#region private_methods
 	private static void UpdateText ( WorkerMono worker, Transform instance )
 	{
 		UI.UpdateChildTextMeshText(instance, "Name", worker.worker.Name);
@@ -52,12 +65,7 @@ public class DisplayCurrentWorkersUI : MonoBehaviour
 			else return -1;
 		});
 	}
+	#endregion
 
-	public void ClearAll()
-	{
-		for ( int i = 0 ; i < container.childCount ; i++ )
-		{
-			Destroy(container.GetChild(i).gameObject);
-		}
-	}
+
 }
