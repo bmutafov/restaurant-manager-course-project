@@ -19,8 +19,14 @@ public class SaveManager : MonoBehaviour
 
 	private void Start ()
 	{
-		if ( loadOnStart ) saveInformation.Load();
-		DayCycle.Instance.onDayChangedCallback.Invoke();
+		if ( loadOnStart )
+		{
+			saveInformation.Load();
+		}
+		else
+		{
+			Budget.Instance.AddFunds(Budget.Instance.startingMoney);
+		}
 	}
 	#endregion
 

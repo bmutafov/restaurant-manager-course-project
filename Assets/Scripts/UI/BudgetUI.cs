@@ -1,16 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class BudgetUI : MonoBehaviour
 {
-	public TextMeshProUGUI textComponent;
-	// Use this for initialization
+	private TextMeshProUGUI textComponent;
+
 	private void Start ()
 	{
 		textComponent = GetComponent<TextMeshProUGUI>();
 		Budget.Instance.onBudgetChangedCallback += UpdateText;
+		UpdateText();
 	}
 
 	private void UpdateText ()

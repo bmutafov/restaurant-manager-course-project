@@ -4,80 +4,92 @@ using System.Collections.Generic;
 [System.Serializable]
 public class Host : Worker
 {
+	#region variables
 	[SerializeField]
-    private int minutesPerGroup;
-    private List<CustomerGroup> groupsToPlace = new List<CustomerGroup>();
+	private int minutesPerGroup;
+	private List<CustomerGroup> groupsToPlace = new List<CustomerGroup>();
+	private int minutesPassed = 0;
+	#endregion
 
-    private int minutesPassed = 0;
+	public Host ( string name, int skill ) : base(name, skill)
+	{
+		DayCycle.Instance.onMinuteChangedCallback += FindGroupsByMinute;
+		groupsToPlace = new List<CustomerGroup>();
+	}
 
-    public Host (string name, int skill) : base(name, skill)
-    {
-        DayCycle.Instance.onMinuteChangedCallback += FindGroupsByMinute;
-        groupsToPlace = new List<CustomerGroup>();
-    }
+	#region overrides
+	public override void CalculateWorkloadFromSkill ()
+	{
+		minutesPerGroup = 12 - skill;
+	}
 
-    public override void CalculateWorkloadFromSkill ()
-    {
-        minutesPerGroup = 12 - skill;
-    }
-
-    public override void DoWork ()
-    {
+	public override void DoWork ()
+	{
 		if ( groupsToPlace == null ) groupsToPlace = new List<CustomerGroup>(); //TODO: Find a better way to fix this.
-        if ( groupsToPlace.Count == 0 || minutesPassed < minutesPerGroup )
-            return;
+		if ( groupsToPlace.Count == 0 || minutesPassed < minutesPerGroup )
+			return;
 
 
-        List<Worker> waiters = RestaurantManager.Instance.Waiters;
-        int mostFreeTables = 0;
-        Waiter freeWaiter = null;
-        Table waiterFreeTable = null;
-        foreach ( Waiter thisWaiter in waiters )
-        {
-            int freeTables = 0;
-            Table freeTable = null;
-            foreach ( var table in thisWaiter.Tables )
-            {
-                if ( !table.isTaken )
-                {
-                    freeTables++;
-                    freeTable = table;
-                }
-            }
-            if ( freeTables == 0 )
-                continue;
+		List<Worker> waiters = RestaurantManager.Instance.Waiters;
+		int mostFreeTables = 0;
+		Waiter freeWaiter = null;
+		Table waiterFreeTable = null;
+		foreach ( Waiter thisWaiter in waiters )
+		{
+			int freeTables = 0;
+			Table freeTable = null;
 
-            if ( freeTables > mostFreeTables || (freeTables == mostFreeTables && freeWaiter.Tables.Count > thisWaiter.Tables.Count) )
-            {
-                mostFreeTables = freeTables;
-                freeWaiter = thisWaiter;
-                waiterFreeTable = freeTable;
-            }
-        }
-        if ( freeWaiter == null )
-            return;
+			CountWaitersFreeTables(thisWaiter, ref freeTables, ref freeTable);
 
-        minutesPassed = 0;
+			if ( freeTables == 0 )
+				continue;
 
-        waiterFreeTable.isTaken = true;
+			if ( freeTables > mostFreeTables ||
+				(freeTables == mostFreeTables && freeWaiter.Tables.Count > thisWaiter.Tables.Count) )
+			{
+				mostFreeTables = freeTables;
+				freeWaiter = thisWaiter;
+				waiterFreeTable = freeTable;
+			}
+		}
 
-        Debug.Log("Group has been placed on table #" + waiterFreeTable.Id);
+		if ( freeWaiter == null )
+			return;
 
+		minutesPassed = 0;
+		waiterFreeTable.isTaken = true;
 
-        Debug.Log(groupsToPlace[0].visitTime + " seated.");
-        Queue.Instance.MoveCustomersToTable(groupsToPlace[0].customers, waiterFreeTable);
-        Queue.Instance.RemoveCustomers(groupsToPlace[0].customers);
+		Debug.Log("Group has been placed on table #" + waiterFreeTable.Id);
+		Debug.Log(groupsToPlace[0].visitTime + " seated.");
 
-        groupsToPlace.RemoveAt(0);
-    }
+		Queue.Instance.MoveCustomersToTable(groupsToPlace[0].customers, waiterFreeTable);
+		Queue.Instance.RemoveCustomers(groupsToPlace[0].customers);
 
-    private void FindGroupsByMinute ()
-    {
-        minutesPassed++;
-        var visitingNow = CustomerManager.Instance.GetVisitingNow();
-        if ( visitingNow != null )
-        {
-            groupsToPlace.AddRange(visitingNow);
-        }
-    }
+		groupsToPlace.RemoveAt(0);
+	}
+	#endregion
+
+	#region private_methods
+	private static void CountWaitersFreeTables ( Waiter thisWaiter, ref int freeTables, ref Table freeTable )
+	{
+		foreach ( var table in thisWaiter.Tables )
+		{
+			if ( !table.isTaken )
+			{
+				freeTables++;
+				freeTable = table;
+			}
+		}
+	}
+
+	private void FindGroupsByMinute ()
+	{
+		minutesPassed++;
+		var visitingNow = CustomerManager.Instance.GetVisitingNow();
+		if ( visitingNow != null )
+		{
+			groupsToPlace.AddRange(visitingNow);
+		}
+	}
+	#endregion
 }

@@ -20,9 +20,6 @@
 	#endregion
 
 	#region unity_methods
-	private void Start ()
-	{
-	}
 	#endregion
 
 	#region transactions

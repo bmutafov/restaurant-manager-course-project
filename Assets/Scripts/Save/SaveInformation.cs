@@ -10,15 +10,24 @@ public class SaveInformation
 	#region variables
 	private static readonly string filename = "allSave.json";
 
-	public AllCustomers allCustomers;
-	public List<Host> hosts;
-	public List<Cook> cooks;
-	public List<Waiter> waiters;
-	public List<IngredientGroup> products;
-	public List<RecipeManager.ActiveRecipe> activeRecipes;
-	public int dayNumber;
-	public float budget;
-	public int lastPersonId;
+	[SerializeField]
+	private AllCustomers allCustomers;
+	[SerializeField]
+	private List<Host> hosts;
+	[SerializeField]
+	private List<Cook> cooks;
+	[SerializeField]
+	private List<Waiter> waiters;
+	[SerializeField]
+	private List<IngredientGroup> products;
+	[SerializeField]
+	private List<RecipeManager.ActiveRecipe> activeRecipes;
+	[SerializeField]
+	private int dayNumber;
+	[SerializeField]
+	private float budget;
+	[SerializeField]
+	private int lastPersonId;
 	#endregion
 
 	#region unity_methods
@@ -46,17 +55,25 @@ public class SaveInformation
 			SaveInformation loadInfo = JsonUtility.FromJson<SaveInformation>(json);
 
 			CustomerManager.Instance.allCustomers = loadInfo.allCustomers;
+
 			DayCycle.Instance.LoadDay(loadInfo.dayNumber);
+
 			Budget.Instance.LoadFunds(loadInfo.budget);
+
 			loadInfo.waiters
 				.ForEach(w => RestaurantManager.Instance.InstantateWorker(w));
+
 			loadInfo.hosts
 				.ForEach(w => RestaurantManager.Instance.InstantateWorker(w));
+
 			loadInfo.cooks
 				.ForEach(w => RestaurantManager.Instance.InstantateWorker(w));
+
 			Storage.Instance.products = loadInfo.products;
+
 			loadInfo.activeRecipes
 				.ForEach(a => RecipeManager.Instance.AddActiveRecipe(a));
+
 			Person.LastIdUsed = lastPersonId;
 		}
 	}

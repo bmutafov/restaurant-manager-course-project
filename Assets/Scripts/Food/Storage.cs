@@ -2,15 +2,19 @@
 
 public class Storage : GenericSingletonClass<Storage>
 {
+	#region variables
 	public List<IngredientGroup> products;
+	#endregion
 
+	#region unity_methods
 	private void Start ()
 	{
 		products = new List<IngredientGroup>();
 		DayCycle.Instance.onDayChangedCallback += ChangeProductExpireTime;
 	}
+	#endregion
 
-
+	#region public_methods
 	/// <summary>
 	/// Checks if the ingredient is available in storage
 	/// </summary>
@@ -54,7 +58,9 @@ public class Storage : GenericSingletonClass<Storage>
 		if ( products.Contains(group) )
 			products.Remove(group);
 	}
+	#endregion
 
+	#region private_methods
 	/// <summary>
 	/// Must be subscribed to onDayChanged callback.
 	/// 
@@ -77,4 +83,5 @@ public class Storage : GenericSingletonClass<Storage>
 		products.Clear();
 		products = remainingProducts;
 	}
+	#endregion
 }

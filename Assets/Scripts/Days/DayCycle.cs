@@ -2,6 +2,9 @@
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Cares for all the information about the time
+/// </summary>
 public class DayCycle : GenericSingletonClass<DayCycle>
 {
 	#region public_variables
@@ -54,6 +57,7 @@ public class DayCycle : GenericSingletonClass<DayCycle>
 	public OnDayStarted onDayStartedCallback;
 	#endregion
 
+	#region unity_methods
 	protected override void Awake ()
 	{
 		base.Awake();
@@ -71,42 +75,53 @@ public class DayCycle : GenericSingletonClass<DayCycle>
 		if ( isDay )
 		{
 			gameTime = gameTime.AddMinutes(Time.deltaTime);
-			if ( GameTime.Hour != lastHour )
-			{
-				lastHour = GameTime.Hour;
-				if ( onHourChangedCallback != null )
-					onHourChangedCallback.Invoke();
-			}
-
-			if ( GameTime.Minute != lastMinute )
-			{
-				lastMinute = GameTime.Minute;
-				if ( onMinuteChangedCallback != null )
-				{
-					onMinuteChangedCallback.Invoke();
-				}
-			}
-
+			CheckAndInvokeHour();
+			CheckAndInvokeMinute();
 			if ( GameTime.Hour == closingHour )
 			{
 				ChangeDay();
 				Debug.Log("Day ended.");
 			}
 		}
+
 		if ( Input.GetKeyDown("i") )
 		{
 			StartDay();
 		}
 	}
+	#endregion
+
+	#region private_methods
+	/// <summary>
+	/// Checks if a minute has passed and invokes the delegate
+	/// </summary>
+	private void CheckAndInvokeMinute ()
+	{
+		if ( GameTime.Minute != lastMinute )
+		{
+			lastMinute = GameTime.Minute;
+			if ( onMinuteChangedCallback != null )
+			{
+				onMinuteChangedCallback.Invoke();
+			}
+		}
+	}
 
 	/// <summary>
-	/// When the hour equals the closing hour
-	/// 
-	/// Stops the timer
-	/// Resets the hour
-	/// 
-	/// Invokes onDayChanged
-	/// 
+	/// Checks if an hour has passed and invokes the delegate
+	/// </summary>
+	private void CheckAndInvokeHour ()
+	{
+		if ( GameTime.Hour != lastHour )
+		{
+			lastHour = GameTime.Hour;
+			if ( onHourChangedCallback != null )
+				onHourChangedCallback.Invoke();
+		}
+	}
+
+	/// <summary>
+	/// Changes the day and invokes the delegate
 	/// </summary>
 	private void ChangeDay ()
 	{
@@ -118,7 +133,12 @@ public class DayCycle : GenericSingletonClass<DayCycle>
 		if ( onDayChangedCallback != null )
 			onDayChangedCallback.Invoke();
 	}
+	#endregion
 
+	#region public_methods
+	/// <summary>
+	/// Starts the day
+	/// </summary>
 	public void StartDay ()
 	{
 		if ( !RestaurantManager.Instance.HasEveryWorker )
@@ -134,15 +154,25 @@ public class DayCycle : GenericSingletonClass<DayCycle>
 		}
 	}
 
+
+	/// <summary>
+	/// Changes Time.timeScale to be equal to the argument given
+	/// </summary>
+	/// <param name="speed"></param>
 	public void ChangeGameSpeedTo ( float speed )
 	{
 		daySpeed = speed;
 		Time.timeScale = daySpeed;
 	}
 
+	/// <summary>
+	/// Calculates the current from the argument, use only for loading!
+	/// </summary>
+	/// <param name="dayPassed"></param>
 	public void LoadDay ( int dayPassed )
 	{
 		gameTime = gameTime.AddDays(dayPassed);
 		daysPassedSinceStart = dayPassed;
 	}
+	#endregion
 }
