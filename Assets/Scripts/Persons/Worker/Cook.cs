@@ -39,6 +39,7 @@ public class Cook : Worker
             }
             else
             {
+				newOrder.customerMono.DeclineFood();
                 Debug.Log("Not enough ingredients!");
             }
         }

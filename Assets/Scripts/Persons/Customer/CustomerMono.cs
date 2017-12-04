@@ -20,13 +20,16 @@ public class CustomerMono : MonoBehaviour
 	#region variables
 	public Customer customer;
 	public Transform customerInfoUI;
+	public GameObject reviewPrefab;
+	public GameObject reviewContainer;
 
 	private OutlineRender outlineComponent;
 	private Animator animator;
-	private float averageRating = 1;
+	private float averageRating = 0;
 	private float bill = 0;
 	private int orderedCount = 0;
 	private int receivedCount = 0;
+	private bool unrecievedFood = false;
 	#endregion
 
 	#region hover
@@ -40,7 +43,8 @@ public class CustomerMono : MonoBehaviour
 	private void OnMouseEnter ()
 	{
 		animator.SetBool("pop", true);
-		UI.UpdateChildTextMeshText(customerInfoUI, 0, customer.Name);
+		UI.ChildText(customerInfoUI, 0, customer.Name);
+		UI.ChildText(customerInfoUI, 1, customer.Wealth.ToString());
 		UI.MoveUIToGameObjectPosition(customerInfoUI.gameObject, transform.position, 0, 50);
 		outlineComponent.enabled = true;
 	}
@@ -87,7 +91,20 @@ public class CustomerMono : MonoBehaviour
 	{
 		Rate(order);
 		bill += order.price;
-		if( orderedCount == ++receivedCount )
+		if ( orderedCount == ++receivedCount )
+		{
+			LeaveRestaurant();
+		}
+	}
+
+	/// <summary>
+	/// If a problem occured a meal can be declined
+	/// </summary>
+	internal void DeclineFood ()
+	{
+		orderedCount--;
+		unrecievedFood = true;
+		if(orderedCount == 0)
 		{
 			LeaveRestaurant();
 		}
@@ -116,6 +133,8 @@ public class CustomerMono : MonoBehaviour
 	private void LeaveRestaurant()
 	{
 		Pay(bill);
+		var review = Instantiate(reviewPrefab, reviewContainer.transform);
+		review.GetComponent<ReviewInfo>().SetInfo((int) averageRating / receivedCount, customer.Name);
 		Destroy(gameObject);
 	}
 

@@ -50,10 +50,10 @@ public class DisplayWorkersUI : MonoBehaviour
 	private static void UpdateInstanceInfo ( Worker worker, Transform instance )
 	{
 		instance.Find("Avatar").GetChild(0).GetComponent<Image>().sprite = worker.avatar;
-		UI.UpdateChildTextMeshText(instance, "Name", worker.Name.Replace(" ", "<br>"));
-		UI.UpdateChildTextMeshText(instance, "Position", worker.GetType().ToString());
-		UI.UpdateChildTextMeshText(instance, "Skill", worker.skill.ToString());
-		UI.UpdateChildTextMeshText(instance, "Salary", worker.salaryPerHour.ToString());
+		UI.ChildText(instance, "Name", worker.Name.Replace(" ", "<br>"));
+		UI.ChildText(instance, "Position", worker.GetType().ToString());
+		UI.ChildText(instance, "Skill", worker.skill.ToString());
+		UI.ChildText(instance, "Salary", worker.salaryPerHour.ToString());
 	}
 
 	private void GenerateNewOffers ()

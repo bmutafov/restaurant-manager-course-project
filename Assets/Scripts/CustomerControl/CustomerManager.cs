@@ -20,6 +20,9 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
 	#region variables_customers
 	public GameObject customerPrefab;
 	public Transform customerInfoUI;
+
+	public GameObject reviewPrefab;
+	public GameObject reviewContainer;
 	#endregion
 
 
@@ -213,6 +216,8 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
 		CustomerMono customerMono = instance.AddComponent<CustomerMono>();
 		customerMono.customer = customer;
 		customerMono.customerInfoUI = customerInfoUI;
+		customerMono.reviewPrefab = reviewPrefab;
+		customerMono.reviewContainer = reviewContainer;
 		return instance;
 	}
 	#endregion

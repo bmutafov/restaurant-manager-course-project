@@ -19,7 +19,13 @@ public class UI : GenericSingletonClass<UI>
         toMove.GetComponent<RectTransform>().position = screenPos;
     }
 
-    public static void UpdateChildTextMeshText (Transform transformToUpdate, int index, string newText)
+    /// <summary>
+	/// Changes the text of a child with the given index, with TextMeshPro component
+	/// </summary>
+	/// <param name="transformToUpdate">Parent transform</param>
+	/// <param name="index">Index of the child</param>
+	/// <param name="newText">New value of the text field</param>
+	public static void ChildText (Transform transformToUpdate, int index, string newText)
     {
         var obj = transformToUpdate;
         if ( index >= 0 )
@@ -29,12 +35,18 @@ public class UI : GenericSingletonClass<UI>
         obj.GetComponent<TextMeshProUGUI>().text = newText;
     }
 
-	public static void UpdateChildTextMeshText (Transform trasformToUpdate, string childName, string newText)
+	/// <summary>
+	/// Changes the text of a child with the given name, with TextMeshPro component
+	/// </summary>
+	/// <param name="trasformToUpdate">Parent transform</param>
+	/// <param name="childName">The child's game object name</param>
+	/// <param name="newText">New value of the text field/param>
+	public static void ChildText (Transform trasformToUpdate, string childName, string newText)
 	{
 		try
 		{
 			var index = trasformToUpdate.Find(childName).GetSiblingIndex();
-			UpdateChildTextMeshText(trasformToUpdate, index, newText);
+			ChildText(trasformToUpdate, index, newText);
 		}
 		catch(System.Exception)
 		{

@@ -24,9 +24,9 @@ public class ShowStoredIngredients : MonoBehaviour
 
 	private static void UpdateTexts ( IngredientGroup ingrGroup, Transform instance )
 	{
-		UI.UpdateChildTextMeshText(instance, "Name", ingrGroup.Ingredient.ingredientName);
-		UI.UpdateChildTextMeshText(instance, "Amount", ingrGroup.Amount.ToString());
-		UI.UpdateChildTextMeshText(instance, "ExpiresIn", ingrGroup.ExpireTime.ToString());
+		UI.ChildText(instance, "Name", ingrGroup.Ingredient.ingredientName);
+		UI.ChildText(instance, "Amount", ingrGroup.Amount.ToString());
+		UI.ChildText(instance, "ExpiresIn", ingrGroup.ExpireTime.ToString());
 	}
 
 	public void ClearAll()

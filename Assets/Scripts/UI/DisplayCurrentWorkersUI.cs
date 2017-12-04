@@ -46,10 +46,10 @@ public class DisplayCurrentWorkersUI : MonoBehaviour
 	#region private_methods
 	private static void UpdateText ( WorkerMono worker, Transform instance )
 	{
-		UI.UpdateChildTextMeshText(instance, "Name", worker.worker.Name);
-		UI.UpdateChildTextMeshText(instance, "Position", worker.worker.GetType().ToString());
-		UI.UpdateChildTextMeshText(instance, "Salary", worker.worker.salaryPerHour.ToString());
-		UI.UpdateChildTextMeshText(instance, "Skill", worker.worker.skill + "/10");
+		UI.ChildText(instance, "Name", worker.worker.Name);
+		UI.ChildText(instance, "Position", worker.worker.GetType().ToString());
+		UI.ChildText(instance, "Salary", worker.worker.salaryPerHour.ToString());
+		UI.ChildText(instance, "Skill", worker.worker.skill + "/10");
 	}
 
 	private static void FindAndAddWorkers ( List<WorkerMono> workers )
