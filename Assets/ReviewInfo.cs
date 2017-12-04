@@ -31,6 +31,7 @@ public class ReviewInfo : MonoBehaviour
 	private void OnEnable ()
 	{
 		animator = GetComponent<Animator>();
+		animator.SetFloat("speed", DayCycle.Instance.daySpeed);
 	}
 	#endregion
 
@@ -57,11 +58,11 @@ public class ReviewInfo : MonoBehaviour
 	#region private_methods
 	private IEnumerator DeleteReview ()
 	{
-		yield return new WaitForSeconds(duration);
+		yield return new WaitForSecondsRealtime(duration);
 
 		animator.SetBool("fadeOut", true);
 
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSecondsRealtime(1);
 
 		Destroy(gameObject);
 	}
