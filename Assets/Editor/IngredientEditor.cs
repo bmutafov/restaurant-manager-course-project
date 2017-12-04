@@ -10,9 +10,12 @@ public class IngredientEditor : Editor
         DrawDefaultInspector();
 
         Ingredient myScript = ( Ingredient ) target;
+		EditorGUILayout.BeginHorizontal();
         if ( GUILayout.Button("Set name") )
         {
             myScript.ingredientName = myScript.name;
+			EditorUtility.SetDirty(this);
         }
+		EditorGUILayout.EndHorizontal();
     }
 }

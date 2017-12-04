@@ -1,6 +1,7 @@
 ﻿using cakeslice;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CustomerMono : MonoBehaviour
 {
@@ -22,6 +23,10 @@ public class CustomerMono : MonoBehaviour
 
 	private OutlineRender outlineComponent;
 	private Animator animator;
+	private float averageRating = 1;
+	private float bill = 0;
+	private int orderedCount = 0;
+	private int receivedCount = 0;
 	#endregion
 
 	#region hover
@@ -35,7 +40,6 @@ public class CustomerMono : MonoBehaviour
 	private void OnMouseEnter ()
 	{
 		animator.SetBool("pop", true);
-		//customerInfoUI.gameObject.SetActive(true);
 		UI.UpdateChildTextMeshText(customerInfoUI, 0, customer.Name);
 		UI.MoveUIToGameObjectPosition(customerInfoUI.gameObject, transform.position, 0, 50);
 		outlineComponent.enabled = true;
@@ -44,39 +48,118 @@ public class CustomerMono : MonoBehaviour
 	private void OnMouseExit ()
 	{
 		animator.SetBool("pop", false);
-
-		//customerInfoUI.gameObject.SetActive(false);
 		outlineComponent.enabled = false;
 	}
 	#endregion
 
 	#region ordering
+
+	#region public_methods
+	/// <summary>
+	/// Pick and order food determined by the customer wealth
+	/// </summary>
 	public void OrderFood ()
 	{
+		// Determine the price range of the customer
 		PriceRange priceRange = GetPriceRangeFromWealth();
+
+		// Get all possible recipes within the pricerange
 		List<RecipeManager.ActiveRecipe> possibleRecipes = RecipeManager.Instance.ActiveRecipes.FindAll(r => r.Price > priceRange.minPrice && r.Price < priceRange.maxPrice);
 		Debug.Log(possibleRecipes.Count);
-		int numberOfFoods = Random.Range(1, (int)customer.Wealth * 2);
+
+		// Randomize a number of meals to be ordered
+		int numberOfFoods = UnityEngine.Random.Range(1, (int)customer.Wealth * 2);
+		// Validate
 		if ( numberOfFoods > possibleRecipes.Count ) numberOfFoods = possibleRecipes.Count;
+
+		// Remember how many meals were ordered
+		orderedCount = numberOfFoods;
+
+		// Pick meals
+		PickMeals(possibleRecipes, numberOfFoods);
+	}
+
+	/// <summary>
+	/// Customer receives the food and will pay and rate it
+	/// </summary>
+	/// <param name="order"></param>
+	internal void ReceiveFood ( Order order )
+	{
+		Rate(order);
+		bill += order.price;
+		if( orderedCount == ++receivedCount )
+		{
+			LeaveRestaurant();
+		}
+	}
+	#endregion
+
+	#region private_methods
+	/// <summary>
+	/// Pick random meals from a given list of recipes
+	/// </summary>
+	/// <param name="possibleRecipes"></param>
+	/// <param name="numberOfFoods"></param>
+	private void PickMeals ( List<RecipeManager.ActiveRecipe> possibleRecipes, int numberOfFoods )
+	{
 		for ( int i = 0 ; i < numberOfFoods ; i++ )
 		{
-			int randomIndex = Random.Range(0, possibleRecipes.Count);
+			int randomIndex = UnityEngine.Random.Range(0, possibleRecipes.Count);
 			AddOrder(possibleRecipes[randomIndex].Recipe);
-			possibleRecipes.RemoveAt(randomIndex);
+			possibleRecipes.RemoveAt(randomIndex); // be sure not to order the same meal twice
 		}
 	}
 
-	private void AddOrder (Recipe recipe)
+	/// <summary>
+	/// Customer rates and pays the received food and is deleted from the memory
+	/// </summary>
+	private void LeaveRestaurant()
+	{
+		Pay(bill);
+		Destroy(gameObject);
+	}
+
+	/// <summary>
+	/// Adds an order to the order stack
+	/// </summary>
+	/// <param name="recipe"></param>
+	private void AddOrder ( Recipe recipe )
 	{
 		Order order = new Order(recipe, DayCycle.Instance.GameTime)
 		{
-			customer = customer,
+			customerMono = this,
 			table = transform.parent.parent.GetComponent<Table>()
 		};
 		OrderStack.Instance.allOrders.Add(order);
-		Debug.Log("Customer " + customer.Id + " ordered " + recipe.name);
+		Debug.Log("Customer (+<b>" + customer.Name + "</b>)  ordered " + recipe.name);
 	}
 
+	/// <summary>
+	/// Adds the rating of the meal to the overall rating variable
+	/// </summary>
+	/// <param name="order"></param>
+	private void Rate ( Order order )
+	{
+		var rating = 5 * (order.AverageQuality) + 1 * (1 - (order.orderData.MinutesPassed(DayCycle.Instance.GameTime) - 15) / 35) + 4 * (1 - (order.recipe.Cost - 5) / 20);
+		rating = Mathf.RoundToInt(rating);
+		averageRating += rating;
+		Debug.Log("Rating: <b><color=red>" + rating + "</color></b> for " + order.recipe.recipeName);
+	}
+
+	/// <summary>
+	/// The customer pays for the meals received
+	/// </summary>
+	/// <param name="amount"></param>
+	private void Pay ( float amount )
+	{
+		Budget.Instance.AddFunds(amount);
+		Budget.Instance.AnimateIncome(amount);
+	}
+
+	/// <summary>
+	/// Gives a range of prices determined by the customer wealth
+	/// </summary>
+	/// <returns></returns>
 	private PriceRange GetPriceRangeFromWealth ()
 	{
 		switch ( customer.Wealth )
@@ -90,8 +173,9 @@ public class CustomerMono : MonoBehaviour
 			case Wealthiness.Millionaire:
 				return new PriceRange(11, 23);
 			default:
-				throw new System.Exception("Unexped customer wealth!");
+				throw new System.Exception("Unexpected customer wealth!");
 		}
 	}
+	#endregion
 	#endregion
 }

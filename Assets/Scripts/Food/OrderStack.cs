@@ -31,5 +31,6 @@ public class OrderStack : GenericSingletonClass<OrderStack>
     {
         cookedOrders.Remove(order);
         servedOrders.Add(order);
+		order.customerMono.ReceiveFood(order);
     }
 }

@@ -9,15 +9,18 @@ public class ActiveDeliverySourcesEditor : Editor
     {
         DrawDefaultInspector();
 
-        ActiveDeliverySources myScript = ( ActiveDeliverySources ) target;
-        if ( GUILayout.Button("Clear list") )
-        {
-            myScript.deliverySources.Clear();
-        }
-        if ( GUILayout.Button("Find All Objects") )
-        {
-            myScript.deliverySources.Clear();
-            myScript.deliverySources.AddRange(Instances.GetAllInstances<DeliverySource>());
-        }
-    }
+		EditorGUILayout.BeginHorizontal();
+			ActiveDeliverySources myScript = ( ActiveDeliverySources ) target;
+			if ( GUILayout.Button("Clear list") )
+			{
+				myScript.deliverySources.Clear();
+			}
+			if ( GUILayout.Button("Find All Objects") )
+			{
+				myScript.deliverySources.Clear();
+				myScript.deliverySources.AddRange(Instances.GetAllInstances<DeliverySource>());
+			}
+		EditorGUILayout.EndHorizontal();
+
+	}
 }

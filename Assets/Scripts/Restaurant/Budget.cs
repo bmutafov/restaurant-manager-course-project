@@ -1,6 +1,11 @@
-﻿public class Budget : GenericSingletonClass<Budget>
+﻿using System;
+using UnityEngine;
+
+public class Budget : GenericSingletonClass<Budget>
 {
 	#region variables
+	[SerializeField]
+	private IncomeAnimation incomeAnimator;
 	public float startingMoney = 5000;
 
 	private float funds;
@@ -48,7 +53,7 @@
 	/// Sets the Funds value equal to the amount (IMORTANT: USE ONLY WHEN LOADING SAVE)
 	/// </summary>
 	/// <param name="amount">Amount of funds to be set</param>
-	public void LoadFunds( float amount )
+	public void LoadFunds ( float amount )
 	{
 		funds = amount;
 		InvokeBudgetChange();
@@ -59,6 +64,11 @@
 	private void InvokeBudgetChange ()
 	{
 		if ( onBudgetChangedCallback != null ) onBudgetChangedCallback.Invoke();
+	}
+
+	internal void AnimateIncome ( float amount )
+	{
+		incomeAnimator.AnimateIncome(amount);
 	}
 	#endregion
 }

@@ -8,15 +8,17 @@ public class RecipeManagerEditor : Editor
     {
         DrawDefaultInspector();
 
-        RecipeManager myScript = ( RecipeManager ) target;
-        if ( GUILayout.Button("Clear list") )
-        {
-            myScript.allRecipes.Clear();
-        }
-        if ( GUILayout.Button("Find All Objects") )
-        {
-            myScript.allRecipes.Clear();
-            myScript.allRecipes.AddRange(Instances.GetAllInstances<Recipe>());
-        }
-    }
+		EditorGUILayout.BeginHorizontal();
+			RecipeManager myScript = ( RecipeManager ) target;
+			if ( GUILayout.Button("Clear list") )
+			{
+				myScript.allRecipes.Clear();
+			}
+			if ( GUILayout.Button("Find All Objects") )
+			{
+				myScript.allRecipes.Clear();
+				myScript.allRecipes.AddRange(Instances.GetAllInstances<Recipe>());
+			}
+		EditorGUILayout.EndHorizontal();
+	}
 }

@@ -98,7 +98,6 @@ public class Host : Worker
 		{
 			groupsToPlace.AddRange(visitingNow);
 		}
-		Debug.Log(visitingNow.Count);
 	}
 	#endregion
 }
