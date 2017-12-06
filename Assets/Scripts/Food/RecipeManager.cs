@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class RecipeManager : GenericSingletonClass<RecipeManager>
 {
@@ -52,14 +53,19 @@ public class RecipeManager : GenericSingletonClass<RecipeManager>
 		}
 	}
 
-	private void Start ()
+	public List<Recipe> InactiveRecipes
 	{
-		activeRecipes = new List<ActiveRecipe>();
-		foreach(var rec in allRecipes)
+		get
 		{
-			ActiveRecipe ar = new ActiveRecipe(rec, 5);
-			activeRecipes.Add(ar);
+			return allRecipes.Except(activeRecipes.Select(r => r.Recipe).ToList()).ToList();
 		}
+	}
+
+	protected override void Awake ()
+	{
+		base.Awake();
+		activeRecipes = new List<ActiveRecipe>();
+
 	}
 
 	/// <summary>
@@ -75,7 +81,7 @@ public class RecipeManager : GenericSingletonClass<RecipeManager>
 	}
 
 	#region active_recipes_methods
-	public void AddActiveRecipe(ActiveRecipe activeRecipe)
+	public void AddActiveRecipe ( ActiveRecipe activeRecipe )
 	{
 		if ( activeRecipes.Contains(activeRecipe) ) return;
 
@@ -103,7 +109,7 @@ public class RecipeManager : GenericSingletonClass<RecipeManager>
 		recipeToEdit.Price = newPrice;
 	}
 
-	public void LoadActiveRecipes( ActiveRecipe[] list )
+	public void LoadActiveRecipes ( ActiveRecipe[] list )
 	{
 		activeRecipes.AddRange(list);
 	}
