@@ -7,7 +7,7 @@ public class RecipesUI : MonoBehaviour
 
 	#region variables
 	public Button rightButton;
-	public Button leftButotn;
+	public Button leftButton;
 	public RectTransform container;
 	public GameObject recipePrefab;
 	public int slideSpeed = 3;
@@ -22,17 +22,17 @@ public class RecipesUI : MonoBehaviour
 	{
 		SpawnRecipes(false);
 		rightButton.onClick.AddListener(() => MoveRight());
-		leftButotn.onClick.AddListener(() => MoveLeft());
+		leftButton.onClick.AddListener(() => MoveLeft());
 	}
 
 	private void Update ()
 	{
-		if(isMoving) AnimateToPosition();
+		if ( isMoving ) AnimateToPosition();
 	}
 	#endregion
 
 	#region public_methods
-	public void ChangeShownRecipesToActive(bool active)
+	public void ChangeShownRecipesToActive ( bool active )
 	{
 		SpawnRecipes(active);
 	}
@@ -49,7 +49,7 @@ public class RecipesUI : MonoBehaviour
 	#region private_methods
 	private void AnimateToPosition ()
 	{
-		if(Vector3.Distance(container.position, nextPosition) < 1)
+		if ( Vector3.Distance(container.position, nextPosition) < 1 )
 		{
 			container.position = nextPosition;
 			isMoving = false;
@@ -59,21 +59,29 @@ public class RecipesUI : MonoBehaviour
 
 	private void MoveRight ()
 	{
-		if ( currentFirstShown + 2 > container.childCount || isMoving) return;
+		if ( currentFirstShown + 3 > container.childCount || isMoving ) return;
 		nextPosition = (container.position - new Vector3(container.sizeDelta.x, 0f, 0));
 		isMoving = true;
 		currentFirstShown += 2;
+		ButtonActiveManager();
 	}
 
 	private void MoveLeft ()
 	{
-		if ( currentFirstShown == 0 || isMoving) return;
+		if ( currentFirstShown == 0 || isMoving ) return;
 		nextPosition = (container.position + new Vector3(container.sizeDelta.x, 0f, 0));
 		isMoving = true;
 		currentFirstShown -= 2;
+		ButtonActiveManager();
 	}
 
-	private void SpawnRecipes (bool active)
+	private void ButtonActiveManager()
+	{
+		rightButton.interactable = (currentFirstShown + 2 < container.childCount);
+		leftButton.interactable = currentFirstShown != 0;
+	}
+
+	private void SpawnRecipes ( bool active )
 	{
 		ClearRecipesOnScreen();
 		List<Recipe> recipes = active ? RecipeManager.Instance.ActiveRecipes.Select(r => r.Recipe).ToList() : RecipeManager.Instance.InactiveRecipes;
@@ -83,27 +91,42 @@ public class RecipesUI : MonoBehaviour
 			UI.ChildText(obj, "Name", recipe.recipeName);
 			UI.ChildText(obj, "EstimatedCost", "Estimated cost: <b>" + recipe.Cost + "$</b>");
 			BulletPoint.BulletPoint list = obj.Find("List").GetComponent<BulletPoint.BulletPoint> ();
-			for(int i = 0 ; i < recipe.ingredients.Count ; i++ )
+			for ( int i = 0 ; i < recipe.ingredients.Count ; i++ )
 			{
 				list.AddBulletPoint(recipe.ingredients[i].ingredientName + " <i><color=#FFB8B2>x" + recipe.ingredientAmount[i] + "</color></i>");
 			}
-			obj.Find("Button").GetComponent<Button>()
-				.onClick
-				.AddListener(() =>
+			Button button = obj.Find("Button").GetComponent<Button>();
+			if ( active )
+			{
+				obj.Find("Price").gameObject.SetActive(false);
+				UI.ChildText(button.transform, 0, "Remove");
+				button.onClick.AddListener(() =>
 				{
-					float price = 0;
-					try
-					{
-						price = float.Parse(obj.Find("Price").GetComponent<TMPro.TMP_InputField>().text);
-					}
-					catch ( System.Exception )
-					{
-						UI.Instance.OpenErrorScreen("The entered price is invalid");
-						return;
-					}
-					RecipeManager.ActiveRecipe addRecipe = new RecipeManager.ActiveRecipe(recipe, price);
-					RecipeManager.Instance.AddActiveRecipe(addRecipe);
+					RecipeManager.Instance.DeleteActiveRecipe(recipe);
+					Destroy(obj.gameObject);
 				});
+				return;
+			}
+			else
+			{
+				button.onClick
+					.AddListener(() =>
+					{
+						float price = 0;
+						try
+						{
+							price = float.Parse(obj.Find("Price").GetComponent<TMPro.TMP_InputField>().text);
+						}
+						catch ( System.Exception )
+						{
+							UI.Instance.OpenErrorScreen("The entered price is invalid");
+							return;
+						}
+						RecipeManager.ActiveRecipe addRecipe = new RecipeManager.ActiveRecipe(recipe, price);
+						RecipeManager.Instance.AddActiveRecipe(addRecipe);
+						Destroy(obj.gameObject);
+					});
+			}
 		}
 	}
 	#endregion
