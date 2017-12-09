@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using BulletPoint;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-public class MoveContainer : MonoBehaviour
+public class RecipesUI : MonoBehaviour
 {
 
 	#region variables
@@ -11,6 +10,7 @@ public class MoveContainer : MonoBehaviour
 	public Button leftButotn;
 	public RectTransform container;
 	public GameObject recipePrefab;
+	public int slideSpeed = 3;
 
 	private int currentFirstShown = 0;
 	private Vector3 nextPosition;
@@ -20,7 +20,7 @@ public class MoveContainer : MonoBehaviour
 	#region unity_methods
 	private void Start ()
 	{
-		SpawnRecipes();
+		SpawnRecipes(false);
 		rightButton.onClick.AddListener(() => MoveRight());
 		leftButotn.onClick.AddListener(() => MoveLeft());
 	}
@@ -32,7 +32,18 @@ public class MoveContainer : MonoBehaviour
 	#endregion
 
 	#region public_methods
+	public void ChangeShownRecipesToActive(bool active)
+	{
+		SpawnRecipes(active);
+	}
 
+	public void ClearRecipesOnScreen ()
+	{
+		for ( int i = 0 ; i < container.childCount ; i++ )
+		{
+			Destroy(container.transform.GetChild(i).gameObject);
+		}
+	}
 	#endregion
 
 	#region private_methods
@@ -43,7 +54,7 @@ public class MoveContainer : MonoBehaviour
 			container.position = nextPosition;
 			isMoving = false;
 		}
-		container.position = Vector3.Lerp(container.position, nextPosition, Time.deltaTime * 3);
+		container.position = Vector3.Lerp(container.position, nextPosition, Time.deltaTime * slideSpeed);
 	}
 
 	private void MoveRight ()
@@ -62,22 +73,37 @@ public class MoveContainer : MonoBehaviour
 		currentFirstShown -= 2;
 	}
 
-	private void SpawnRecipes ()
+	private void SpawnRecipes (bool active)
 	{
-		foreach ( Recipe recipe in RecipeManager.Instance.InactiveRecipes )
+		ClearRecipesOnScreen();
+		List<Recipe> recipes = active ? RecipeManager.Instance.ActiveRecipes.Select(r => r.Recipe).ToList() : RecipeManager.Instance.InactiveRecipes;
+		foreach ( Recipe recipe in recipes )
 		{
 			var obj = Instantiate (recipePrefab, container).transform;
 			UI.ChildText(obj, "Name", recipe.recipeName);
+			UI.ChildText(obj, "EstimatedCost", "Estimated cost: <b>" + recipe.Cost + "$</b>");
 			BulletPoint.BulletPoint list = obj.Find("List").GetComponent<BulletPoint.BulletPoint> ();
-			foreach ( Ingredient ingredient in recipe.ingredients )
+			for(int i = 0 ; i < recipe.ingredients.Count ; i++ )
 			{
-				list.AddBulletPoint(ingredient.ingredientName);
+				list.AddBulletPoint(recipe.ingredients[i].ingredientName + " <i><color=#FFB8B2>x" + recipe.ingredientAmount[i] + "</color></i>");
 			}
 			obj.Find("Button").GetComponent<Button>()
 				.onClick
-				.AddListener(() => 
-				RecipeManager.Instance.AddActiveRecipe
-				(new RecipeManager.ActiveRecipe(recipe, recipe.Cost)));
+				.AddListener(() =>
+				{
+					float price = 0;
+					try
+					{
+						price = float.Parse(obj.Find("Price").GetComponent<TMPro.TMP_InputField>().text);
+					}
+					catch ( System.Exception )
+					{
+						UI.Instance.OpenErrorScreen("The entered price is invalid");
+						return;
+					}
+					RecipeManager.ActiveRecipe addRecipe = new RecipeManager.ActiveRecipe(recipe, price);
+					RecipeManager.Instance.AddActiveRecipe(addRecipe);
+				});
 		}
 	}
 	#endregion

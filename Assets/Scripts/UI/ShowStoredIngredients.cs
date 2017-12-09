@@ -5,10 +5,12 @@ public class ShowStoredIngredients : MonoBehaviour
 {
 	public GameObject ingredientPrefab;
 	public Transform container;
+	public GameObject noContentText;
 
 	public void ShowAll ()
 	{
 		ClearAll();
+		noContentText.SetActive(Storage.Instance.products.Count == 0);
 		foreach ( var ingrGroup in Storage.Instance.products )
 		{
 			Transform instance = Instantiate(ingredientPrefab, container).transform;
