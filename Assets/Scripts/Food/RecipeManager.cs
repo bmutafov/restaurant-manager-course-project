@@ -45,6 +45,9 @@ public class RecipeManager : GenericSingletonClass<RecipeManager>
 	public List<Recipe> allRecipes;
 	private List<ActiveRecipe> activeRecipes;
 
+	/// <summary>
+	/// Returns a list from current active recipes
+	/// </summary>
 	public List<ActiveRecipe> ActiveRecipes
 	{
 		get
@@ -53,6 +56,9 @@ public class RecipeManager : GenericSingletonClass<RecipeManager>
 		}
 	}
 
+	/// <summary>
+	/// Returns a list from recipes which haven't been added to the active recipes list
+	/// </summary>
 	public List<Recipe> InactiveRecipes
 	{
 		get
@@ -81,13 +87,22 @@ public class RecipeManager : GenericSingletonClass<RecipeManager>
 	}
 
 	#region active_recipes_methods
+	/// <summary>
+	/// Adds a recipe to the active recipes list
+	/// </summary>
+	/// <param name="activeRecipe"></param>
 	public void AddActiveRecipe ( ActiveRecipe activeRecipe )
 	{
-		if ( activeRecipes.Contains(activeRecipe) ) return;
+		if ( activeRecipes.Exists(r => r.Recipe == activeRecipe.Recipe) ) return;
 
 		activeRecipes.Add(activeRecipe);
 	}
 
+	/// <summary>
+	/// Adds a recipe to the active recipes list
+	/// </summary>
+	/// <param name="recipe"></param>
+	/// <param name="price"></param>
 	public void AddActiveRecipe ( Recipe recipe, float price )
 	{
 		if ( activeRecipes.Exists(r => r.Recipe == recipe) ) return;
@@ -96,6 +111,11 @@ public class RecipeManager : GenericSingletonClass<RecipeManager>
 		activeRecipes.Add(newRecipe);
 	}
 
+
+	/// <summary>
+	/// Deletes from active recipes where the recipes matches the argument
+	/// </summary>
+	/// <param name="recipe"></param>
 	public void DeleteActiveRecipe ( Recipe recipe )
 	{
 		ActiveRecipe recipeToDelete = activeRecipes.Find(r => r.Recipe == recipe);
@@ -103,12 +123,21 @@ public class RecipeManager : GenericSingletonClass<RecipeManager>
 		activeRecipes.Remove(recipeToDelete);
 	}
 
+	/// <summary>
+	/// Change the price of an existing active recipe
+	/// </summary>
+	/// <param name="recipe"></param>
+	/// <param name="newPrice"></param>
 	public void UpdateRecipePrice ( Recipe recipe, float newPrice )
 	{
 		ActiveRecipe recipeToEdit = activeRecipes.Find(r => r.Recipe == recipe);
 		recipeToEdit.Price = newPrice;
 	}
 
+	/// <summary>
+	/// Loading function
+	/// </summary>
+	/// <param name="list"></param>
 	public void LoadActiveRecipes ( ActiveRecipe[] list )
 	{
 		activeRecipes.AddRange(list);

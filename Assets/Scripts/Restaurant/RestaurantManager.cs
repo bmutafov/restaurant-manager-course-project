@@ -84,7 +84,6 @@ public class RestaurantManager : GenericSingletonClass<RestaurantManager>
 		obj.name = worker.Name;
 		obj.tag = "Worker";
 		workers.Add(worker);
-		Debug.Log(workers.Count);
 	}
 
 	/// <summary>
