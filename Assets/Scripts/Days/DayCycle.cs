@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -16,7 +18,6 @@ public class DayCycle : GenericSingletonClass<DayCycle>
 
 	public TextMeshProUGUI startTimeText;
 	public TextMeshProUGUI closeTimeText;
-
 
 	private DateTime gameTime;
 
@@ -154,6 +155,7 @@ public class DayCycle : GenericSingletonClass<DayCycle>
 	{
 		if ( !RestaurantManager.Instance.HasEveryWorker )
 		{
+			UI.Instance.OpenErrorScreen("<b>Can not start the next day!</b><br> The restaurant must have employed every type of worker before it can operate!");
 			Debug.Log("Cant start, the restaurant must have employed every type of worker before it can operate!");
 			return;
 		}
