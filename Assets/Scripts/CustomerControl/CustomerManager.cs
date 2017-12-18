@@ -32,12 +32,12 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
 	private void Start ()
 	{
 		allCustomers = new AllCustomers();
-		/*
+		
 		if ( allCustomers.list.Count != customerPoolSize )
 		{
 			allCustomers.list.Clear();
 			GenerateCustomersPool();
-		}*/
+		}
 
 		customerGroups = new List<CustomerGroup>();
 
