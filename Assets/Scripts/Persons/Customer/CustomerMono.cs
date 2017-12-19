@@ -60,6 +60,18 @@ public class CustomerMono : MonoBehaviour
 
 	#region public_methods
 	/// <summary>
+	/// Customer rates and pays the received food and is deleted from the memory
+	/// </summary>
+	public void LeaveRestaurant ()
+	{
+		Pay(bill);
+		var review = Instantiate(reviewPrefab, reviewContainer.transform);
+		int rating = receivedCount > 0 ? ( int ) averageRating / receivedCount : 1;
+		review.GetComponent<ReviewInfo>().SetInfo(rating, customer.Name);
+		Destroy(gameObject);
+	}
+
+	/// <summary>
 	/// Pick and order food determined by the customer wealth
 	/// </summary>
 	public void OrderFood ()
@@ -125,17 +137,6 @@ public class CustomerMono : MonoBehaviour
 			AddOrder(possibleRecipes[randomIndex].Recipe);
 			possibleRecipes.RemoveAt(randomIndex); // be sure not to order the same meal twice
 		}
-	}
-
-	/// <summary>
-	/// Customer rates and pays the received food and is deleted from the memory
-	/// </summary>
-	private void LeaveRestaurant()
-	{
-		Pay(bill);
-		var review = Instantiate(reviewPrefab, reviewContainer.transform);
-		review.GetComponent<ReviewInfo>().SetInfo((int) averageRating / receivedCount, customer.Name);
-		Destroy(gameObject);
 	}
 
 	/// <summary>

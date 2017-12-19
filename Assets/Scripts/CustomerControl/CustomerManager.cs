@@ -32,6 +32,7 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
 	private void Start ()
 	{
 		allCustomers = new AllCustomers();
+		DayCycle.Instance.onDayChangedCallback += KickLeftCustomers;
 		
 		if ( allCustomers.list.Count != customerPoolSize )
 		{
@@ -42,10 +43,13 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
 		customerGroups = new List<CustomerGroup>();
 
 		if ( !isTestBuild )
+		{
 			DayCycle.Instance.onDayStartedCallback += CustomersNewDay;
+		}
 		else
+		{
 			Debug.LogWarning("Test mode turned on!");
-
+		}
 	}
 
 	private void Update ()
@@ -151,6 +155,19 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
 			.AddHours(GetVisitingHour())
 			.AddMinutes(Random.Range(0, 55));
 		return result;
+	}
+
+	/// <summary>
+	/// Called automatically on day end. All customers left in the restaurant leave.
+	/// </summary>
+	private void KickLeftCustomers()
+	{
+		List<CustomerMono> customers = new List<CustomerMono>();
+		customers.AddRange(FindObjectsOfType<CustomerMono>());
+		foreach ( var customer in customers )
+		{
+			customer.LeaveRestaurant();
+		}
 	}
 
 	/// <summary>
