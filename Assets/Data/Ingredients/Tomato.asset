@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8325803baeeadf4bba899d1cb474086, type: 3}
   m_Name: Tomato
   m_EditorClassIdentifier: 
-  name: Tomato
+  ingredientName: Tomato
   price: 0.17
   expireTime: 2
   type: 1
