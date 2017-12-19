@@ -76,7 +76,11 @@ public class Queue : GenericSingletonClass<Queue>
 				customerGO.transform.localPosition = Vector3.zero;
 				customerGO.transform.localEulerAngles = Vector3.zero;
 				customerGO.transform.GetChild(0).GetComponent<Animator>().SetBool("isSitting", true);
-				customerGO.GetComponent<CustomerMono>().OrderFood();
+				CustomerMono customerMono = customerGO.GetComponent<CustomerMono>();
+				customerMono.table = table;
+				customerMono.OrderFood();
+				table.CustomersOnTable++;
+				RemoveCustomer(customer);
 				break;
 			}
 		}

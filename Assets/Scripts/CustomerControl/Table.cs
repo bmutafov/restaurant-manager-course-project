@@ -7,6 +7,8 @@ public class Table : MonoBehaviour
 
 	#region table_info_variables
 	private int id;
+	private int customersOnTable = 0;
+
 	public int maxPeople = 4;
 	public bool isTaken = false;
 	public bool isRound = false;
@@ -19,6 +21,24 @@ public class Table : MonoBehaviour
 		get
 		{
 			return id;
+		}
+	}
+
+	public int CustomersOnTable
+	{
+		get
+		{
+			return customersOnTable;
+		}
+
+		set
+		{
+			customersOnTable = value;
+			if ( customersOnTable == 0 )
+			{
+				isTaken = false;
+				Debug.Log("Table #" + id + " is now free!");
+			}
 		}
 	}
 

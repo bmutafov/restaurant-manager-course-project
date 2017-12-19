@@ -71,7 +71,7 @@ public class Host : Worker
 		Debug.Log(groupsToPlace[0].visitTime + " seated.");
 
 		Queue.Instance.MoveCustomersToTable(groupsToPlace[0].customers, waiterFreeTable);
-		Queue.Instance.RemoveCustomers(groupsToPlace[0].customers);
+		//Queue.Instance.RemoveCustomers(groupsToPlace[0].customers);
 
 		groupsToPlace.RemoveAt(0);
 	}

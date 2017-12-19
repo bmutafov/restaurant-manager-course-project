@@ -134,6 +134,11 @@ public class RecipeManager : GenericSingletonClass<RecipeManager>
 		recipeToEdit.Price = newPrice;
 	}
 
+	public ActiveRecipe FindActiveRecipeFromRecipe ( Recipe recipe )
+	{
+		return activeRecipes.Find(r => r.Recipe == recipe);
+	}
+
 	/// <summary>
 	/// Loading function
 	/// </summary>

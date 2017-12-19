@@ -22,6 +22,7 @@ public class CustomerMono : MonoBehaviour
 	public Transform customerInfoUI;
 	public GameObject reviewPrefab;
 	public GameObject reviewContainer;
+	public Table table;
 
 	private OutlineRender outlineComponent;
 	private Animator animator;
@@ -68,6 +69,7 @@ public class CustomerMono : MonoBehaviour
 		var review = Instantiate(reviewPrefab, reviewContainer.transform);
 		int rating = receivedCount > 0 ? ( int ) averageRating / receivedCount : 1;
 		review.GetComponent<ReviewInfo>().SetInfo(rating, customer.Name);
+		table.CustomersOnTable--;
 		Destroy(gameObject);
 	}
 
@@ -81,7 +83,7 @@ public class CustomerMono : MonoBehaviour
 
 		// Get all possible recipes within the pricerange
 		List<RecipeManager.ActiveRecipe> possibleRecipes = RecipeManager.Instance.ActiveRecipes.FindAll(r => r.Price > priceRange.minPrice && r.Price < priceRange.maxPrice);
-		Debug.Log(possibleRecipes.Count);
+		if ( possibleRecipes.Count == 0 ) LeaveRestaurant();
 
 		// Randomize a number of meals to be ordered
 		int numberOfFoods = UnityEngine.Random.Range(1, (int)customer.Wealth * 2);
@@ -102,7 +104,7 @@ public class CustomerMono : MonoBehaviour
 	internal void ReceiveFood ( Order order )
 	{
 		Rate(order);
-		bill += order.price;
+		bill += RecipeManager.Instance.FindActiveRecipeFromRecipe(order.recipe).Price;
 		if ( orderedCount == ++receivedCount )
 		{
 			LeaveRestaurant();
@@ -185,9 +187,9 @@ public class CustomerMono : MonoBehaviour
 		switch ( customer.Wealth )
 		{
 			case Wealthiness.Poor:
-				return new PriceRange(3, 6);
+				return new PriceRange(1, 6);
 			case Wealthiness.Avarage:
-				return new PriceRange(4, 9);
+				return new PriceRange(2, 9);
 			case Wealthiness.Rich:
 				return new PriceRange(8, 13);
 			case Wealthiness.Millionaire:
