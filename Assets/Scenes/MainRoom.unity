@@ -7815,7 +7815,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.1764706, g: 0.21176471, b: 0.26666668, a: 1}
+  m_BackGroundColor: {r: 0.15392517, g: 0.2059058, b: 0.28676468, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -7905,8 +7905,8 @@ MonoBehaviour:
   sourceCamera: {fileID: 470969593}
   outlineCamera: {fileID: 1602914055}
   outlineShaderMaterial: {fileID: 0}
-  renderTexture: {fileID: 1714307540}
-  extraRenderTexture: {fileID: 700190136}
+  renderTexture: {fileID: 1498238158}
+  extraRenderTexture: {fileID: 1570369645}
 --- !u!114 &470969597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11921,33 +11921,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3d6821d1fe0a91245b91612c3a48f410, type: 2}
   m_IsPrefabParent: 0
---- !u!84 &700190136
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_Width: 962
-  m_Height: 649
-  m_AntiAliasing: 1
-  m_DepthFormat: 1
-  m_ColorFormat: 0
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1001 &702308348
 Prefab:
   m_ObjectHideFlags: 0
@@ -25008,6 +24981,33 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1267db45588071a41a91552f476e6afb, type: 2}
   m_IsPrefabParent: 0
+--- !u!84 &1498238158
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_Width: 962
+  m_Height: 649
+  m_AntiAliasing: 1
+  m_DepthFormat: 1
+  m_ColorFormat: 0
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 0
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1001 &1498308740
 Prefab:
   m_ObjectHideFlags: 0
@@ -26289,6 +26289,33 @@ MonoBehaviour:
 Transform:
   m_PrefabParentObject: {fileID: 400010, guid: 4377bb7ebee675e44931e04135f02c79, type: 2}
   m_PrefabInternal: {fileID: 473507035}
+--- !u!84 &1570369645
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_Width: 962
+  m_Height: 649
+  m_AntiAliasing: 1
+  m_DepthFormat: 1
+  m_ColorFormat: 0
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1001 &1571133463
 Prefab:
   m_ObjectHideFlags: 0
@@ -26759,7 +26786,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 0
   m_RenderingPath: 1
-  m_TargetTexture: {fileID: 1714307540}
+  m_TargetTexture: {fileID: 1498238158}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
@@ -28565,33 +28592,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: db3c08b3021e25746a6697db05571763, type: 2}
   m_PrefabInternal: {fileID: 796429647}
---- !u!84 &1714307540
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_Width: 962
-  m_Height: 649
-  m_AntiAliasing: 1
-  m_DepthFormat: 1
-  m_ColorFormat: 0
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 0
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1001 &1717353600
 Prefab:
   m_ObjectHideFlags: 0
