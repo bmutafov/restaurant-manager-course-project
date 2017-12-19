@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
 
 public class ReviewInfo : MonoBehaviour
 {
-
 	#region variables
 	public int duration = 5;
 	[HideInInspector]
@@ -49,7 +47,7 @@ public class ReviewInfo : MonoBehaviour
 			Instantiate(starPrefab, starContainer);
 		}
 
-		text.text = "Test text";
+		text.text = ReviewTexts.GetMessageForRating(rating);
 
 		StartCoroutine(DeleteReview());
 	}

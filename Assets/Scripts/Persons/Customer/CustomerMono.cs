@@ -66,9 +66,12 @@ public class CustomerMono : MonoBehaviour
 	public void LeaveRestaurant ()
 	{
 		Pay(bill);
-		var review = Instantiate(reviewPrefab, reviewContainer.transform);
-		int rating = receivedCount > 0 ? ( int ) averageRating / receivedCount : 1;
-		review.GetComponent<ReviewInfo>().SetInfo(rating, customer.Name);
+		if ( UnityEngine.Random.Range(1, 5) == 2 )
+		{
+			var review = Instantiate(reviewPrefab, reviewContainer.transform);
+			int rating = receivedCount > 0 ? ( int ) averageRating / receivedCount : 0;
+			review.GetComponent<ReviewInfo>().SetInfo(rating, customer.Name);
+		}
 		table.CustomersOnTable--;
 		Destroy(gameObject);
 	}
