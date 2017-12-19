@@ -77,7 +77,7 @@ public class ChangePrefab : MonoBehaviour
 	public void ChooseNewModel ()
 	{
 		List<GameObject> objectPool = GetObjectPool();
-		var newObject = Instantiate(objectPool[currentIndex], editObject.transform.position, Quaternion.identity, decorationsParent);
+		var newObject = Instantiate(objectPool[currentIndex], editObject.transform.position, editObject.transform.rotation, decorationsParent);
 		editObject.transform.GetChild(0).SetParent(newObject.transform);
 		Destroy(editObject);
 	}
