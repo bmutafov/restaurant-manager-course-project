@@ -27,7 +27,7 @@ public class IngredientEditor : Editor
 			foreach ( var myScript in scripts )
 			{
 				myScript.ingredientName = myScript.name;
-				EditorUtility.SetDirty(target);
+				EditorUtility.SetDirty(myScript);
 			}
 		}
 	}
