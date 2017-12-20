@@ -58,9 +58,9 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
 		{
 			GenerateCustomersPool();
 			List<Customer> cust = new List<Customer>(allCustomers.list.GetRange(0, 6));
-			customerGroups.Add(new CustomerGroup(cust.GetRange(0, 2)) { visitTime = new System.DateTime().AddHours(12).AddMinutes(4) });
-			customerGroups.Add(new CustomerGroup(cust.GetRange(2, 2)) { visitTime = new System.DateTime().AddHours(12).AddMinutes(4) });
+			customerGroups.Add(new CustomerGroup(cust.GetRange(0, 4)) { visitTime = new System.DateTime().AddHours(12).AddMinutes(4) });
 			customerGroups.Add(new CustomerGroup(cust.GetRange(4, 2)) { visitTime = new System.DateTime().AddHours(12).AddMinutes(4) });
+			//customerGroups.Add(new CustomerGroup(cust.GetRange(4, 2)) { visitTime = new System.DateTime().AddHours(12).AddMinutes(4) });
 			//customerGroups.Add(new CustomerGroup(cust.GetRange(12, 4)) { visitTime = new System.DateTime().AddHours(12).AddMinutes(4) });
 			Debug.Log("genereted groups!");
 		}

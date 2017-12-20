@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Collections;
 
 public class CustomerMono : MonoBehaviour
 {
@@ -76,6 +77,13 @@ public class CustomerMono : MonoBehaviour
 		Destroy(gameObject);
 	}
 
+	public IEnumerator LeaveRestaurant(float time)
+	{
+		yield return new WaitForSecondsRealtime(time);
+
+		LeaveRestaurant();
+	}
+
 	/// <summary>
 	/// Pick and order food determined by the customer wealth
 	/// </summary>
@@ -123,7 +131,7 @@ public class CustomerMono : MonoBehaviour
 		unrecievedFood = true;
 		if(orderedCount == 0)
 		{
-			LeaveRestaurant();
+			StartCoroutine(LeaveRestaurant(3));
 		}
 	}
 	#endregion
@@ -194,9 +202,9 @@ public class CustomerMono : MonoBehaviour
 			case Wealthiness.Avarage:
 				return new PriceRange(2, 9);
 			case Wealthiness.Rich:
-				return new PriceRange(8, 13);
+				return new PriceRange(3, 13);
 			case Wealthiness.Millionaire:
-				return new PriceRange(11, 23);
+				return new PriceRange(2, 23);
 			default:
 				throw new System.Exception("Unexpected customer wealth!");
 		}

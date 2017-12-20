@@ -22,12 +22,17 @@ public class Decoration : MonoBehaviour
 	private void OnMouseEnter ()
 	{
 		if ( changePrefab.IsEditMode && !EventSystem.current.IsPointerOverGameObject() )
+		{
 			outlineEffect.SetActive(true);
+		}
 	}
 
 	private void OnMouseExit ()
 	{
-		outlineEffect.SetActive(false);
+		if ( outlineEffect.activeSelf )
+		{
+			outlineEffect.SetActive(false);
+		}
 	}
 
 	private void OnMouseOver ()
