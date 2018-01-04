@@ -93,7 +93,7 @@ public class Host : Worker
 	{
 		foreach ( var table in thisWaiter.Tables )
 		{
-			if ( !table.isTaken )
+			if ( !table.isTaken && table.maxPeople >= 4 )
 			{
 				freeTables++;
 				freeTable = table;

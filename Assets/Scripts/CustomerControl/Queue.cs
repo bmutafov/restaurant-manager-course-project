@@ -61,18 +61,24 @@ public class Queue : GenericSingletonClass<Queue>
 	#region move_customer_to_table
 	public void MoveCustomerToTable ( Customer customer, Table table )
 	{
+		Debug.LogWarning("BEFORE FOR: " + customer.Id);
+
 		Transform tableTransform = table.transform;
+		Debug.LogWarning("TABLE: " + table.maxPeople);
+
 		for ( int i = 0 ; i < tableTransform.childCount ; i++ )
 		{
-			Transform child = tableTransform.GetChild(i);
-			if ( child.childCount == 0 )
-			{
+			Transform chair = tableTransform.GetChild(i);
+			Debug.LogWarning("BEFORE IF: " + customer.Id);
 
+			if ( chair.childCount == 0 )
+			{
+				Debug.LogWarning("AFTER IF: " + customer.Id);
 				GameObject customerGO = GameObject.Find("Customer" + customer.Id);
 
 				bool zOrientation = tableTransform.position.z > customerGO.transform.position.z;
 
-				customerGO.transform.parent = child;
+				customerGO.transform.parent = chair;
 				customerGO.transform.localPosition = Vector3.zero;
 				customerGO.transform.localEulerAngles = Vector3.zero;
 				customerGO.transform.GetChild(0).GetComponent<Animator>().SetBool("isSitting", true);
