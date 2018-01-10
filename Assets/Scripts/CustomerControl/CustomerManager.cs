@@ -26,9 +26,6 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
 	#endregion
 
 
-	// TODO: DELETE
-	public bool isTestBuild = false;
-
 	private void Start ()
 	{
 		allCustomers = new AllCustomers();
@@ -42,28 +39,7 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
 
 		customerGroups = new List<CustomerGroup>();
 
-		if ( !isTestBuild )
-		{
-			DayCycle.Instance.onDayStartedCallback += CustomersNewDay;
-		}
-		else
-		{
-			Debug.LogWarning("Test mode turned on!");
-		}
-	}
-
-	private void Update ()
-	{
-		if ( isTestBuild && Input.GetKeyDown("g") )
-		{
-			GenerateCustomersPool();
-			List<Customer> cust = new List<Customer>(allCustomers.list.GetRange(0, 6));
-			customerGroups.Add(new CustomerGroup(cust.GetRange(0, 4)) { visitTime = new System.DateTime().AddHours(12).AddMinutes(4) });
-			customerGroups.Add(new CustomerGroup(cust.GetRange(4, 2)) { visitTime = new System.DateTime().AddHours(12).AddMinutes(4) });
-			//customerGroups.Add(new CustomerGroup(cust.GetRange(4, 2)) { visitTime = new System.DateTime().AddHours(12).AddMinutes(4) });
-			//customerGroups.Add(new CustomerGroup(cust.GetRange(12, 4)) { visitTime = new System.DateTime().AddHours(12).AddMinutes(4) });
-			Debug.Log("genereted groups!");
-		}
+		DayCycle.Instance.onDayStartedCallback += CustomersNewDay;
 	}
 
 	#region customer_generation

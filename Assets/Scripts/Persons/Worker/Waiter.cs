@@ -12,6 +12,10 @@ public class Waiter : Worker
 
     private List<Table> tables = new List<Table>();
 
+	private Order order;
+	public Vector3 idlePosition = new Vector3(28f, 0, -5);
+	public bool isServing = false;
+
     public List<Table> Tables
     {
         get
@@ -19,6 +23,22 @@ public class Waiter : Worker
             return tables;
         }
     }
+
+	public Order CurrentOrder
+	{
+		get
+		{
+			return order;
+		}
+	}
+
+	public int ServeMinutes
+	{
+		get
+		{
+			return serveMinutes;
+		}
+	}
     #endregion
 
     public Waiter (string name, int skill) : base(name, skill)
@@ -41,11 +61,17 @@ public class Waiter : Worker
     {
         if ( IsTimeToServe() && OrderStack.Instance.cookedOrders.Count > 0 )
         {
+			isServing = true;
             lastMinuteServed = DayCycle.Instance.GameTime.Minute;
             Order orderToServe = OrderStack.Instance.cookedOrders[0];
+			order = orderToServe;
+
             OrderStack.Instance.ServeOrder(orderToServe);
             Debug.Log(orderToServe.recipe.recipeName + " served! Food quality: " + orderToServe.AverageQuality);
-        }
+        } else
+		{
+			isServing = false;
+		}
     }
 
     public override void CalculateWorkloadFromSkill ()

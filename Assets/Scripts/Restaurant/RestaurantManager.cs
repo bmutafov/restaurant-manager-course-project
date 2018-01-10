@@ -6,6 +6,7 @@ public class RestaurantManager : GenericSingletonClass<RestaurantManager>
 
 	#region variables
 	public GameObject spawnParent;
+	public GameObject waiterPrefab;
 
 	private Table[] tables;
 	private List<Worker> workers;
@@ -46,7 +47,6 @@ public class RestaurantManager : GenericSingletonClass<RestaurantManager>
 	{
 		workers = new List<Worker>();
 		tables = spawnParent.GetComponentsInChildren<Table>();
-		//FindWorkers();
 		SeperateWaitersByTables();
 	}
 
@@ -79,7 +79,7 @@ public class RestaurantManager : GenericSingletonClass<RestaurantManager>
 	/// <param name="worker"></param>
 	public void InstantateWorker ( Worker worker )
 	{
-		var obj = new GameObject();
+		var obj = worker is Waiter ? Instantiate(waiterPrefab, ((Waiter)worker).idlePosition, waiterPrefab.transform.rotation) : new GameObject();
 		obj.AddComponent<WorkerMono>().worker = worker;
 		obj.name = worker.Name;
 		obj.tag = "Worker";
