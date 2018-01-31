@@ -33,7 +33,10 @@ public class DisplayWorkersUI : MonoBehaviour
 			var instance = Instantiate(prefab, container).transform;
 			UpdateInstanceInfo(worker, instance);
 			instance.Find("HireButton").GetComponent<Button>().onClick.AddListener(
-				() => RestaurantManager.Instance.InstantateWorker(worker));
+				() => {
+					RestaurantManager.Instance.InstantateWorker(worker);
+					workerApplicants.Remove(worker);
+					});
 		}
 	}
 

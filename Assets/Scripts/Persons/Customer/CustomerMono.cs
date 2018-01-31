@@ -65,8 +65,9 @@ public class CustomerMono : MonoBehaviour
 	/// </summary>
 	public void LeaveRestaurant ()
 	{
+		Debug.Log("Customer on table " + table.Id + " leaves! ");
 		Pay(bill);
-		if ( UnityEngine.Random.Range(1, 5) == 2 )
+		if ( UnityEngine.Random.Range(1, 30) == 13 )
 		{
 			var review = Instantiate(reviewPrefab, reviewContainer.transform);
 			int rating = receivedCount > 0 ? ( int ) averageRating / receivedCount : 0;
@@ -113,6 +114,7 @@ public class CustomerMono : MonoBehaviour
 	/// <param name="order"></param>
 	internal void ReceiveFood ( Order order )
 	{
+		Debug.Log("Customer (<b>" + customer.Name + "</b>) received " + order.recipe);
 		Rate(order);
 		bill += RecipeManager.Instance.FindActiveRecipeFromRecipe(order.recipe).Price;
 		if ( orderedCount == ++receivedCount )

@@ -2,9 +2,9 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Food/Recipe")]
+[System.Serializable]
 public class Recipe : ScriptableObject
 {
-
 	#region variables
 	public string recipeName;
 	public List<Ingredient> ingredients;

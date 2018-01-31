@@ -61,9 +61,11 @@ public class Waiter : Worker
     {
         if ( IsTimeToServe() && OrderStack.Instance.cookedOrders.Count > 0 )
         {
+			Order orderToServe = OrderStack.Instance.cookedOrders.Find(o => tables.Contains(o.table));
+			if ( orderToServe == null ) return;
+
 			isServing = true;
             lastMinuteServed = DayCycle.Instance.GameTime.Minute;
-            Order orderToServe = OrderStack.Instance.cookedOrders[0];
 			order = orderToServe;
             OrderStack.Instance.ServeOrder(orderToServe);
         } else

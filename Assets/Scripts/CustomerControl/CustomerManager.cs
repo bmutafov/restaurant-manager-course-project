@@ -31,7 +31,7 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
 		allCustomers = new AllCustomers();
 		DayCycle.Instance.onDayChangedCallback += KickLeftCustomers;
 		
-		if ( allCustomers.list.Count != customerPoolSize )
+		if ( !SaveManager.Instance.loadOnStart )
 		{
 			allCustomers.list.Clear();
 			GenerateCustomersPool();
@@ -73,7 +73,7 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
 		{
 			seatsCount += spawnNodes.transform.GetChild(i).childCount;
 		}
-		int customerMaxCount = seatsCount * 3 + (DayCycle.Instance.closingHour - DayCycle.Instance.openingHour) * seatsCount * 3;
+		int customerMaxCount = seatsCount  * DayCycle.Instance.WorkingHours;
 
 		List<Customer> customerPool = allCustomers.GetRandomCustomers(customerMaxCount);
 		List<Customer> visitingCustomers = new List<Customer>();
@@ -142,7 +142,10 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
 		customers.AddRange(FindObjectsOfType<CustomerMono>());
 		foreach ( var customer in customers )
 		{
-			customer.LeaveRestaurant();
+			if ( customer.table != null )
+				customer.LeaveRestaurant();
+			else
+				Destroy(customer.gameObject);
 		}
 	}
 

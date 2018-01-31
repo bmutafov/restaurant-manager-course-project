@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 
+[System.Serializable]
 public class RecipeManager : GenericSingletonClass<RecipeManager>
 {
+	[System.Serializable]
 	public class ActiveRecipe
-	{
+	{ 
+		[SerializeField]
 		private Recipe recipe;
+		[SerializeField]
 		private float price;
 
 		public ActiveRecipe ( Recipe recipe, float price )

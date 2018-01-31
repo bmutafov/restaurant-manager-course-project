@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class SaveManager : MonoBehaviour
+public class SaveManager : GenericSingletonClass<SaveManager>
 {
 
 	#region variables
