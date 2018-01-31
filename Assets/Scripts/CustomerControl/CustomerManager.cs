@@ -67,26 +67,35 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
 	/// <returns>List</returns>
 	private List<Customer> GenerateVisitingCustomersForTheDay ()
 	{
+		// Count current seats count
 		int tablesCount = spawnNodes.transform.childCount;
 		int seatsCount = 0;
 		for ( int i = 0 ; i < tablesCount ; i++ )
 		{
 			seatsCount += spawnNodes.transform.GetChild(i).childCount;
 		}
+		
+		// Formula to determine the max number of visiting customers
 		int customerMaxCount = seatsCount  * DayCycle.Instance.WorkingHours;
 
+		// Get random customers with that count
 		List<Customer> customerPool = allCustomers.GetRandomCustomers(customerMaxCount);
 		List<Customer> visitingCustomers = new List<Customer>();
 
+		// Filter the customers
 		for ( int i = 0 ; i < customerPool.Count ; i++ )
 		{
+			// Random number between 0.00 and 1.00
 			float chance = Random.Range(0f, 1f);
+			// if the number is less than the visit percentage of the customer
+			// they visit the restaurant; else they do not
 			if ( chance < customerPool[i].VisitPercentage )
 			{
 				visitingCustomers.Add(customerPool[i]);
 			}
 		}
 
+		// returns the list to be used in other functions
 		return visitingCustomers;
 	}
 
