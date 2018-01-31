@@ -175,7 +175,8 @@ public class CustomerMono : MonoBehaviour
 	private void Rate ( Order order )
 	{
 		var rating = 5 * (order.AverageQuality) + 1 * (1 - (order.orderData.MinutesPassed(DayCycle.Instance.GameTime) - 15) / 35) + 4 * (1 - (order.recipe.Cost - 5) / 20);
-		rating = Mathf.RoundToInt(rating);
+		rating += Random.Range(-2f, 2f);
+		rating = Mathf.RoundToInt(Mathf.Clamp(rating, 1, 10));
 		averageRating += rating;
 	}
 

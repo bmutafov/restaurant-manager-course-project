@@ -13,6 +13,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: FreshVeggies
   ingredientTypes: 0100000002000000
-  averageQuality: 0.62
-  dailyMinAmount: 10
-  dailyMaxAmount: 44
+  averageQuality: 0.645
+  dailyMinAmount: 250
+  dailyMaxAmount: 1300

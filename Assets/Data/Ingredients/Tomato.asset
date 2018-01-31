@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: Tomato
   m_EditorClassIdentifier: 
   ingredientName: Tomato
-  price: 0.17
+  price: 0.4
   expireTime: 2
   type: 1

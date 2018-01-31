@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: Apple
   m_EditorClassIdentifier: 
   ingredientName: Apple
-  price: 0.6
+  price: 0.66
   expireTime: 4
   type: 2

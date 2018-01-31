@@ -65,12 +65,12 @@ public class Budget : GenericSingletonClass<Budget>
 
 	public void AnimateIncome ( float amount )
 	{
-		incomeAnimator.AnimateIncome(amount);
+		incomeAnimator.AnimateIncome(amount, "+");
 	}
 
 	public void AnimateWithdrawal( float amount )
 	{
-		withdrawAnimator.AnimateIncome(amount);
+		withdrawAnimator.AnimateIncome(amount, "-");
 	}
 	#endregion
 

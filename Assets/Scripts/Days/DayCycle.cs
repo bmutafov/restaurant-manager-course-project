@@ -191,5 +191,17 @@ public class DayCycle : GenericSingletonClass<DayCycle>
 		gameTime = gameTime.AddDays(dayPassed);
 		daysPassedSinceStart = dayPassed;
 	}
+
+	public void SetStartTime(string hour)
+	{
+		openingHour = int.Parse(hour);
+		startTimeText.text = openingHour + ":00";
+	}
+
+	public void SetCloseHour(string hour)
+	{
+		closingHour = int.Parse(hour);
+		closeTimeText.text = closingHour + ":00";
+	}
 	#endregion
 }

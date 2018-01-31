@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: Cheese
   m_EditorClassIdentifier: 
   ingredientName: Cheese
-  price: 0.3
+  price: 1.1
   expireTime: 8
   type: 5

@@ -44,7 +44,7 @@ public class RestaurantManager : GenericSingletonClass<RestaurantManager>
 	#endregion
 
 	#region unity_methods
-	private void Start ()
+	private void Awake ()
 	{
 		workers = new List<Worker>();
 		tables = spawnParent.GetComponentsInChildren<Table>();

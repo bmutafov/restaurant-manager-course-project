@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: Spinach
   m_EditorClassIdentifier: 
   ingredientName: Spinach
-  price: 0.1
+  price: 0.33
   expireTime: 6
   type: 1

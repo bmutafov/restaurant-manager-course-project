@@ -14,5 +14,5 @@ MonoBehaviour:
   name: MilkMaster
   ingredientTypes: 05000000
   averageQuality: 0.79
-  dailyMinAmount: 3
-  dailyMaxAmount: 7
+  dailyMinAmount: 130
+  dailyMaxAmount: 440

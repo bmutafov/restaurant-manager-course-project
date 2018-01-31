@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: Onion
   m_EditorClassIdentifier: 
   ingredientName: Onion
-  price: 0.1
+  price: 0.45
   expireTime: 15
   type: 1

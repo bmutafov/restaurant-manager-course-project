@@ -90,11 +90,7 @@ public class Waiter : Worker
         if ( lastMinuteServed == 0 )
             return true;
 
-        if ( DayCycle.Instance.GameTime.Minute - lastMinuteServed == serveMinutes )
-        {
-            return true;
-        }
-        return false;
+		return DayCycle.Instance.GameTime.Minute - lastMinuteServed == serveMinutes;
     }
 
     private void UpdateLastMinuteServedIfHourChanged ()

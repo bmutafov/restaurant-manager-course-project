@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: Cucumber
   m_EditorClassIdentifier: 
   ingredientName: Cucumber
-  price: 0.15
+  price: 0.41
   expireTime: 3
   type: 1

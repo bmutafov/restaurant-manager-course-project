@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: FetaCheese
   m_EditorClassIdentifier: 
   ingredientName: FetaCheese
-  price: 0.25
+  price: 0.8
   expireTime: 10
   type: 5

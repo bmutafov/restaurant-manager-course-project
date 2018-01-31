@@ -71,7 +71,7 @@ MonoBehaviour:
   depthOfField:
     m_Enabled: 0
     m_Settings:
-      focusDistance: 10
+      focusDistance: 9.63
       aperture: 32
       focalLength: 300
       useCameraFov: 1
@@ -100,10 +100,10 @@ MonoBehaviour:
     m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 0.5
+        intensity: 0.9
         threshold: 1.1
-        softKnee: 0.527
-        radius: 4.72
+        softKnee: 0.453
+        radius: 3.35
         antiFlicker: 0
       lensDirt:
         texture: {fileID: 0}
@@ -112,31 +112,31 @@ MonoBehaviour:
     m_Enabled: 1
     m_Settings:
       tonemapping:
-        tonemapper: 0
-        neutralBlackIn: 0.02
-        neutralWhiteIn: 10
-        neutralBlackOut: 0
-        neutralWhiteOut: 10
-        neutralWhiteLevel: 5.3
+        tonemapper: 2
+        neutralBlackIn: 0.0148
+        neutralWhiteIn: 5.6
+        neutralBlackOut: 0.0174
+        neutralWhiteOut: 9.61
+        neutralWhiteLevel: 8.86
         neutralWhiteClip: 10
       basic:
-        postExposure: -0.32
-        temperature: 23
-        tint: 5
-        hueShift: 0
-        saturation: 0.78
-        contrast: 1.13
+        postExposure: 1.55
+        temperature: 14.2
+        tint: 20.7
+        hueShift: 1
+        saturation: 1.005
+        contrast: 0.859
       channelMixer:
-        red: {x: 1, y: 0, z: 0}
+        red: {x: 0.83, y: 0, z: 0}
         green: {x: 0, y: 1, z: 0}
         blue: {x: 0, y: 0, z: 1}
         currentEditingChannel: 0
       colorWheels:
         mode: 1
         log:
-          slope: {r: 1, g: 0.95626396, b: 0.96316135, a: 0}
-          power: {r: 1, g: 0.99237347, b: 0.9694947, a: 0}
-          offset: {r: 0.8381343, g: 0.8021741, b: 1, a: 0}
+          slope: {r: 0.8684881, g: 0.90528935, b: 1, a: 0}
+          power: {r: 1, g: 0.9320272, b: 0.8713418, a: 0}
+          offset: {r: 0.8814436, g: 0.88334805, b: 1, a: 0}
         linear:
           lift: {r: 0, g: 0, b: 0, a: 0}
           gamma: {r: 0, g: 0, b: 0, a: 0}

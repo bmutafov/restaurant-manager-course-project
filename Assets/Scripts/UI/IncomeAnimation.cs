@@ -20,10 +20,10 @@ public class IncomeAnimation : MonoBehaviour
 	#endregion
 
 	#region public_methods
-	public void AnimateIncome (float text)
+	public void AnimateIncome (float text, string sign)
 	{
 		if ( inMotion ) return;
-		this.text.text = "+" + text + "$";
+		this.text.text = sign + text + "$";
 		ChangeMotion(true);
 		StartCoroutine(WaitForAnimation());
 	}

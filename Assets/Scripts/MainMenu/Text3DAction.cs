@@ -16,14 +16,12 @@ public class Text3DAction : MonoBehaviour {
 
 	private void OnMouseEnter ()
 	{
-		Debug.Log("Enter");
 		animator.SetBool("enter", true);
 		animator.SetBool("exit", false);
 	}
 
 	private void OnMouseExit ()
 	{
-		Debug.Log("Exit");
 		animator.SetBool("enter", false);
 		animator.SetBool("exit", true);
 	}
@@ -31,14 +29,6 @@ public class Text3DAction : MonoBehaviour {
 	private void OnMouseDown ()
 	{
 		action.Action();
-		Debug.Log("Click.");
 	}
-	#endregion
-
-	#region public_methods
-	#endregion
-
-	#region private_methods
-
 	#endregion
 }
