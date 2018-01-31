@@ -65,4 +65,5 @@ public class UI : GenericSingletonClass<UI>
 		errorScreen.SetActive(true);
 		errorScreen.transform.Find("Message").GetComponent<TextMeshProUGUI>().text = message;
 	}
+
 }

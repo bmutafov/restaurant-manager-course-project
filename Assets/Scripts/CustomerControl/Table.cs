@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using ExtensionMethods;
 
 public class Table : MonoBehaviour
 {
@@ -36,6 +37,11 @@ public class Table : MonoBehaviour
 			customersOnTable = value;
 			if ( customersOnTable == 0 )
 			{
+				for ( int i = 0 ; i < transform.childCount ; i++ )
+				{
+					Transform customerModel = transform.GetChild(i).FirstChild();
+					if ( customerModel != null ) Destroy(customerModel.gameObject);
+				}
 				isTaken = false;
 				Debug.Log("Table #" + id + " is now free!");
 			}

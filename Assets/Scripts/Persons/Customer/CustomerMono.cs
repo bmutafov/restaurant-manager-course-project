@@ -1,7 +1,6 @@
 ﻿using cakeslice;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 using System.Collections;
 
 public class CustomerMono : MonoBehaviour
@@ -74,7 +73,7 @@ public class CustomerMono : MonoBehaviour
 			review.GetComponent<ReviewInfo>().SetInfo(rating, customer.Name);
 		}
 		table.CustomersOnTable--;
-		Destroy(gameObject);
+		customer.UpdateVisitPercentage(averageRating);
 	}
 
 	public IEnumerator LeaveRestaurant(float time)
@@ -176,7 +175,6 @@ public class CustomerMono : MonoBehaviour
 		var rating = 5 * (order.AverageQuality) + 1 * (1 - (order.orderData.MinutesPassed(DayCycle.Instance.GameTime) - 15) / 35) + 4 * (1 - (order.recipe.Cost - 5) / 20);
 		rating = Mathf.RoundToInt(rating);
 		averageRating += rating;
-		Debug.Log("Rating: <b><color=red>" + rating + "</color></b> for " + order.recipe.recipeName);
 	}
 
 	/// <summary>

@@ -45,7 +45,8 @@ namespace BulletPoint
 			FindPrefab();
 
 			var item = Instantiate(itemPrefab, transform);
-			item.transform.parent = transform;
+			//item.transform.parent = transform;
+			item.transform.SetParent(transform, false);
 
 			BulletPointItem bulletPointItem = item.AddComponent<BulletPointItem>();
 			bulletPointItem.Text = text;

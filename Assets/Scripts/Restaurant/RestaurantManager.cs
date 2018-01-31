@@ -7,6 +7,7 @@ public class RestaurantManager : GenericSingletonClass<RestaurantManager>
 	#region variables
 	public GameObject spawnParent;
 	public GameObject waiterPrefab;
+	public float fireWorkerPenalty = 500;
 
 	private Table[] tables;
 	private List<Worker> workers;
@@ -92,6 +93,7 @@ public class RestaurantManager : GenericSingletonClass<RestaurantManager>
 	/// <param name="instance"></param>
 	public void FireWorker ( WorkerMono instance )
 	{
+		Budget.Instance.WithdrawFunds(fireWorkerPenalty);
 		workers.Remove(instance.worker);
 		Destroy(instance.gameObject);
 	}

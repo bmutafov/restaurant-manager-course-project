@@ -13,6 +13,7 @@ public class Queue : GenericSingletonClass<Queue>
 
 	private List<Customer> customersInQueue;
 
+	// Executed before the first frame of the game
 	private void Start ()
 	{
 		customersInQueue = new List<Customer>();

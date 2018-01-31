@@ -31,7 +31,7 @@ public class Customer : Person
 
         set
         {
-            visitPercentage = value;
+            visitPercentage = Mathf.Clamp01(value);
         }
     }
     #endregion
@@ -41,4 +41,11 @@ public class Customer : Person
         Wealth = wealth;
         VisitPercentage = visitPercentage;
     }
+
+	public void UpdateVisitPercentage ( float averageRating )
+	{
+		averageRating -= 5;
+		VisitPercentage += averageRating / 10;
+		VisitPercentage = Mathf.Clamp01(averageRating);
+	}
 }

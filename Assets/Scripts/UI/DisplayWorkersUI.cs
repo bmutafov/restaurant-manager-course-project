@@ -53,7 +53,7 @@ public class DisplayWorkersUI : MonoBehaviour
 		UI.ChildText(instance, "Name", worker.Name.Replace(" ", "<br>"));
 		UI.ChildText(instance, "Position", worker.GetType().ToString());
 		UI.ChildText(instance, "Skill", worker.skill.ToString());
-		UI.ChildText(instance, "Salary", worker.salaryPerHour.ToString());
+		UI.ChildText(instance, "Salary", worker.salaryPerHour.ToString() + "$");
 	}
 
 	private void GenerateNewOffers ()

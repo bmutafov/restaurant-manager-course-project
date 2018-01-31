@@ -26,11 +26,12 @@ public class DisplayCurrentWorkersUI : MonoBehaviour
 			}
 			else
 			{
-				instance.Find("FireButton")
-							.GetComponent<Button>()
-							.onClick
-							.AddListener(() =>
-							RestaurantManager.Instance.FireWorker(worker));
+				Transform fireButton = instance.Find("FireButton");
+				fireButton.GetComponent<Button>()
+						  .onClick
+						  .AddListener(() =>
+						  RestaurantManager.Instance.FireWorker(worker));
+				fireButton.GetChild(0).gameObject.GetComponent<TMPro.TextMeshProUGUI>().text += "(" + RestaurantManager.Instance.fireWorkerPenalty + "$)";
 			}
 		}
 	}
@@ -43,12 +44,13 @@ public class DisplayCurrentWorkersUI : MonoBehaviour
 		}
 	}
 	#endregion
+
 	#region private_methods
 	private static void UpdateText ( WorkerMono worker, Transform instance )
 	{
 		UI.ChildText(instance, "Name", worker.worker.Name);
 		UI.ChildText(instance, "Position", worker.worker.GetType().ToString());
-		UI.ChildText(instance, "Salary", worker.worker.salaryPerHour.ToString());
+		UI.ChildText(instance, "Salary", worker.worker.salaryPerHour.ToString() + "$");
 		UI.ChildText(instance, "Skill", worker.worker.skill + "/10");
 	}
 
@@ -66,6 +68,4 @@ public class DisplayCurrentWorkersUI : MonoBehaviour
 		});
 	}
 	#endregion
-
-
 }

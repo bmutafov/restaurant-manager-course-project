@@ -6,6 +6,9 @@ public class Budget : GenericSingletonClass<Budget>
 	#region variables
 	[SerializeField]
 	private IncomeAnimation incomeAnimator;
+	[SerializeField]
+	private IncomeAnimation withdrawAnimator;
+
 	public float startingMoney = 5000;
 
 	private float funds;
@@ -14,7 +17,7 @@ public class Budget : GenericSingletonClass<Budget>
 	{
 		get
 		{
-			return funds;
+			return (float)System.Math.Round(funds, 2);
 		}
 	}
 	#endregion
@@ -45,6 +48,7 @@ public class Budget : GenericSingletonClass<Budget>
 	public void WithdrawFunds ( float amount )
 	{
 		funds -= ( float ) System.Math.Round(amount, 2);
+		AnimateWithdrawal(amount);
 		InvokeBudgetChange();
 	}
 
@@ -58,17 +62,22 @@ public class Budget : GenericSingletonClass<Budget>
 		funds = amount;
 		InvokeBudgetChange();
 	}
+
+	public void AnimateIncome ( float amount )
+	{
+		incomeAnimator.AnimateIncome(amount);
+	}
+
+	public void AnimateWithdrawal( float amount )
+	{
+		withdrawAnimator.AnimateIncome(amount);
+	}
 	#endregion
 
 	#region private_methods
 	private void InvokeBudgetChange ()
 	{
 		if ( onBudgetChangedCallback != null ) onBudgetChangedCallback.Invoke();
-	}
-
-	internal void AnimateIncome ( float amount )
-	{
-		incomeAnimator.AnimateIncome(amount);
 	}
 	#endregion
 }

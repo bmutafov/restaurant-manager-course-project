@@ -32,7 +32,6 @@ public class Cook : Worker
         {
             if ( AreEnoughIngredients(newOrder) )
             {
-                Debug.Log("Cooking " + newOrder.recipe.recipeName);
                 TakeIngredients(newOrder);
                 currentOrders.Add(newOrder);
                 newOrder.recipe.CalculateCost();
@@ -40,7 +39,7 @@ public class Cook : Worker
             else
             {
 				newOrder.customerMono.DeclineFood();
-                Debug.Log("Not enough ingredients!");
+				UI.Instance.OpenErrorScreen("There were not enough igredients to prepare <b>" + newOrder.recipe + "</b>! Consider buying ingredients or removing the recipe from active recipes.");
             }
         }
 
@@ -72,7 +71,6 @@ public class Cook : Worker
                 return newOrder;
             }
             return null;
-
         }
         catch ( System.Exception e )
         {
@@ -96,7 +94,6 @@ public class Cook : Worker
             var order = currentOrders[i];
             if ( order.orderData.MinutesPassed(DayCycle.Instance.GameTime) == order.recipe.preparationTime )
             {
-                Debug.Log("Order " + order.recipe.recipeName + " cooked! ");
                 currentOrders.RemoveAt(i);
                 OrderStack.Instance.CookOrder(order);
                 i--;

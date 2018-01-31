@@ -65,9 +65,7 @@ public class Waiter : Worker
             lastMinuteServed = DayCycle.Instance.GameTime.Minute;
             Order orderToServe = OrderStack.Instance.cookedOrders[0];
 			order = orderToServe;
-
             OrderStack.Instance.ServeOrder(orderToServe);
-            Debug.Log(orderToServe.recipe.recipeName + " served! Food quality: " + orderToServe.AverageQuality);
         } else
 		{
 			isServing = false;

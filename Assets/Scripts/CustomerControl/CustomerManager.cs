@@ -73,7 +73,7 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
 		{
 			seatsCount += spawnNodes.transform.GetChild(i).childCount;
 		}
-		int customerMaxCount = seatsCount + ( int ) (seatsCount * 0.5f) + (DayCycle.Instance.closingHour - DayCycle.Instance.openingHour) * seatsCount;
+		int customerMaxCount = seatsCount * 3 + (DayCycle.Instance.closingHour - DayCycle.Instance.openingHour) * seatsCount * 3;
 
 		List<Customer> customerPool = allCustomers.GetRandomCustomers(customerMaxCount);
 		List<Customer> visitingCustomers = new List<Customer>();
