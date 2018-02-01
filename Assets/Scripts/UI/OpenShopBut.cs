@@ -123,9 +123,9 @@ public class OpenShopBut : MonoBehaviour
 
 			// -> update child TMPro components with the respective info
 			UI.ChildText(ingredient.transform, 0, offer.ingredient.name);
-			UI.ChildText(ingredient.transform, 1, offer.ingredient.price.ToString() + "$");
+			UI.ChildText(ingredient.transform, 1, offer.Price.ToString() + "$");
 			UI.ChildText(ingredient.transform, 2, offer.Quality.ToString());
-			ingredient.transform.Find("MaxAmount").GetComponent<TextMeshProUGUI>().text = "Max: " + offer.Amount.ToString();
+			ingredient.transform.Find("MaxAmount").GetComponent<TextMeshProUGUI>().text = offer.Amount.ToString();
 		}
 	}
 }

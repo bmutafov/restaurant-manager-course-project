@@ -39,7 +39,7 @@ public class BuyIngredientBut : MonoBehaviour
 		}
 
 		// check if there's enough money to complete transaction
-		else if ( amount * offer.ingredient.price > Budget.Instance.Funds )
+		else if ( amount * offer.Price > Budget.Instance.Funds )
 		{
 			UI.Instance.OpenErrorScreen("You don't have enough money for this purchase!");
 		}
@@ -51,7 +51,7 @@ public class BuyIngredientBut : MonoBehaviour
 			FindObjectOfType<OpenShopBut>().offersUI.SetActive(false);
 			StorageManager.Instance.BuyIngredients(offer.ingredient.name, amount, offer.Quality);
 			offer.Amount -= amount;
-			Budget.Instance.WithdrawFunds(amount * offer.ingredient.price);
+			Budget.Instance.WithdrawFunds(amount * offer.Price);
 		}
 
 	}
