@@ -42,13 +42,16 @@ public class OpenShopBut : MonoBehaviour
 	{
 		foreach ( DeliveryCompany company in ActiveDeliverySources.Instance.deliverySources )
 		{
+			// Get company's offers for the day
 			List<DeliveryCompany.DailyOffer> offer = company.allOffers;
+			// Show them on the screen
 			InstantiateCompany(company.name, offer);
 		}
 	}
 
 	public void ClearList ()
 	{
+		// foreach company offer rendered on screen
 		for ( int i = 0 ; i < shopContainer.childCount ; i++ )
 		{
 			Destroy(shopContainer.GetChild(i).gameObject);
@@ -74,7 +77,10 @@ public class OpenShopBut : MonoBehaviour
 		// -> ingredient types
 		UI.ChildText(company.transform, 1, IngredientTypesForCompany(offer));
 		// -> add event listener to the button
-		company.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => InstantiateOffer(name, offer));
+		company.transform.GetChild(2)
+			.GetComponent<Button>()
+			.onClick
+			.AddListener(() => InstantiateOffer(name, offer));
 	}
 
 
