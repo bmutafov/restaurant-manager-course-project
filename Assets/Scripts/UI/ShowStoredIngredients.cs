@@ -28,7 +28,8 @@ public class ShowStoredIngredients : MonoBehaviour
 	{
 		UI.ChildText(instance, "Name", ingrGroup.Ingredient.ingredientName);
 		UI.ChildText(instance, "Amount", ingrGroup.Amount.ToString());
-		UI.ChildText(instance, "ExpiresIn", ingrGroup.ExpireTime.ToString());
+		UI.ChildText(instance, "ExpiresIn", ingrGroup.ExpireTime.ToString() + (ingrGroup.ExpireTime > 1 ? " days" : " day"));
+		UI.ChildText(instance, "Quality", ingrGroup.Quality.ToString());
 	}
 
 	public void ClearAll()

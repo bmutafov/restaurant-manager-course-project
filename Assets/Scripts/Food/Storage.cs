@@ -11,7 +11,8 @@ public class Storage : GenericSingletonClass<Storage>
 	#region unity_methods
 	private void Start ()
 	{
-		products = new List<IngredientGroup>();
+		if ( !SaveManager.Instance.loadOnStart )
+			products = new List<IngredientGroup>();
 		DayCycle.Instance.onDayChangedCallback += ChangeProductExpireTime;
 	}
 	#endregion

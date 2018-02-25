@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 public class RecipesUI : MonoBehaviour
@@ -108,7 +110,9 @@ public class RecipesUI : MonoBehaviour
 			Button button = obj.Find("Button").GetComponent<Button>();
 			if ( active )
 			{
-				obj.Find("Price").gameObject.SetActive(false);
+				TMP_InputField priceField = obj.Find("Price").GetComponent<TMP_InputField>();
+				priceField.placeholder.GetComponent<TextMeshProUGUI>().text = "Price: " + RecipeManager.Instance.ActiveRecipes.Find(r => r.Recipe == recipe).Price.ToString() + "$";
+				priceField.onEndEdit.AddListener( (string cost) => EditPrice(recipe, cost) );
 				UI.ChildText(button.transform, 0, "Remove");
 				button.onClick.AddListener(() =>
 				{
@@ -137,6 +141,30 @@ public class RecipesUI : MonoBehaviour
 					});
 			}
 		}
+	}
+
+	private void EditPrice(Recipe recipe, string newCost)
+	{
+		RecipeManager.ActiveRecipe ar = RecipeManager.Instance.ActiveRecipes.Find(r => r.Recipe == recipe);
+		float price = 0;
+		try
+		{
+			price = float.Parse(newCost);
+		}
+		catch(Exception e)
+		{
+			Debug.LogError(e.Message);
+			UI.Instance.OpenErrorScreen("The new price entered is invalid.");
+			return;
+		}
+		if(price <= 0)
+		{
+			UI.Instance.OpenErrorScreen("The new price entered is invalid.");
+			return;
+		}
+		ar.Price = float.Parse(newCost);
+		UI.Instance.OpenSuccessScreen("Price updated successfuly!");
+
 	}
 	#endregion
 }

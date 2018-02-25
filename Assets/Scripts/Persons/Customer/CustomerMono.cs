@@ -55,6 +55,12 @@ public class CustomerMono : MonoBehaviour
 		animator.SetBool("pop", false);
 		outlineComponent.enabled = false;
 	}
+
+	private void OnDisabled ()
+	{
+		animator.SetBool("pop", false);
+		outlineComponent.enabled = false;
+	}
 	#endregion
 
 	#region ordering

@@ -4,7 +4,6 @@ using UnityEngine;
 public class CustomerManager : GenericSingletonClass<CustomerManager>
 {
 	#region variables_generation
-	[HideInInspector]
 	public AllCustomers allCustomers;
 	public int customerPoolSize = 50;
 
@@ -28,11 +27,11 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
 
 	private void Start ()
 	{
-		allCustomers = new AllCustomers();
 		DayCycle.Instance.onDayChangedCallback += KickLeftCustomers;
 		
 		if ( !SaveManager.Instance.loadOnStart )
 		{
+			allCustomers = new AllCustomers();
 			allCustomers.list.Clear();
 			GenerateCustomersPool();
 		}

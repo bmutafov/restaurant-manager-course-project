@@ -5,6 +5,7 @@ public static class ReviewTexts
 {
 	private static readonly List<ReviewText> reviewTexts = new List<ReviewText>() {
 		new ReviewText ("I was not satisfied with the menu at all! Did not order anything!", 0),
+		new ReviewText ("Bad, bad, bad! Really disappointed.", 1),
 		new ReviewText ("The staff was incompetent and the food wasn't delicious.", 2),
 		new ReviewText ("Some of the meals happened to have taste but overall a bad place.", 3),
 		new ReviewText ("Pretty avarage place.", 4),

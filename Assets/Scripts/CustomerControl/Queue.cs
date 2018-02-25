@@ -23,9 +23,18 @@ public class Queue : GenericSingletonClass<Queue>
 	#region add_customer
 	public void AddCustomer ( Customer customer )
 	{
-		customersInQueue.Add(customer);
+		GameObject instance = null;
+		try
+		{
+			instance = CustomerManager.Instance.SpawnCustomerModel(customer);
+		}
+		catch( System.Exception e)
+		{
+			Debug.LogError(e.Message);
+		}
+		if ( instance == null ) return;
 
-		GameObject instance = CustomerManager.Instance.SpawnCustomerModel(customer);
+		customersInQueue.Add(customer);
 
 		Vector3 position = (transform.position + transform.right * (transform.localScale.x / 2f)) - new Vector3(xDistance * customersInQueue.Count, 0, Random.Range(-queueLineSpread, queueLineSpread));
 		instance.transform.parent = transform;
@@ -71,7 +80,10 @@ public class Queue : GenericSingletonClass<Queue>
 			if ( chair.childCount == 0 )
 			{
 				GameObject customerGO = GameObject.Find("Customer" + customer.Id);
-				
+				if(customerGO == null)
+				{
+					Debug.LogError("CANT FIND CUSTOMER WITH ID: " + customer.Id);
+				}
 				customerGO.transform.parent = chair;
 				customerGO.transform.localPosition = Vector3.zero;
 				customerGO.transform.localEulerAngles = Vector3.zero;
