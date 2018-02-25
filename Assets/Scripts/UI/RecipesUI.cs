@@ -20,9 +20,14 @@ public class RecipesUI : MonoBehaviour
 	#region unity_methods
 	private void Start ()
 	{
-		SpawnRecipes(false);
+		SpawnRecipes(active: false);
 		rightButton.onClick.AddListener(() => MoveRight());
 		leftButton.onClick.AddListener(() => MoveLeft());
+	}
+
+	private void OnEnable ()
+	{
+		StartCoroutine(ButtonActiveManager(new WaitForSeconds(1f)));
 	}
 
 	private void Update ()
@@ -63,7 +68,6 @@ public class RecipesUI : MonoBehaviour
 		nextPosition = (container.position - new Vector3(container.sizeDelta.x, 0f, 0));
 		isMoving = true;
 		currentFirstShown += 2;
-		ButtonActiveManager();
 	}
 
 	private void MoveLeft ()
@@ -72,13 +76,19 @@ public class RecipesUI : MonoBehaviour
 		nextPosition = (container.position + new Vector3(container.sizeDelta.x, 0f, 0));
 		isMoving = true;
 		currentFirstShown -= 2;
-		ButtonActiveManager();
 	}
 
-	private void ButtonActiveManager()
+	private System.Collections.IEnumerator ButtonActiveManager ( WaitForSeconds wait )
 	{
-		rightButton.interactable = (currentFirstShown + 2 < container.childCount);
-		leftButton.interactable = currentFirstShown != 0;
+		while ( gameObject.activeSelf )
+		{
+			rightButton.interactable = (currentFirstShown + 2 < container.childCount);
+			leftButton.interactable = currentFirstShown != 0;
+
+			yield return wait;
+		}
+
+		yield return null;
 	}
 
 	private void SpawnRecipes ( bool active )
@@ -105,7 +115,6 @@ public class RecipesUI : MonoBehaviour
 					RecipeManager.Instance.DeleteActiveRecipe(recipe);
 					Destroy(obj.gameObject);
 				});
-				return;
 			}
 			else
 			{
