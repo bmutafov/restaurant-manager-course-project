@@ -107,7 +107,7 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
 		List<Customer> customerCopy = new List<Customer>(customers);
 		while ( customerCopy.Count > 0 )
 		{
-			int personCount = Random.Range(2, 4);
+			int personCount = Random.Range(2, 5);
 			if ( personCount > customerCopy.Count )
 			{
 				personCount = customerCopy.Count;
@@ -192,11 +192,9 @@ public class CustomerManager : GenericSingletonClass<CustomerManager>
 		if ( (p -= 20) < 0 ) // 90%
 			return 20;
 
-		if ( (p -= 8) < 0 )  // 98%
+		else
 			return 21;
 
-		else                 //100%
-			return 22;
 
 	}
 	#endregion

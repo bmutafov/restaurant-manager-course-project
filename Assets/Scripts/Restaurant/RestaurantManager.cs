@@ -50,15 +50,6 @@ public class RestaurantManager : GenericSingletonClass<RestaurantManager>
 		tables = spawnParent.GetComponentsInChildren<Table>();
 		SeperateWaitersByTables();
 	}
-
-	private void Update ()
-	{
-		if ( Input.GetKeyDown("h") )
-		{
-			SaveInformation si = new SaveInformation();
-			si.Save();
-		}
-	}
 	#endregion
 
 	#region public_methods

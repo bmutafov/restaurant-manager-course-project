@@ -87,10 +87,9 @@ public class DayCycle : GenericSingletonClass<DayCycle>
 			gameTime = gameTime.AddMinutes(Time.deltaTime);
 			CheckAndInvokeHour();
 			CheckAndInvokeMinute();
-			if ( GameTime.Hour == closingHour )
+			if ( GameTime.Hour >= closingHour )
 			{
 				ChangeDay();
-				Debug.Log("Day ended.");
 			}
 		}
 
@@ -135,6 +134,9 @@ public class DayCycle : GenericSingletonClass<DayCycle>
 	/// </summary>
 	private void ChangeDay ()
 	{
+		Debug.Log(OrderStack.Instance.cookedOrders.Count);
+		if ( OrderStack.Instance.cookedOrders.Count > 0 ) return;
+
 		lastSpeed = (int)daySpeed;
 		ChangeGameSpeedTo(1);
 		daysPassedSinceStart++;
