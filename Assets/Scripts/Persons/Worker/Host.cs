@@ -15,6 +15,7 @@ public class Host : Worker
 	{
 		DayCycle.Instance.onMinuteChangedCallback += FindGroupsByMinute;
 		groupsToPlace = new List<CustomerGroup>();
+		DayCycle.Instance.onDayChangedCallback += ClearWaitingGroups;
 	}
 
 	public Host ( Host host ) : base(host.Name, host.skill)
@@ -109,6 +110,11 @@ public class Host : Worker
 		{
 			groupsToPlace.AddRange(visitingNow);
 		}
+	}
+
+	private void ClearWaitingGroups()
+	{
+		groupsToPlace.Clear();
 	}
 	#endregion
 }

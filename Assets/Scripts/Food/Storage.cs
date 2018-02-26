@@ -12,7 +12,10 @@ public class Storage : GenericSingletonClass<Storage>
 	private void Start ()
 	{
 		if ( !SaveManager.Instance.loadOnStart )
+		{
 			products = new List<IngredientGroup>();
+		}
+
 		DayCycle.Instance.onDayChangedCallback += ChangeProductExpireTime;
 	}
 	#endregion
