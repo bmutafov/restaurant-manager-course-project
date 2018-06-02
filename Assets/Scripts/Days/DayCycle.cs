@@ -137,7 +137,7 @@ public class DayCycle : GenericSingletonClass<DayCycle>
 		Debug.Log(OrderStack.Instance.cookedOrders.Count);
 		if ( OrderStack.Instance.cookedOrders.Count > 0 ) return;
 
-		lastSpeed = (int)daySpeed;
+		lastSpeed = ( int ) daySpeed;
 		ChangeGameSpeedTo(1);
 		daysPassedSinceStart++;
 		isDay = false;
@@ -194,15 +194,29 @@ public class DayCycle : GenericSingletonClass<DayCycle>
 		daysPassedSinceStart = dayPassed;
 	}
 
-	public void SetStartTime(string hour)
+	public void SetStartTime ( string hour )
 	{
-		openingHour = int.Parse(hour);
+		try
+		{
+			openingHour = int.Parse(hour);
+		}
+		catch ( Exception e )
+		{
+			Debug.Log("String for startTime is not valid." + e.Message);
+		}
 		startTimeText.text = openingHour + ":00";
 	}
 
-	public void SetCloseHour(string hour)
+	public void SetCloseHour ( string hour )
 	{
-		closingHour = int.Parse(hour);
+		try
+		{
+			closingHour = int.Parse(hour);
+		}
+		catch ( Exception e )
+		{
+			Debug.Log("String for closeTime is not valid." + e.Message);
+		}
 		closeTimeText.text = closingHour + ":00";
 	}
 	#endregion
