@@ -100,7 +100,7 @@ public class OpenShopBut : MonoBehaviour
 				first = false;
 			}
 		}
-
+		if ( typesString == string.Empty ) typesString = "None";
 		return typesString;
 	}
 
