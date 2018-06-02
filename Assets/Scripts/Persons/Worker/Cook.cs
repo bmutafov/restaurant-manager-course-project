@@ -92,7 +92,7 @@ public class Cook : Worker
         for ( int i = 0 ; i < currentOrders.Count ; i++ )
         {
             var order = currentOrders[i];
-            if ( order.orderData.MinutesPassed(DayCycle.Instance.GameTime) == order.recipe.preparationTime )
+            if ( order.orderData.MinutesPassed(DayCycle.Instance.GameTime) >= order.recipe.preparationTime )
             {
                 currentOrders.RemoveAt(i);
                 OrderStack.Instance.CookOrder(order);

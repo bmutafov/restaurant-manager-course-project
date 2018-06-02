@@ -383,7 +383,7 @@ GameObject:
   - component: {fileID: 65595369801773104}
   m_Layer: 0
   m_Name: PeasentMan
-  m_TagString: Untagged
+  m_TagString: Customer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
